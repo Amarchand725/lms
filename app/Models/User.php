@@ -41,4 +41,53 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Get the path to the profile picture
+     *
+     * @return string
+     */
+    public function profilePicture()
+    {
+        if ($this->picture) {
+            return "/{$this->picture}";
+        }
+
+         return 'http://i.pravatar.cc/200';
+    }
+
+    /**
+     * Check if the user has admin role
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->role_id == 1;
+    }
+
+    /**
+     * Check if the user has creator role
+     *
+     * @return boolean
+     */
+    public function isCreator()
+    {
+        return $this->role_id == 2;
+    }
+
+    /**
+     * Check if the user has user role
+     *
+     * @return boolean
+     */
+    public function isMember()
+    {
+        return $this->role_id == 3;
+    }
 }
