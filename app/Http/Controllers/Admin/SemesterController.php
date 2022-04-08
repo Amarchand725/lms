@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Semester;
 use Illuminate\Http\Request;
+use App\Models\Semester;
 
 class SemesterController extends Controller
 {
@@ -13,9 +13,9 @@ class SemesterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Semester $model)
     {
-        return 'good';
+        return view('semesters.index', ['models' => $model->orderby('id', 'desc')->get()]);
     }
 
     /**
@@ -25,7 +25,7 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        //
+        return view('semesters.create');
     }
 
     /**
@@ -34,9 +34,16 @@ class SemesterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Semester $model)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:125',
+            'description' => 'max:255',
+        ]);
+
+        $model->create($request->all());
+
+        return redirect()->route('semester.index')->withStatus(__('Semester successfully created.'));
     }
 
     /**
@@ -56,9 +63,10 @@ class SemesterController extends Controller
      * @param  \App\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function edit(Semester $semester)
+    public function edit(Semester $model, $id)
     {
-        //
+        $model = $model->where('id', $id)->first();
+        return view('semesters.edit', compact('model'));
     }
 
     /**
@@ -68,9 +76,15 @@ class SemesterController extends Controller
      * @param  \App\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Semester $semester)
+    public function update(Request $request, $id)
     {
-        //
+        $model = Semester::where('id', $id)->first();
+        $model->name = $request->name;
+        $model->description = $request->description;
+        $model->status = $request->status;
+        $model->save();
+
+        return redirect()->route('semester.index')->withStatus(__('Semester successfully updated.'));
     }
 
     /**
@@ -79,8 +93,13 @@ class SemesterController extends Controller
      * @param  \App\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Semester $semester)
+    public function destroy($id)
     {
-        //
+        $model = Semester::where('id', $id)->first();
+        if($model){
+            $model->delete();
+
+            return redirect()->route('semester.index')->withStatus(__('Semester successfully deleted.'));
+        }
     }
 }

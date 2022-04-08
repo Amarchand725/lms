@@ -8,7 +8,7 @@
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Examples') }}
+                {{ __('Roles') }}
             @endslot
 
             <li class="breadcrumb-item"><a href="{{ route('role.index') }}">{{ __('Role Management') }}</a></li>
@@ -28,11 +28,11 @@
                                     {{ __('This is an example of role management. This is a minimal setup in order to get started fast.') }}
                                 </p>
                             </div>
-                            @can('create', App\Role::class)
+                            {{-- @can('create', App\Models\Role::class) --}}
                                 <div class="col-4 text-right">
                                     <a href="{{ route('role.create') }}" class="btn btn-sm btn-primary">{{ __('Add role') }}</a>
                                 </div>
-                            @endcan
+                            {{-- @endcan --}}
                         </div>
                     </div>
 
@@ -48,9 +48,9 @@
                                     <th scope="col">{{ __('Name') }}</th>
                                     <th scope="col">{{ __('Description') }}</th>
                                     <th scope="col">{{ __('Creation date') }}</th>
-                                    @can('manage-users', App\User::class)
+                                    {{-- @can('manage-users', App\Models\User::class) --}}
                                         <th scope="col"></th>
-                                    @endcan
+                                    {{-- @endcan --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,9 +59,9 @@
                                         <td>{{ $role->name }}</td>
                                         <td>{{ $role->description }}</td>
                                         <td>{{ $role->created_at->format('d/m/Y H:i') }}</td>
-                                        @can('manage-users', App\User::class)
+                                        {{-- @can('manage-users', App\Models\User::class) --}}
                                             <td class="text-right">
-                                                @can('update', $role)
+                                                {{-- @can('update', $role) --}}
                                                     <div class="dropdown">
                                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fas fa-ellipsis-v"></i>
@@ -70,9 +70,9 @@
                                                             <a class="dropdown-item" href="{{ route('role.edit', $role) }}">{{ __('Edit') }}</a>
                                                         </div>
                                                     </div>
-                                                @endcan
+                                                {{-- @endcan --}}
                                             </td>
-                                        @endcan
+                                        {{-- @endcan --}}
                                     </tr>
                                 @endforeach
                             </tbody>

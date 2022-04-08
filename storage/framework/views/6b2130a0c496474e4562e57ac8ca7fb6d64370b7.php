@@ -69,9 +69,9 @@
                             <span class="nav-link-text"><?php echo e(__('Students')); ?></span>
                         </a>
                     </li>
-                    <li class="nav-item <?php echo e(request()->is('semester') || request()->is('semester/create') || request()->is('semester/*/edit') ? 'active' : ''); ?>">
+                    <li class="nav-item <?php echo e($elementName == 'semester' ? 'active' : ''); ?>">
                         <a class="nav-link" href="<?php echo e(route('semester.index')); ?>">
-                            <i class="fa fa-calendar text-primary"></i>
+                            <i class="ni ni-shop text-primary"></i>
                             <span class="nav-link-text"><?php echo e(__('Semester')); ?></span>
                         </a>
                     </li>

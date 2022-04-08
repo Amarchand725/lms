@@ -35,6 +35,7 @@
                             @csrf
                             
                             <h6 class="heading-small text-muted mb-4">{{ __('Role information') }}</h6>
+                            <input type="hidden" name="guard_name" value="web">
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Name') }}</label>

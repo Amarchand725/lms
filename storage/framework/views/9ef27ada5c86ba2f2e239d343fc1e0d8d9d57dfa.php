@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
     <?php echo $__env->make('layouts.headers.guest', ['infoLogin' => 1], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 

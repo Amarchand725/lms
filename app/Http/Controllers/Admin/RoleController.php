@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequest;
-use App\Role;
-use App\User;
+use Illuminate\Http\Request;
+use App\Models\Role;
+use App\Models\User;
 
 class RoleController extends Controller
 {
-    public function __construct()
+    /* public function __construct()
     {
         $this->authorizeResource(Role::class);
-    }
+    } */
 
     /**
      * Display a listing of the roles
@@ -22,7 +22,7 @@ class RoleController extends Controller
      */
     public function index(Role $model)
     {
-        $this->authorize('manage-users', User::class);
+        // $this->authorize('manage-users', User::class);
 
         return view('roles.index', ['roles' => $model->all()]);
     }
@@ -44,8 +44,8 @@ class RoleController extends Controller
      * @param  \App\Role  $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(RoleRequest $request, Role $model)
-    {
+    public function store(Request $request, Role $model)
+    {   
         $model->create($request->all());
 
         return redirect()->route('role.index')->withStatus(__('Role successfully created.'));
@@ -69,7 +69,7 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(RoleRequest $request, Role $role)
+    public function update(Request $request, Role $role)
     {
         $role->update($request->all());
 

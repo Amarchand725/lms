@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
     <?php $__env->startComponent('layouts.headers.auth'); ?>
         <?php $__env->startComponent('layouts.headers.breadcrumbs'); ?>

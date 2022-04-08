@@ -1,33 +1,18 @@
 <?php
-/*
 
-=========================================================
-* Argon Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-pro-laravel
-* Copyright 2018 Creative Tim (https://www.creative-tim.com) & UPDIVISION (https://www.updivision.com)
-
-* Coded by www.creative-tim.com & www.updivision.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 namespace App\Http\Controllers;
 
-use App\Role;
-use App\User;
-use App\Http\Requests\UserRequest;
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct()
+    /* public function __construct()
     {
         $this->authorizeResource(User::class);
-    }
+    } */
 
     /**
      * Display a listing of the users
@@ -37,9 +22,9 @@ class UserController extends Controller
      */
     public function index(User $model)
     {
-        $this->authorize('manage-users', User::class);
+        // $this->authorize('manage-users', User::class);
 
-        return view('users.index', ['users' => $model->with('role')->get()]);
+        return view('users.index', ['users' => $model->orderby('id', 'desc')->get()]);
     }
 
     /**
@@ -60,7 +45,7 @@ class UserController extends Controller
      * @param  \App\User  $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request, User $model)
+    public function store(Request $request, User $model)
     {
         $model->create($request->merge([
             'picture' => $request->photo ? $request->photo->store('profile_user', 'public') : null,

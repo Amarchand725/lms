@@ -24,13 +24,15 @@ Route::get('dashboard', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('role', 'Admin\RoleController', ['except' => ['show', 'destroy']]);
+
     Route::resource('user', 'UserController', ['except' => ['show']]);
+
+    Route::resource('semester', 'Admin\SemesterController');
+    Route::resource('teacher', 'TeacherController');
+    Route::resource('student', 'StudentController');
 
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
     Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
     Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
-
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'Admin\PageController@index']);
-
-    Route::resource('semester', 'Admin\SemesterController');
 });

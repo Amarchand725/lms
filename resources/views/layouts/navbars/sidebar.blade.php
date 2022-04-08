@@ -69,9 +69,9 @@
                             <span class="nav-link-text">{{ __('Students') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('semester') || request()->is('semester/create') || request()->is('semester/*/edit') ? 'active' : '' }}">
+                    <li class="nav-item {{ $elementName == 'semester' ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('semester.index') }}">
-                            <i class="fa fa-calendar text-primary"></i>
+                            <i class="ni ni-shop text-primary"></i>
                             <span class="nav-link-text">{{ __('Semester') }}</span>
                         </a>
                     </li>
