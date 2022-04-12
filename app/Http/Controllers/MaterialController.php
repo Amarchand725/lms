@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Material;
 use Illuminate\Http\Request;
+use App\Models\Material;
+use App\Models\StudyClass;
+use App\Models\User;
+use Auth;
 
 class MaterialController extends Controller
 {
@@ -14,7 +17,7 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        $models = Material::where('id', 'desc')->get();
+        $models = Material::orderby('id', 'desc')->get();
         return view('materials.index', compact('models'));
     }
 
@@ -25,7 +28,8 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        //
+        $study_classes = StudyClass::orderby('id', 'desc')->where('status', 1)->get();
+        return view('materials.create', compact('study_classes'));
     }
 
     /**
@@ -36,7 +40,28 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'study_class_id' => 'required',
+            'file_name' => 'required|max:255',
+            'file' => 'required',
+            'description' => 'max:255',
+        ]);
+
+        $model = new Material();
+
+        if (isset($request->file)) {
+            $file = date('d-m-Y-His').'.'.$request->file('file')->getClientOriginalExtension();
+            $request->file->move(public_path('/admin/assets/materials'), $file);
+            $model->file = $file;
+        }
+
+        $model->created_by = Auth::user()->id;
+        $model->study_class_id = $request->study_class_id;
+        $model->file_name = $request->file_name;
+        $model->description = $request->description;
+        $model->save();
+
+        return redirect()->route('material.index')->withStatus(__('Material successfully uploaded.'));
     }
 
     /**
@@ -45,9 +70,10 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function show(Material $material)
+    public function show($id)
     {
-        //
+        $model = Material::where('id', $id)->first();
+        return view('materials.show', compact('model'));
     }
 
     /**
@@ -56,9 +82,11 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function edit(Material $material)
+    public function edit($id)
     {
-        //
+        $model = Material::where('id', $id)->first();
+        $study_classes = StudyClass::orderby('id', 'desc')->where('status', 1)->get();
+        return view('materials.edit', compact('model', 'study_classes'));
     }
 
     /**
@@ -68,9 +96,29 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Material $material)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'study_class_id' => 'required',
+            'file_name' => 'required|max:255',
+            'description' => 'max:255',
+        ]);
+
+        $model = Material::where('id', $id)->first();
+
+        if (isset($request->file)) {
+            $file = date('d-m-Y-His').'.'.$request->file('file')->getClientOriginalExtension();
+            $request->file->move(public_path('/admin/assets/materials'), $file);
+            $model->file = $file;
+        }
+
+        $model->study_class_id = $request->study_class_id;
+        $model->file_name = $request->file_name;
+        $model->description = $request->description;
+        $model->status = $request->status;
+        $model->save();
+
+        return redirect()->route('material.index')->withStatus(__('Material successfully updated.'));
     }
 
     /**
@@ -79,8 +127,15 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Material $material)
+    public function destroy($id)
     {
-        //
+        $model = Material::where('id', $id)->first();
+        if($model){
+            User::where('id', $model->user_id)->delete();
+            
+            $model->delete();
+
+            return redirect()->route('material.index')->withStatus(__('Material successfully deleted.'));
+        }
     }
 }

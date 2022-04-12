@@ -1,17 +1,17 @@
 @extends('layouts.app', [
-    'title' => __('Role Management'),
+    'title' => __('Teacher Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'role-management'
+    'elementName' => 'teacher-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Roles') }}
+                {{ __('Teachers') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('role.index') }}">{{ __('Role Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('teacher.index') }}">{{ __('Teacher Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('List') }}</li>
         @endcomponent
     @endcomponent
@@ -23,16 +23,14 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Roles') }}</h3>
+                                <h3 class="mb-0">{{ __('Teachers') }}</h3>
                                 <p class="text-sm mb-0">
-                                    {{ __('This is an example of role management. This is a minimal setup in order to get started fast.') }}
+                                    {{ __('This is an example of teacher management. This is a minimal setup in order to get started fast.') }}
                                 </p>
                             </div>
-                            {{-- @can('create', App\Models\Role::class) --}}
-                                <div class="col-4 text-right">
-                                    <a href="{{ route('role.create') }}" class="btn btn-sm btn-primary">{{ __('Add role') }}</a>
-                                </div>
-                            {{-- @endcan --}}
+                            <div class="col-4 text-right">
+                                <a href="{{ route('teacher.create') }}" class="btn btn-sm btn-primary">{{ __('Add Teacher') }}</a>
+                            </div>
                         </div>
                     </div>
 
@@ -45,34 +43,46 @@
                         <table class="table table-flush"  id="datatable-basic">
                             <thead class="thead-light">
                                 <tr>
+                                    <th scope="col">{{ __('Department') }}</th>
                                     <th scope="col">{{ __('Name') }}</th>
-                                    <th scope="col">{{ __('Description') }}</th>
+                                    <th scope="col">{{ __('Email') }}</th>
+                                    <th scope="col">{{ __('Status') }}</th>
                                     <th scope="col">{{ __('Creation date') }}</th>
-                                    {{-- @can('manage-users', App\Models\User::class) --}}
-                                        <th scope="col"></th>
-                                    {{-- @endcan --}}
+                                    <th scope="col">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($models as $role)
+                                @foreach ($models as $model)
                                     <tr>
-                                        <td>{{ $role->name }}</td>
-                                        <td>{{ $role->description }}</td>
-                                        <td>{{ $role->created_at->format('d/m/Y H:i') }}</td>
-                                        {{-- @can('manage-users', App\Models\User::class) --}}
-                                            <td class="text-right">
-                                                {{-- @can('update', $role) --}}
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="fas fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="{{ route('role.edit', $role) }}">{{ __('Edit') }}</a>
-                                                        </div>
-                                                    </div>
-                                                {{-- @endcan --}}
-                                            </td>
-                                        {{-- @endcan --}}
+                                        <td>{{ isset($model->hasDepartment)?$model->hasDepartment->department_name:'N/A' }}</td>
+                                        <td>{{ $model->first_name }} {{ $model->last_name }}</td>
+                                        <td>{{ $model->hasUser->email }}</td>
+                                        <td>
+                                            @if($model->status)
+                                                <span class="badge badge-success">Active</span>
+                                            @else
+                                                <span class="badge badge-danger">In-Active</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $model->created_at->format('d/m/Y H:i') }}</td>
+                                        <td class="text-right">
+                                            <div class="dropdown">
+                                                <a class="btn btn-sm btn-icon-only text-light" href="#" model="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item" href="{{ route('teacher.edit', $model) }}">{{ __('Edit') }}</a>
+                                                    <form action="{{ route('teacher.destroy', $model) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+
+                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
+                                                            {{ __('Delete') }}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

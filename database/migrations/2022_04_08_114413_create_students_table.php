@@ -17,11 +17,12 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->bigInteger('study_class_id');
+            $table->string('student_id');
             $table->string('first_name');
-            $table->string('last_name');
-            $table->string('location');
-            $table->boolean('status');
-            $table->string('deleted_at');
+            $table->string('last_name')->nullable();
+            $table->string('location')->nullable();
+            $table->boolean('status')->default(1);
+            $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
     }

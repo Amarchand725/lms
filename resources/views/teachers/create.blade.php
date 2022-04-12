@@ -1,18 +1,18 @@
 @extends('layouts.app', [
-    'title' => __('Role Management'),
+    'title' => __('Teacher Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'role-management'
+    'elementName' => 'teacher-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth') 
         @component('layouts.headers.breadcrumbs')
             @slot('title') 
-                {{ __('Examples') }} 
+                {{ __('Teachers') }} 
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('role.index') }}">{{ __('Role Management') }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ __('Add Role') }}</li>
+            <li class="breadcrumb-item"><a href="{{ route('teacher.index') }}">{{ __('Teacher Management') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('Add Teacher') }}</li>
         @endcomponent
     @endcomponent
 
@@ -23,31 +23,84 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Role Management') }}</h3>
+                                <h3 class="mb-0">{{ __('Teacher Management') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('role.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('teacher.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('role.store') }}" autocomplete="off">
+                        <form method="post" action="{{ route('teacher.store') }}" autocomplete="off">
                             @csrf
                             
-                            <h6 class="heading-small text-muted mb-4">{{ __('Role information') }}</h6>
-                            <input type="hidden" name="guard_name" value="web">
+                            <h6 class="heading-small text-muted mb-4">{{ __('Teacher information') }}</h6>
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name') }}"  required autofocus>
+                                <div class="form-group{{ $errors->has('department_id') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-department">{{ __('Department') }}</label>
+                                    <select name="department_id" id="input-department" class="form-control">
+                                        <option value="" selected>Select department</option>
+                                        @foreach ($departments as $department)
+                                            <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                                        @endforeach
+                                    </select>
 
-                                    @include('alerts.feedback', ['field' => 'name'])
+                                    @include('alerts.feedback', ['field' => 'department_id'])
                                 </div>
-                                <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                    <textarea name="description" id="input-description" cols="30" rows="10" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description') }}"></textarea>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group{{ $errors->has('first_name') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-first_name">{{ __('First Name') }}</label>
+                                            <input type="text" name="first_name" id="input-first_name" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" value="{{ old('first_name') }}"  required autofocus>
 
-                                    @include('alerts.feedback', ['field' => 'description'])
+                                            @include('alerts.feedback', ['field' => 'first_name'])
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group{{ $errors->has('last_name') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-last_name">{{ __('Last Name') }}</label>
+                                            <input type="text" name="last_name" id="input-last_name" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" value="{{ old('last_name') }}"  required autofocus>
+
+                                            @include('alerts.feedback', ['field' => 'last_name'])
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-email">{{ __('E-mail') }}</label>
+                                    <input type="text" name="email" id="input-email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email') }}"  required autofocus>
+
+                                    @include('alerts.feedback', ['field' => 'email'])
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-password">{{ __('Password') }}</label>
+                                            <input type="password" name="password" id="input-password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="{{ old('password') }}"  required autofocus>
+
+                                            @include('alerts.feedback', ['field' => 'password'])
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-password_confirmation">{{ __('Confirm Password') }}</label>
+                                            <input type="password" name="password_confirmation" id="input-password_confirmation" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" placeholder="{{ __('Confirm password') }}" value="{{ old('password_confirmation') }}"  required autofocus>
+
+                                            @include('alerts.feedback', ['field' => 'password_confirmation'])
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group{{ $errors->has('location') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-location">{{ __('Location') }}</label>
+                                    <textarea name="location" id="input-location" class="form-control{{ $errors->has('location') ? ' is-invalid' : '' }}" placeholder="{{ __('Location') }}" value="{{ old('location') }}"></textarea>
+
+                                    @include('alerts.feedback', ['field' => 'location'])
+                                </div>
+                                <div class="form-group{{ $errors->has('about') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-about">{{ __('About') }}</label>
+                                    <textarea name="about" id="input-about" cols="30" rows="10" class="form-control{{ $errors->has('about') ? ' is-invalid' : '' }}" placeholder="{{ __('About') }}" value="{{ old('about') }}"></textarea>
+
+                                    @include('alerts.feedback', ['field' => 'about'])
                                 </div>
 
                                 <div class="text-center">

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Teacher;
+use App\Models\User;
+use App\Models\Department;
 
 class TeacherController extends Controller
 {
@@ -14,7 +17,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $models = Teacher::where('id', 'desc')->get();
+        $models = Teacher::orderby('id', 'desc')->get();
         return view('teachers.index', compact('models'));
     }
 
@@ -25,7 +28,8 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::orderby('id', 'desc')->where('status', 1)->get();
+        return view('teachers.create', compact('departments'));
     }
 
     /**
@@ -36,7 +40,34 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'department_id' => 'required',
+            'first_name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'password' => 'required|same:password_confirmation|min:6',
+            'location' => 'max:255',
+            'about' => 'max:1000',
+        ]);
+
+        $user = User::create([
+            'name' => $request->first_name.' '.$request->location,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        if($user){
+            $user->assignRole('Teacher');
+            Teacher::create([
+                'user_id' => $user->id,
+                'department_id' => $request->department_id,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'location' => $request->location,
+                'about' => $request->about,
+            ]);
+        }
+
+        return redirect()->route('teacher.index')->withStatus(__('Teacher successfully created.'));
     }
 
     /**
@@ -56,9 +87,11 @@ class TeacherController extends Controller
      * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function edit(Teacher $teacher)
+    public function edit($id)
     {
-        //
+        $model = Teacher::where('id', $id)->first();
+        $departments = Department::orderby('id', 'desc')->where('status', 1)->get();
+        return view('teachers.edit', compact('model', 'departments'));
     }
 
     /**
@@ -68,9 +101,47 @@ class TeacherController extends Controller
      * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, $id)
     {
-        //
+        if(!empty($request->password)){
+            $this->validate($request, [
+                'department_id' => 'required',
+                'first_name' => 'required|max:255',
+                'email' => 'required|max:255',
+                'password' => 'required|same:password_confirmation|min:6',
+                'location' => 'max:255',
+                'about' => 'max:1000',
+            ]);
+        }else{
+            $this->validate($request, [
+                'department_id' => 'required',
+                'first_name' => 'required|max:255',
+                'email' => 'required|max:255',
+                'location' => 'max:255',
+                'about' => 'max:1000',
+            ]);
+        }
+
+        $model = Teacher::where('id', $id)->first();
+        $model->department_id = $request->department_id;
+        $model->first_name = $request->first_name;
+        $model->last_name = $request->last_name;
+        $model->location = $request->location;
+        $model->about = $request->about;
+        $model->status = $request->status;
+        $model->save();
+
+        if($model){
+            $user = User::where('id', $model->user_id)->first();
+            $user->name = $request->first_name.' '.$request->last_name;
+            $user->email = $request->email;
+            if(!empty($request->password) && $request->password==$request->password_confirmation){
+                $user->password = Hash::make($request->password);
+            }
+            $user->update();
+        }
+
+        return redirect()->route('teacher.index')->withStatus(__('Teacher successfully updated.'));
     }
 
     /**
@@ -79,8 +150,15 @@ class TeacherController extends Controller
      * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Teacher $teacher)
+    public function destroy($id)
     {
-        //
+        $model = Teacher::where('id', $id)->first();
+        if($model){
+            User::where('id', $model->user_id)->delete();
+            
+            $model->delete();
+
+            return redirect()->route('teacher.index')->withStatus(__('Teacher successfully deleted.'));
+        }
     }
 }

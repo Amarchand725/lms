@@ -2,11 +2,11 @@
     <?php $__env->startComponent('layouts.headers.auth'); ?>
         <?php $__env->startComponent('layouts.headers.breadcrumbs'); ?>
             <?php $__env->slot('title'); ?>
-                <?php echo e(__('Semesters')); ?>
+                <?php echo e(__('Materials')); ?>
 
             <?php $__env->endSlot(); ?>
 
-            <li class="breadcrumb-item"><a href="<?php echo e(route('semester.index')); ?>"><?php echo e(__('Semester Management')); ?></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo e(route('material.index')); ?>"><?php echo e(__('Material Management')); ?></a></li>
             <li class="breadcrumb-item active" aria-current="page"><?php echo e(__('List')); ?></li>
         <?php echo $__env->renderComponent(); ?>
     <?php echo $__env->renderComponent(); ?>
@@ -18,14 +18,14 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0"><?php echo e(__('Semesters')); ?></h3>
+                                <h3 class="mb-0"><?php echo e(__('Materials')); ?></h3>
                                 <p class="text-sm mb-0">
-                                        <?php echo e(__('This is an example of semester management. This is a minimal setup in order to get started fast.')); ?>
+                                        <?php echo e(__('This is an example of material management. This is a minimal setup in order to get started fast.')); ?>
 
                                     </p>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="<?php echo e(route('semester.create')); ?>" class="btn btn-sm btn-primary"><?php echo e(__('Add Semester')); ?></a>
+                                <a href="<?php echo e(route('material.create')); ?>" class="btn btn-sm btn-primary"><?php echo e(__('Upload New Material')); ?></a>
                             </div>
                         </div>
                     </div>
@@ -39,8 +39,10 @@
                         <table class="table align-items-center table-flush"  id="datatable-basic">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col"><?php echo e(__('Name')); ?></th>
+                                    <th scope="col"><?php echo e(__('Study Class')); ?></th>
+                                    <th scope="col"><?php echo e(__('File Name')); ?></th>
                                     <th scope="col"><?php echo e(__('Description')); ?></th>
+                                    <th scope="col"><?php echo e(__('Uploaded By')); ?></th>
                                     <th scope="col"><?php echo e(__('Status')); ?></th>
                                     <th scope="col"><?php echo e(__('Creation Date')); ?></th>
                                     <th scope="col"></th>
@@ -49,13 +51,15 @@
                             <tbody>
                                 <?php $__currentLoopData = $models; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $model): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td><?php echo e($model->name); ?></td>
+                                        <td><?php echo e(isset($model->hasStudyClass)?$model->hasStudyClass->name:'N/A'); ?></td>
+                                        <td><?php echo e($model->file_name); ?></td>
                                         <td><?php echo e($model->description); ?></td>
+                                        <td><?php echo e(isset($model->hasCreatedBy)?$model->hasCreatedBy->name:'N/A'); ?></td>
                                         <td>
                                             <?php if($model->status): ?>
                                                 <span class="badge badge-info">Active</span>
                                             <?php else: ?> 
-                                                <span class="badge badge-info">Active</span>
+                                                <span class="badge badge-danger">In-Active</span>
                                             <?php endif; ?>
                                         </td>
                                         <td><?php echo e($model->created_at->format('d/m/Y H:i')); ?></td>
@@ -65,9 +69,10 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="<?php echo e(route('semester.edit', $model)); ?>"><?php echo e(__('Edit')); ?></a>
+                                                    <a class="dropdown-item" href="<?php echo e(route('material.edit', $model)); ?>"><?php echo e(__('Edit')); ?></a>
+                                                    <a class="dropdown-item" href="<?php echo e(route('material.show', $model)); ?>"><?php echo e(__('Show')); ?></a>
                                                 
-                                                    <form action="<?php echo e(route('semester.destroy', $model->id)); ?>" method="post">
+                                                    <form action="<?php echo e(route('material.destroy', $model->id)); ?>" method="post">
                                                         <?php echo csrf_field(); ?>
                                                         <?php echo method_field('delete'); ?>
 
@@ -110,7 +115,7 @@
 <?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', [
-    'title' => __('Semester Management'),
+    'title' => __('Material Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'semester-management'
+    'elementName' => 'material-management'
 ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lms\resources\views/materials/index.blade.php ENDPATH**/ ?>
