@@ -57,14 +57,14 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'teacher' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('teacher.index') }}">
                             <i class="fa fa-users text-primary"></i>
                             <span class="nav-link-text">{{ __('Teachers') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'student' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('student.index') }}">
                             <i class="fa fa-users text-primary"></i>
                             <span class="nav-link-text">{{ __('Students') }}</span>
                         </a>
@@ -75,61 +75,60 @@
                             <span class="nav-link-text">{{ __('Semester') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'subject' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('subject.index') }}">
                             <i class="fa fa-book text-primary"></i>
                             <span class="nav-link-text">{{ __('Subjects') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'study_class' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('study_class.index') }}">
                             <i class="fa fa-home text-primary"></i>
-                            <span class="nav-link-text">{{ __('Classes') }}</span>
+                            <span class="nav-link-text">{{ __('Study Classes') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'department' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('department.index') }}">
                             <i class="fa fa-building text-primary"></i>
                             <span class="nav-link-text">{{ __('Departments') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'material' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('material.index') }}">
                             <i class="fa fa-download text-primary"></i>
-                            <span class="nav-link-text">{{ __('Downloadable Materials') }}</span>
+                            <span class="nav-link-text">{{ __('Materials') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'assignment' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('assignment.index') }}">
                             <i class="fa fa-upload text-primary"></i>
-                            <span class="nav-link-text">{{ __('Uploaded Assignments') }}</span>
+                            <span class="nav-link-text">{{ __('Assignments') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'content' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('content.index') }}">
                             <i class="fa fa-file text-primary"></i>
                             <span class="nav-link-text">{{ __('Contents') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    {{-- <li class="nav-item {{ $elementName == 'log' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('log.index') }}">
                             <i class="fa fa-history text-primary"></i>
                             <span class="nav-link-text">{{ __('User Logs') }}</span>
                         </a>
-                    </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    </li> --}}
+                    <li class="nav-item {{ $elementName == 'activity_log' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('activity_log.index') }}">
                             <i class="fa fa-tasks text-primary"></i>
                             <span class="nav-link-text">{{ __('Activity Logs') }}</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    {{-- <li class="nav-item {{ $elementName == 'school_year' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('school_year.index') }}">
                             <i class="fa fa-school text-primary"></i>
                             <span class="nav-link-text">{{ __('School Year') }}</span>
                         </a>
-                    </li>
-
+                    </li> --}}
 
                     <li class="nav-item {{ $elementName == 'forms' ? 'active' : '' }}">
                         <a class="nav-link" href="#navbar-forms" data-toggle="collapse" role="button" aria-expanded="{{ $elementName == 'forms' ? 'true' : '' }}" aria-controls="navbar-forms">

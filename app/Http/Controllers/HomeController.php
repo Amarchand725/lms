@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\LogActivity;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('pages.dashboard');
+    }
+    public function activityLog()
+    {
+        $models = LogActivity::where('id', 'desc')->get();
+        return view('logs.index', compact('models'));
     }
 }

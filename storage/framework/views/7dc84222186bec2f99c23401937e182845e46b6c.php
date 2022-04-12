@@ -48,6 +48,7 @@
         <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
         <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
         <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/lavalamp/js/jquery.lavalamp.min.js"></script>
+        
         <!-- Optional JS -->
         <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/chart.js/dist/Chart.min.js"></script>
         <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/chart.js/dist/Chart.extension.js"></script>

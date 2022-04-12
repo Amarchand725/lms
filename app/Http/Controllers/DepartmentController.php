@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StudyClass;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
-class StudyClassController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class StudyClassController extends Controller
      */
     public function index()
     {
-        $models = StudyClass::orderby('id', 'desc')->get();
-        return view('study_classes.index', compact('models'));
+        $models = Department::orderby('id', 'desc')->get();
+        return view('departments.index', compact('models'));
     }
 
     /**
@@ -25,7 +25,7 @@ class StudyClassController extends Controller
      */
     public function create()
     {
-        return view('study_classes.create');
+        return view('departments.create');
     }
 
     /**
@@ -34,25 +34,26 @@ class StudyClassController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, StudyClass $model)
+    public function store(Request $request, Department $model)
     {
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'department_name' => 'required|max:255',
+            'person_in_charge' => 'required|max:255',
             'description' => 'max:255',
         ]);
 
         $model->create($request->all());
 
-        return redirect()->route('study_class.index')->withStatus(__('Study class successfully created.'));
+        return redirect()->route('department.index')->withStatus(__('Department successfully created.'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\StudyClass  $studyClass
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(StudyClass $studyClass)
+    public function show(Department $department)
     {
         //
     }
@@ -60,47 +61,48 @@ class StudyClassController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\StudyClass  $studyClass
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $model = StudyClass::where('id', $id)->first();
-        return view('study_classes.edit', compact('model'));
+        $model = Department::where('id', $id)->first();
+        return view('departments.edit', compact('model'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\StudyClass  $studyClass
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudyClass $studyClass)
+    public function update(Request $request, Department $department)
     {
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'department_name' => 'required|max:255',
+            'person_in_charge' => 'required|max:255',
             'description' => 'max:255',
         ]);
 
-        $studyClass->update($request->all());
+        $department->update($request->all());
 
-        return redirect()->route('study_class.index')->withStatus(__('Study class successfully updated.'));
+        return redirect()->route('department.index')->withStatus(__('Department successfully updated.'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\StudyClass  $studyClass
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $model = StudyClass::where('id', $id)->first();
+        $model = Department::where('id', $id)->first();
         if($model){
             $model->delete();
 
-            return redirect()->route('study_class.index')->withStatus(__('Study class successfully deleted.'));
+            return redirect()->route('department.index')->withStatus(__('Department successfully deleted.'));
         }
     }
 }

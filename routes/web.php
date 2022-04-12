@@ -25,12 +25,19 @@ Route::get('dashboard', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('role', 'Admin\RoleController', ['except' => ['show', 'destroy']]);
 
-    Route::resource('user', 'UserController', ['except' => ['show']]);
-
     Route::resource('semester', 'Admin\SemesterController');
+    Route::resource('subject', 'Admin\SubjectController');
+
+    Route::resource('user', 'UserController', ['except' => ['show']]);
     Route::resource('teacher', 'TeacherController');
     Route::resource('student', 'StudentController');
-
+    Route::resource('study_class', 'StudyClassController');
+    Route::resource('department', 'DepartmentController');
+    Route::resource('material', 'MaterialController');
+    Route::resource('assignment', 'AssignmentController');
+    Route::resource('content', 'ContentController');
+    
+    Route::get('activity_log', 'HomeController@activityLog')->name('activity_log.index');
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
     Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
     Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
