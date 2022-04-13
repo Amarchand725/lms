@@ -42,7 +42,7 @@ class StudyClassController extends Controller
         ]);
 
         $model->create($request->all());
-
+        \LogActivity::addToLog('Study Class Added');
         return redirect()->route('study_class.index')->withStatus(__('Study class successfully created.'));
     }
 
@@ -84,7 +84,7 @@ class StudyClassController extends Controller
         ]);
 
         $studyClass->update($request->all());
-
+        \LogActivity::addToLog('Study Class Updated');
         return redirect()->route('study_class.index')->withStatus(__('Study class successfully updated.'));
     }
 
@@ -99,7 +99,7 @@ class StudyClassController extends Controller
         $model = StudyClass::where('id', $id)->first();
         if($model){
             $model->delete();
-
+            \LogActivity::addToLog('Study Class Deleted');
             return redirect()->route('study_class.index')->withStatus(__('Study class successfully deleted.'));
         }
     }

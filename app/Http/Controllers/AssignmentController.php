@@ -25,7 +25,7 @@ class AssignmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('assignments.index', compact('models'));
     }
 
     /**
@@ -37,6 +37,8 @@ class AssignmentController extends Controller
     public function store(Request $request)
     {
         //
+
+        \LogActivity::addToLog('Assignment Added');
     }
 
     /**
@@ -71,6 +73,8 @@ class AssignmentController extends Controller
     public function update(Request $request, Assignment $assignment)
     {
         //
+
+        \LogActivity::addToLog('Assignment Updated');
     }
 
     /**
@@ -82,5 +86,7 @@ class AssignmentController extends Controller
     public function destroy(Assignment $assignment)
     {
         //
+
+        \LogActivity::addToLog('Assignment Deleted');
     }
 }

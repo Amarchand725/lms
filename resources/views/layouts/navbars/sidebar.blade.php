@@ -111,82 +111,22 @@
                             <span class="nav-link-text">{{ __('Contents') }}</span>
                         </a>
                     </li>
-                    {{-- <li class="nav-item {{ $elementName == 'log' ? 'active' : '' }}">
+                    <li class="nav-item {{ $elementName == 'log' ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('log.index') }}">
                             <i class="fa fa-history text-primary"></i>
                             <span class="nav-link-text">{{ __('User Logs') }}</span>
                         </a>
-                    </li> --}}
+                    </li>
                     <li class="nav-item {{ $elementName == 'activity_log' ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('activity_log.index') }}">
                             <i class="fa fa-tasks text-primary"></i>
                             <span class="nav-link-text">{{ __('Activity Logs') }}</span>
                         </a>
                     </li>
-                    {{-- <li class="nav-item {{ $elementName == 'school_year' ? 'active' : '' }}">
+                    <li class="nav-item {{ $elementName == 'school_year' ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('school_year.index') }}">
                             <i class="fa fa-school text-primary"></i>
                             <span class="nav-link-text">{{ __('School Year') }}</span>
-                        </a>
-                    </li> --}}
-
-                    <li class="nav-item {{ $elementName == 'forms' ? 'active' : '' }}">
-                        <a class="nav-link" href="#navbar-forms" data-toggle="collapse" role="button" aria-expanded="{{ $elementName == 'forms' ? 'true' : '' }}" aria-controls="navbar-forms">
-                            <i class="ni ni-single-copy-04 text-pink"></i>
-                            <span class="nav-link-text">{{ __('Forms') }}</span>
-                        </a>
-                        <div class="collapse {{ $elementName == 'forms' ? 'show' : '' }}" id="navbar-forms">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item {{ $elementName == 'elements' ? 'active' : '' }}">
-                                    <a href="{{ route('page.index','elements') }}" class="nav-link">{{ __('Elements') }}</a>
-                                </li>
-                                <li class="nav-item {{ $elementName == 'components' ? 'active' : '' }}">
-                                    <a href="{{ route('page.index','components') }}" class="nav-link">{{ __('Components') }}</a>
-                                </li>
-                                <li class="nav-item {{ $elementName == 'validations' ? 'active' : '' }}">
-                                    <a href="{{ route('page.index','validation') }}" class="nav-link">{{ __('Validations') }}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item {{ $elementName == 'tables' ? 'active' : '' }}">
-                        <a class="nav-link" href="#navbar-tables" data-toggle="collapse" role="button" aria-expanded="{{ $elementName == 'tables' ? 'true' : '' }}" aria-controls="navbar-tables">
-                            <i class="ni ni-align-left-2 text-default"></i>
-                            <span class="nav-link-text">{{ __('Tables') }}</span>
-                        </a>
-                        <div class="collapse {{ $elementName == 'tables' ? 'show' : '' }}" id="navbar-tables">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item {{ $elementName == 'tables' ? 'active' : '' }}">
-                                    <a href="{{ route('page.index','tables') }}" class="nav-link">{{ __('Tables') }}</a>
-                                </li>
-                                <li class="nav-item {{ $elementName == 'sortable' ? 'active' : '' }}">
-                                    <a href="{{ route('page.index','sortable') }}" class="nav-link">{{ __('Sortable') }}</a>
-                                </li>
-                                <li class="nav-item {{ $elementName == 'datatables' ? 'active' : '' }}">
-                                    <a href="{{ route('page.index','datatables') }}" class="nav-link">{{ __('Datatables') }}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-
-                </ul>
-                <!-- Divider -->
-                <hr class="my-3">
-                <!-- Heading -->
-                <h6 class="navbar-heading p-0 text-muted">{{ __('Documentation') }}</h6>
-                <!-- Navigation -->
-                <ul class="navbar-nav mb-md-3">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/docs/getting-started/overview.html') }}" target="_blank">
-                            <i class="ni ni-spaceship"></i>
-                            <span class="nav-link-text">Getting started</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/docs/foundation/colors.html') }}" target="_blank">
-                            <i class="ni ni-palette"></i>
-                            <span class="nav-link-text">Foundation</span>
                         </a>
                     </li>
                 </ul>

@@ -111,72 +111,22 @@
                             <span class="nav-link-text"><?php echo e(__('Contents')); ?></span>
                         </a>
                     </li>
-                    
+                    <li class="nav-item <?php echo e($elementName == 'log' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(route('log.index')); ?>">
+                            <i class="fa fa-history text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('User Logs')); ?></span>
+                        </a>
+                    </li>
                     <li class="nav-item <?php echo e($elementName == 'activity_log' ? 'active' : ''); ?>">
                         <a class="nav-link" href="<?php echo e(route('activity_log.index')); ?>">
                             <i class="fa fa-tasks text-primary"></i>
                             <span class="nav-link-text"><?php echo e(__('Activity Logs')); ?></span>
                         </a>
                     </li>
-                    
-
-                    <li class="nav-item <?php echo e($elementName == 'forms' ? 'active' : ''); ?>">
-                        <a class="nav-link" href="#navbar-forms" data-toggle="collapse" role="button" aria-expanded="<?php echo e($elementName == 'forms' ? 'true' : ''); ?>" aria-controls="navbar-forms">
-                            <i class="ni ni-single-copy-04 text-pink"></i>
-                            <span class="nav-link-text"><?php echo e(__('Forms')); ?></span>
-                        </a>
-                        <div class="collapse <?php echo e($elementName == 'forms' ? 'show' : ''); ?>" id="navbar-forms">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item <?php echo e($elementName == 'elements' ? 'active' : ''); ?>">
-                                    <a href="<?php echo e(route('page.index','elements')); ?>" class="nav-link"><?php echo e(__('Elements')); ?></a>
-                                </li>
-                                <li class="nav-item <?php echo e($elementName == 'components' ? 'active' : ''); ?>">
-                                    <a href="<?php echo e(route('page.index','components')); ?>" class="nav-link"><?php echo e(__('Components')); ?></a>
-                                </li>
-                                <li class="nav-item <?php echo e($elementName == 'validations' ? 'active' : ''); ?>">
-                                    <a href="<?php echo e(route('page.index','validation')); ?>" class="nav-link"><?php echo e(__('Validations')); ?></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item <?php echo e($elementName == 'tables' ? 'active' : ''); ?>">
-                        <a class="nav-link" href="#navbar-tables" data-toggle="collapse" role="button" aria-expanded="<?php echo e($elementName == 'tables' ? 'true' : ''); ?>" aria-controls="navbar-tables">
-                            <i class="ni ni-align-left-2 text-default"></i>
-                            <span class="nav-link-text"><?php echo e(__('Tables')); ?></span>
-                        </a>
-                        <div class="collapse <?php echo e($elementName == 'tables' ? 'show' : ''); ?>" id="navbar-tables">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item <?php echo e($elementName == 'tables' ? 'active' : ''); ?>">
-                                    <a href="<?php echo e(route('page.index','tables')); ?>" class="nav-link"><?php echo e(__('Tables')); ?></a>
-                                </li>
-                                <li class="nav-item <?php echo e($elementName == 'sortable' ? 'active' : ''); ?>">
-                                    <a href="<?php echo e(route('page.index','sortable')); ?>" class="nav-link"><?php echo e(__('Sortable')); ?></a>
-                                </li>
-                                <li class="nav-item <?php echo e($elementName == 'datatables' ? 'active' : ''); ?>">
-                                    <a href="<?php echo e(route('page.index','datatables')); ?>" class="nav-link"><?php echo e(__('Datatables')); ?></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-
-                </ul>
-                <!-- Divider -->
-                <hr class="my-3">
-                <!-- Heading -->
-                <h6 class="navbar-heading p-0 text-muted"><?php echo e(__('Documentation')); ?></h6>
-                <!-- Navigation -->
-                <ul class="navbar-nav mb-md-3">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo e(url('/docs/getting-started/overview.html')); ?>" target="_blank">
-                            <i class="ni ni-spaceship"></i>
-                            <span class="nav-link-text">Getting started</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo e(url('/docs/foundation/colors.html')); ?>" target="_blank">
-                            <i class="ni ni-palette"></i>
-                            <span class="nav-link-text">Foundation</span>
+                    <li class="nav-item <?php echo e($elementName == 'school_year' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(route('school_year.index')); ?>">
+                            <i class="fa fa-school text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('School Year')); ?></span>
                         </a>
                     </li>
                 </ul>

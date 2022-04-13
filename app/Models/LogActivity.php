@@ -13,4 +13,9 @@ class LogActivity extends Model
     protected $fillable = [
         'subject', 'url', 'method', 'ip', 'agent', 'user_id'
     ];
+
+    public function hasLoggedIn()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

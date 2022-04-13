@@ -31,4 +31,8 @@ class HomeController extends Controller
         $models = LogActivity::where('id', 'desc')->get();
         return view('logs.index', compact('models'));
     }
+    public function userLog(Type $var = null)
+    {
+        # code...
+    }
 }

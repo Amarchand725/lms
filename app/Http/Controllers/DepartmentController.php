@@ -43,7 +43,7 @@ class DepartmentController extends Controller
         ]);
 
         $model->create($request->all());
-
+        \LogActivity::addToLog('Department Added');
         return redirect()->route('department.index')->withStatus(__('Department successfully created.'));
     }
 
@@ -86,7 +86,7 @@ class DepartmentController extends Controller
         ]);
 
         $department->update($request->all());
-
+        \LogActivity::addToLog('Department Updated');
         return redirect()->route('department.index')->withStatus(__('Department successfully updated.'));
     }
 
@@ -101,7 +101,7 @@ class DepartmentController extends Controller
         $model = Department::where('id', $id)->first();
         if($model){
             $model->delete();
-
+            \LogActivity::addToLog('Department Deleted');
             return redirect()->route('department.index')->withStatus(__('Department successfully deleted.'));
         }
     }

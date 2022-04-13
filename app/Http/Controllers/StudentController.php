@@ -66,7 +66,7 @@ class StudentController extends Controller
                 'location' => $request->location,
             ]);
         }
-
+        \LogActivity::addToLog('Student Added');
         return redirect()->route('student.index')->withStatus(__('Student successfully created.'));
     }
 
@@ -140,7 +140,7 @@ class StudentController extends Controller
             }
             $user->update();
         }
-
+        \LogActivity::addToLog('Student Updated');
         return redirect()->route('student.index')->withStatus(__('Student successfully updated.'));
     }
 
@@ -157,7 +157,7 @@ class StudentController extends Controller
             User::where('id', $model->user_id)->delete();
             
             $model->delete();
-
+            \LogActivity::addToLog('Student Deleted');
             return redirect()->route('student.index')->withStatus(__('Student successfully deleted.'));
         }
     }

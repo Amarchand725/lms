@@ -66,7 +66,7 @@ class TeacherController extends Controller
                 'about' => $request->about,
             ]);
         }
-
+        \LogActivity::addToLog('Teacher Added');
         return redirect()->route('teacher.index')->withStatus(__('Teacher successfully created.'));
     }
 
@@ -140,7 +140,7 @@ class TeacherController extends Controller
             }
             $user->update();
         }
-
+        \LogActivity::addToLog('Teacher Updated');
         return redirect()->route('teacher.index')->withStatus(__('Teacher successfully updated.'));
     }
 
@@ -157,7 +157,7 @@ class TeacherController extends Controller
             User::where('id', $model->user_id)->delete();
             
             $model->delete();
-
+            \LogActivity::addToLog('Teacher deleted');
             return redirect()->route('teacher.index')->withStatus(__('Teacher successfully deleted.'));
         }
     }

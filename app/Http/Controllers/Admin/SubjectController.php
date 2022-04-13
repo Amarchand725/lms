@@ -47,7 +47,7 @@ class SubjectController extends Controller
         ]);
 
         $model->create($request->all());
-
+        \LogActivity::addToLog('Subject Added');
         return redirect()->route('subject.index')->withStatus(__('Subject successfully created.'));
     }
 
@@ -99,7 +99,7 @@ class SubjectController extends Controller
         $model->description = $request->description;
         $model->status = $request->status;
         $model->save();
-
+        \LogActivity::addToLog('Subject Updated');
         return redirect()->route('subject.index')->withStatus(__('Subject successfully updated.'));
     }
 
@@ -114,7 +114,7 @@ class SubjectController extends Controller
         $model = Subject::where('id', $id)->first();
         if($model){
             $model->delete();
-
+            \LogActivity::addToLog('Subject Deleted');
             return redirect()->route('subject.index')->withStatus(__('Subject successfully deleted.'));
         }
     }

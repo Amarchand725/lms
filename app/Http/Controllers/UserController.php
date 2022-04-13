@@ -51,7 +51,7 @@ class UserController extends Controller
             'picture' => $request->photo ? $request->photo->store('profile_user', 'public') : null,
             'password' => Hash::make($request->get('password'))
         ])->all());
-
+        \LogActivity::addToLog('User Added');
         return redirect()->route('user.index')->withStatus(__('User successfully created.'));
     }
 
@@ -84,6 +84,7 @@ class UserController extends Controller
             ])->except([$hasPassword ? '' : 'password'])
         );
 
+        \LogActivity::addToLog('User Updated');
         return redirect()->route('user.index')->withStatus(__('User successfully updated.'));
     }
 
@@ -100,7 +101,7 @@ class UserController extends Controller
         }
 
         $user->delete();
-
+        \LogActivity::addToLog('User Deleted');
         return redirect()->route('user.index')->withStatus(__('User successfully deleted.'));
     }
 }

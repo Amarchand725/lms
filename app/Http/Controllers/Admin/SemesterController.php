@@ -42,7 +42,7 @@ class SemesterController extends Controller
         ]);
 
         $model->create($request->all());
-
+        \LogActivity::addToLog('Semester Added');
         return redirect()->route('semester.index')->withStatus(__('Semester successfully created.'));
     }
 
@@ -83,7 +83,7 @@ class SemesterController extends Controller
         $model->description = $request->description;
         $model->status = $request->status;
         $model->save();
-
+        \LogActivity::addToLog('Semester Updated');
         return redirect()->route('semester.index')->withStatus(__('Semester successfully updated.'));
     }
 
@@ -98,7 +98,7 @@ class SemesterController extends Controller
         $model = Semester::where('id', $id)->first();
         if($model){
             $model->delete();
-
+            \LogActivity::addToLog('Semester Deleted');
             return redirect()->route('semester.index')->withStatus(__('Semester successfully deleted.'));
         }
     }

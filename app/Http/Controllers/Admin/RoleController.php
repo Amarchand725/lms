@@ -22,8 +22,6 @@ class RoleController extends Controller
      */
     public function index(Role $model)
     {
-        // $this->authorize('manage-users', User::class);
-
         return view('roles.index', ['roles' => $model->all()]);
     }
 
@@ -48,6 +46,7 @@ class RoleController extends Controller
     {   
         $model->create($request->all());
 
+        \LogActivity::addToLog('Role Added');
         return redirect()->route('role.index')->withStatus(__('Role successfully created.'));
     }
 
@@ -72,7 +71,7 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $role->update($request->all());
-
+        \LogActivity::addToLog('Role Updated');
         return redirect()->route('role.index')->withStatus(__('Role successfully updated.'));
     }
 }

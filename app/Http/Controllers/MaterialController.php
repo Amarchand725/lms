@@ -60,7 +60,7 @@ class MaterialController extends Controller
         $model->file_name = $request->file_name;
         $model->description = $request->description;
         $model->save();
-
+        \LogActivity::addToLog('Material Added');
         return redirect()->route('material.index')->withStatus(__('Material successfully uploaded.'));
     }
 
@@ -117,7 +117,7 @@ class MaterialController extends Controller
         $model->description = $request->description;
         $model->status = $request->status;
         $model->save();
-
+        \LogActivity::addToLog('Material Updated');
         return redirect()->route('material.index')->withStatus(__('Material successfully updated.'));
     }
 
@@ -134,7 +134,7 @@ class MaterialController extends Controller
             User::where('id', $model->user_id)->delete();
             
             $model->delete();
-
+            \LogActivity::addToLog('Material Deleted');
             return redirect()->route('material.index')->withStatus(__('Material successfully deleted.'));
         }
     }

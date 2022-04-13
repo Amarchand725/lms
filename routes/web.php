@@ -36,8 +36,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('material', 'MaterialController');
     Route::resource('assignment', 'AssignmentController');
     Route::resource('content', 'ContentController');
+    Route::resource('school_year', 'SchoolYearController');
     
-    Route::get('activity_log', 'HomeController@activityLog')->name('activity_log.index');
+    Route::get('activity_log', 'Admin\AdminController@activityLogs')->name('activity_log.index');
+    Route::get('log/index', 'Admin\AdminController@userLogs')->name('log.index');
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
     Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
     Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);

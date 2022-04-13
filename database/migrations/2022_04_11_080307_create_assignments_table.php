@@ -15,6 +15,13 @@ class CreateAssignmentsTable extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->bigInteger('study_class_id');
+            $table->string('name');
+            $table->string('description');
+            $table->string('file');
+            $table->boolean('status')->default(1);
+            $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
     }
