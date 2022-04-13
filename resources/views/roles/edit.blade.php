@@ -45,9 +45,26 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                    <textarea name="description" id="input-description" cols="30" rows="10" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}">{{ old('description', $role->description) }}</textarea>
+                                    <textarea name="description" id="input-description" cols="30" rows="5" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}">{{ old('description', $role->description) }}</textarea>
 
                                     @include('alerts.feedback', ['field' => 'description'])
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label">Permission: <span style="color: red">*</span></label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="all" id="checkAll"/>
+                                        <label class="form-check-label" for="checkAll"> <strong>Select All Permissions</strong> </label>
+                                    </div>
+                                    <div class="row">
+                                        @foreach($permission as $value)
+                                            <div class="col-sm-3">
+                                                <label>
+                                                    {{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }} {{ ucfirst($value->name) }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
 
                                 <div class="text-center">
@@ -63,3 +80,10 @@
         @include('layouts.footers.auth')
     </div>
 @endsection
+@push('js')
+    <script>
+        $("#checkAll").click(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+    </script>
+@endpush

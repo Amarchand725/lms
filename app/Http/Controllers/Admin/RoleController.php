@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Permission;
+use DB;
 
 class RoleController extends Controller
 {
@@ -20,9 +22,10 @@ class RoleController extends Controller
      * @param \App\Role  $model
      * @return \Illuminate\View\View
      */
-    public function index(Role $model)
+    public function index()
     {
-        return view('roles.index', ['roles' => $model->all()]);
+        $roles = Role::orderby('id', 'desc')->paginate(10);
+        return view('roles.index', compact('roles'));
     }
 
     /**
@@ -32,7 +35,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('roles.create');
+        $permission = Permission::get();
+        return view('roles.create', compact('permission'));
     }
 
     /**
@@ -42,9 +46,14 @@ class RoleController extends Controller
      * @param  \App\Role  $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, Role $model)
+    public function store(Request $request)
     {   
-        $model->create($request->all());
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $role = Role::create(['name' => $request->name, 'description'=>$request->description]);
+        $role->syncPermissions($request->input('permission'));
 
         \LogActivity::addToLog('Role Added');
         return redirect()->route('role.index')->withStatus(__('Role successfully created.'));
@@ -56,9 +65,15 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\View\View
      */
-    public function edit(Role $role)
+    public function edit($id)
     {
-        return view('roles.edit', compact('role'));
+        $role = Role::find($id);
+        $permission = Permission::get();
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+            ->all();
+
+        return view('roles.edit',compact('role','permission','rolePermissions'));
     }
 
     /**
@@ -68,9 +83,20 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, $role_id)
     {
-        $role->update($request->all());
+        $this->validate($request, [
+            'name' => 'required',
+            'permission' => 'required',
+        ]);
+
+        $role = Role::find($role_id);
+        $role->name = $request->name;
+        $role->description = $request->description;
+        $role->save();
+
+        $role->syncPermissions($request->input('permission'));
+
         \LogActivity::addToLog('Role Updated');
         return redirect()->route('role.index')->withStatus(__('Role successfully updated.'));
     }

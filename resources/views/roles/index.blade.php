@@ -45,6 +45,7 @@
                         <table class="table table-flush"  id="datatable-basic">
                             <thead class="thead-light">
                                 <tr>
+                                    <th scope="col">{{ __('No#') }}</th>
                                     <th scope="col">{{ __('Name') }}</th>
                                     <th scope="col">{{ __('Description') }}</th>
                                     <th scope="col">{{ __('Creation date') }}</th>
@@ -54,12 +55,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($roles as $role)
+                                @foreach ($roles as $key=>$role)
                                     <tr>
+                                        <td>{{  $roles->firstItem()+$key }}.</td>
                                         <td>{{ $role->name }}</td>
                                         <td>{{ $role->description }}</td>
                                         <td>{{ $role->created_at->format('d/m/Y H:i') }}</td>
-                                        {{-- @can('manage-users', App\Models\User::class) --}}
+                                        {{-- @can('manage-users', App\roles\User::class) --}}
                                             <td class="text-right">
                                                 {{-- @can('update', $role) --}}
                                                     <div class="dropdown">
@@ -75,6 +77,14 @@
                                         {{-- @endcan --}}
                                     </tr>
                                 @endforeach
+                                <tr>
+                                    <td colspan="4">
+                                        Displying {{$roles->firstItem()}} to {{$roles->lastItem()}} of {{$roles->total()}} records
+                                        <div class="d-flex justify-content-center">
+                                            {!! $roles->links('pagination::bootstrap-4') !!}
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

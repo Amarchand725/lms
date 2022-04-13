@@ -51,6 +51,9 @@
                                 <li class="nav-item  {{ $elementName == 'role-management' ? 'active' : '' }}">
                                     <a href="{{ route('role.index') }}" class="nav-link">{{ __('Role Management') }}</a>
                                 </li>
+                                <li class="nav-item  {{ $elementName == 'permission-management' ? 'active' : '' }}">
+                                    <a href="{{ route('permission.index') }}" class="nav-link">{{ __('Permission Management') }}</a>
+                                </li>
                                 <li class="nav-item {{ $elementName == 'user-management' ? 'active' : '' }}">
                                     <a href="{{ route('user.index') }}" class="nav-link">{{ __('User Management') }}</a>
                                 </li>

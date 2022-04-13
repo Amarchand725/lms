@@ -45,9 +45,21 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                    <textarea name="description" id="input-description" cols="30" rows="10" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description') }}"></textarea>
+                                    <textarea name="description" id="input-description" cols="30" rows="5" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description') }}"></textarea>
 
                                     @include('alerts.feedback', ['field' => 'description'])
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label">Permission: <span style="color: red">*</span></label>
+                                    <div class="row">
+                                        @foreach($permission as $value)
+                                            <div class="col-sm-3">
+                                                <label>
+                                                    {{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }} {{ ucfirst($value->name) }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
 
                                 <div class="text-center">

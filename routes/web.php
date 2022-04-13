@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('assignment', 'AssignmentController');
     Route::resource('content', 'ContentController');
     Route::resource('school_year', 'SchoolYearController');
+    Route::resource('permission', 'PermissionController');
     
     Route::get('activity_log', 'Admin\AdminController@activityLogs')->name('activity_log.index');
     Route::get('log/index', 'Admin\AdminController@userLogs')->name('log.index');
