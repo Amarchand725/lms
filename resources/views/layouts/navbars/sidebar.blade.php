@@ -20,13 +20,14 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
-                    <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('home') }}">
-                            <i class="ni ni-shop text-primary"></i>
-                            <span class="nav-link-text">{{ __('Dashboard') }}</span>
-                        </a>
-                    </li>
                     @if(Auth::user()->hasRole('Admin'))
+                        <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('home') }}">
+                                <i class="ni ni-shop text-primary"></i>
+                                <span class="nav-link-text">{{ __('Dashboard') }}</span>
+                            </a>
+                        </li>
+                   
                         <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('page.index','calendar') }}">
                                 <i class="ni ni-calendar-grid-58 text-primary"></i>
@@ -135,8 +136,8 @@
                             </a>
                         </li>
                     @elseif(Auth::user()->hasRole('Teacher'))
-                        <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                        <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('assigned_class.index') }}">
                                 <i class="fa fa-school text-primary"></i>
                                 <span class="nav-link-text">{{ __('My Classes') }}</span>
                             </a>

@@ -11,6 +11,10 @@
 
             <li class="breadcrumb-item active" aria-current="page">{{ __('School Year:') }} {{ $batch->year }}</li>
         @endcomponent
+        <div class="col-12 mt-2">
+            @include('alerts.success')
+            @include('alerts.errors')
+        </div>
         <div class="row">
             @foreach ($assigned_classes as $assigned)
                 <div class="col-xl-3 col-md-6 class-card">
@@ -99,7 +103,7 @@
 
     <script>
         $(document).on('click', '#remove-btn-class', function(){
-            var delete_url = $('#delete-url').val();
+            var delete_url = $(this).parents('.class-card').find('#delete-url').val();
             var card = $(this).parents('.class-card');
             Swal.fire({
                 title: 'Are you sure?',
@@ -124,7 +128,7 @@
                                 card.hide();
                                 Swal.fire(
                                     'Deleted!',
-                                    'Your file has been deleted.',
+                                    'Your class has been removed.',
                                     'success'
                                 )
                             }else{

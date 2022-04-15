@@ -10,6 +10,10 @@
 
             <li class="breadcrumb-item active" aria-current="page"><?php echo e(__('School Year:')); ?> <?php echo e($batch->year); ?></li>
         <?php echo $__env->renderComponent(); ?>
+        <div class="col-12 mt-2">
+            <?php echo $__env->make('alerts.success', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <?php echo $__env->make('alerts.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        </div>
         <div class="row">
             <?php $__currentLoopData = $assigned_classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $assigned): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-xl-3 col-md-6 class-card">
@@ -98,7 +102,7 @@
 
     <script>
         $(document).on('click', '#remove-btn-class', function(){
-            var delete_url = $('#delete-url').val();
+            var delete_url = $(this).parents('.class-card').find('#delete-url').val();
             var card = $(this).parents('.class-card');
             Swal.fire({
                 title: 'Are you sure?',
@@ -123,7 +127,7 @@
                                 card.hide();
                                 Swal.fire(
                                     'Deleted!',
-                                    'Your file has been deleted.',
+                                    'Your class has been removed.',
                                     'success'
                                 )
                             }else{
