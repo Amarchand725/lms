@@ -1,3 +1,4 @@
+<?php $elementName = \Request::segment(1);  ?>
 <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner scroll-scrollx_visible">
         <div class="sidenav-header d-flex align-items-center">
@@ -20,6 +21,17 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
+<<<<<<< HEAD
+                    
+                    @if(Auth::user()->hasRole('Admin'))
+
+                    <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('home') }}">
+                            <i class="ni ni-shop text-primary"></i>
+                            <span class="nav-link-text">{{ __('Dashboard') }}</span>
+                        </a>
+                    </li>
+=======
                     @if(Auth::user()->hasRole('Admin'))
                         <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('home') }}">
@@ -28,6 +40,7 @@
                             </a>
                         </li>
                    
+>>>>>>> f357a2468a5d9a4ea206454b9e7de5a1b382e97a
                         <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('page.index','calendar') }}">
                                 <i class="ni ni-calendar-grid-58 text-primary"></i>
@@ -191,7 +204,30 @@
                             </a>
                         </li>
                     @elseif(Auth::user()->hasRole('Student'))
-                        <li>Student sidebar</li>
+                    <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('home') }}">
+                            <i class="fa fa-users text-primary"></i>
+                            <span class="nav-link-text">{{ __('My Class') }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ $elementName == 'notification' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('page.index','calendar') }}">
+                            <i class="fa fa-bell text-primary"></i>
+                            <span class="nav-link-text">{{ __('Notification') }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ $elementName == 'Message' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('student.message') }}">
+                            <i class="fa fa-envelope text-primary"></i>
+                            <span class="nav-link-text">{{ __('Message') }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ $elementName == 'backpack' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('page.index','calendar') }}">
+                            <i class="fa fa-shopping-bag text-primary"></i>
+                            <span class="nav-link-text">{{ __('Backpack') }}</span>
+                        </a>
+                    </li>
                     @endif
                 </ul>
             </div>

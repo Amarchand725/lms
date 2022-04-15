@@ -17,10 +17,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
+ Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('dashboard', 'HomeController@index')->name('home');
+Route::get('message', 'HomeController@message')->name('student.message');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('role', 'Admin\RoleController', ['except' => ['show', 'destroy']]);

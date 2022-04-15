@@ -1,3 +1,4 @@
+<?php $elementName = \Request::segment(1);  ?>
 <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner scroll-scrollx_visible">
         <div class="sidenav-header d-flex align-items-center">
@@ -20,6 +21,17 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
+<<<<<<< HEAD
+                    
+                    <?php if(Auth::user()->hasRole('Admin')): ?>
+
+                    <li class="nav-item <?php echo e($elementName == 'dashboard' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(route('home')); ?>">
+                            <i class="ni ni-shop text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('Dashboard')); ?></span>
+                        </a>
+                    </li>
+=======
                     <?php if(Auth::user()->hasRole('Admin')): ?>
                         <li class="nav-item <?php echo e($elementName == 'dashboard' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('home')); ?>">
@@ -28,6 +40,7 @@
                             </a>
                         </li>
                    
+>>>>>>> f357a2468a5d9a4ea206454b9e7de5a1b382e97a
                         <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('page.index','calendar')); ?>">
                                 <i class="ni ni-calendar-grid-58 text-primary"></i>
@@ -189,7 +202,30 @@
                             </a>
                         </li>
                     <?php elseif(Auth::user()->hasRole('Student')): ?>
-                        <li>Student sidebar</li>
+                    <li class="nav-item <?php echo e($elementName == 'dashboard' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(route('home')); ?>">
+                            <i class="fa fa-users text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('My Class')); ?></span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo e($elementName == 'notification' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(url('page.index','calendar')); ?>">
+                            <i class="fa fa-bell text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('Notification')); ?></span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo e($elementName == 'Message' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(route('student.message')); ?>">
+                            <i class="fa fa-envelope text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('Message')); ?></span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo e($elementName == 'backpack' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(url('page.index','calendar')); ?>">
+                            <i class="fa fa-shopping-bag text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('Backpack')); ?></span>
+                        </a>
+                    </li>
                     <?php endif; ?>
                 </ul>
             </div>
