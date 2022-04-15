@@ -50,4 +50,9 @@ class HomeController extends Controller
 
         }
     }
+
+    public function message(){
+
+        return view('students.message');
+    }
 }

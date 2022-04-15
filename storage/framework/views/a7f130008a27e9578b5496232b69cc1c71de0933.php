@@ -48,5 +48,5 @@
    
 
 <?php echo $__env->make('layouts.app', [
-    'elementName' => 'dashboard'
+    'elementName' => 'class'
 ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lms\resources\views/dashboard/student-dashboard.blade.php ENDPATH**/ ?>

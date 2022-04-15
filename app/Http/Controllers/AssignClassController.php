@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AssignClass;
+use App\Models\SchoolYear;
+
 use Auth;
 
 class AssignClassController extends Controller
 {
     public function index()
     {
-        return 'greate';
+        $batch = SchoolYear::where('status', 1)->first();
+        $assigned_classes = AssignClass::where('user_id', Auth::user()->id)->where('school_year_id', $batch->id)->get();
+
+       return view('dashboard.student-dashboard',compact('batch','assigned_classes'));  
     }
 
     public function store(Request $request)

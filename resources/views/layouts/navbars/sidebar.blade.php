@@ -21,13 +21,15 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
+                    
+                    @if(Auth::user()->hasRole('Admin'))
+
                     <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('home') }}">
                             <i class="ni ni-shop text-primary"></i>
                             <span class="nav-link-text">{{ __('Dashboard') }}</span>
                         </a>
                     </li>
-                    @if(Auth::user()->hasRole('Admin'))
                         <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('page.index','calendar') }}">
                                 <i class="ni ni-calendar-grid-58 text-primary"></i>
@@ -191,8 +193,8 @@
                             </a>
                         </li>
                     @elseif(Auth::user()->hasRole('Student'))
-                    <li class="nav-item {{ $elementName == 'my-class' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('home') }}">
                             <i class="fa fa-users text-primary"></i>
                             <span class="nav-link-text">{{ __('My Class') }}</span>
                         </a>
@@ -204,7 +206,7 @@
                         </a>
                     </li>
                     <li class="nav-item {{ $elementName == 'Message' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('page.index','calendar') }}">
+                        <a class="nav-link" href="{{ route('student.message') }}">
                             <i class="fa fa-envelope text-primary"></i>
                             <span class="nav-link-text">{{ __('Message') }}</span>
                         </a>
