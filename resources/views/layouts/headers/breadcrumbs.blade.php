@@ -24,7 +24,7 @@
             <a href="#" class="btn btn-sm btn-neutral">{{ __('Filters') }}</a>
         </div> --}}
     @endif
-    @if(Auth::user()->hasRole('Teacher'))
+    @if(Auth::user()->hasRole('Teacher') && request()->is('assigned_class'))
         <div class="col-lg-6 col-5 text-right">
             <a class="btn btn-sm btn-neutral add-class-btn"><i class="fa fa-plus"></i> {{ __('Add Class') }}</a>
         </div>

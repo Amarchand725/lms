@@ -1,17 +1,17 @@
 @extends('layouts.app', [
-    'title' => __('Material Management'),
+    'title' => __('Announcement Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'material-management'
+    'elementName' => 'announcement-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Materials') }}
+                {{ __('Announcements') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('material.index') }}">{{ __('Material Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('announcement.index') }}">{{ __('Announcement Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Show') }}</li>
         @endcomponent
     @endcomponent
@@ -23,13 +23,13 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Materials') }}</h3>
+                                <h3 class="mb-0">{{ __('Announcements') }}</h3>
                                 <p class="text-sm mb-0">
-									{{ __('This is an example of material management. This is a minimal setup in order to get started fast.') }}
+									{{ __('This is an example of announcement management. This is a minimal setup in order to get started fast.') }}
 								</p>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('material.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('announcement.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
@@ -44,35 +44,21 @@
                             <tbody>
 								<tr>
 									<th>Class</th>
-									<td>{{ $model->hasStudyClass->name }}</td>
-								</tr>
-								<tr>
-									<th>File Name</th>
-									<td>{{ $model->file_name }}</td>
+									<td>{{ $announcement->hasStudyClass->name }}</td>
 								</tr>
 								
 								<tr>
-									<th>Description</th>
-									<td>{{ $model->description }}</td>
-								</tr>
-								<tr>
-									<th>File</th>
-									<td>
-										<img src="{{ asset('public/admin/assets/materials') }}/{{ $model->file }}" width="200px" alt="">
-									</td>
-								</tr>
-								<tr>
-									<th>Uploaded By</th>
-									<td>{{ $model->hasCreatedBy->name }}</td>
+									<th>Announcement</th>
+									<td>{{ $announcement->announcement }}</td>
 								</tr>
 								<tr>
 									<th>Created at</th>
-									<td>{{ date('d, M-Y H:i A', strtotime($model->created_at)) }}</td>
+									<td>{{ date('d, M-Y H:i A', strtotime($announcement->created_at)) }}</td>
 								</tr>
 								<tr>
 									<th>Status</th>
 									<td>
-										@if($model->status)
+										@if($announcement->status)
 											<span class="badge badge-success">Active</span>
 										@else 
 											<span class="badge badge-danger">In-Active</span>

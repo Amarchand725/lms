@@ -1,17 +1,17 @@
 @extends('layouts.app', [
-    'title' => __('Material Management'),
+    'title' => __('Announcement Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'material-management'
+    'elementName' => 'announcement-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Materials') }}
+                {{ __('Announcements') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('material.index') }}">{{ __('Material Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('announcement.index') }}">{{ __('Announcement Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('List') }}</li>
         @endcomponent
     @endcomponent
@@ -23,13 +23,13 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Materials') }}</h3>
+                                <h3 class="mb-0">{{ __('Announcements') }}</h3>
                                 <p class="text-sm mb-0">
-                                        {{ __('This is an example of material management. This is a minimal setup in order to get started fast.') }}
+                                        {{ __('This is an example of announcement management. This is a minimal setup in order to get started fast.') }}
                                     </p>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('material.create') }}" class="btn btn-sm btn-primary">{{ __('Upload New Material') }}</a>
+                                <a href="{{ route('announcement.create') }}" class="btn btn-sm btn-primary">{{ __('Add New Announcement') }}</a>
                             </div>
                         </div>
                     </div>
@@ -44,33 +44,19 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">{{ __('No#') }}</th>
-                                    <th scope="col">{{ __('File') }}</th>
                                     <th scope="col">{{ __('Study Class') }}</th>
-                                    <th scope="col">{{ __('File Name') }}</th>
-                                    <th scope="col">{{ __('Description') }}</th>
-                                    @if(Auth::user()->hasRole('Admin'))
-                                        <th scope="col">{{ __('Uploaded By') }}</th>
-                                    @endif
+                                    <th scope="col">{{ __('Announcement') }}</th>
                                     <th scope="col">{{ __('Status') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($models as $key=>$model)
                                     <tr id="id-{{ $model->id }}">
                                         <td>{{  $models->firstItem()+$key }}.</td>
-                                        <td>
-                                            <a href="{{ route('material.show', $model->id) }}">
-                                                <img src="{{ asset('public/admin/assets/materials/file.png') }}" alt="" width="80px" height="80px">
-                                            </a>
-                                        </td>
                                         <td>{{ isset($model->hasStudyClass)?$model->hasStudyClass->name:'N/A' }}</td>
-                                        <td>{{ $model->file_name }}</td>
-                                        <td>{{ $model->description }}</td>
-                                        @if(Auth::user()->hasRole('Admin'))
-                                            <td>{{ isset($model->hasCreatedBy)?$model->hasCreatedBy->name:'N/A' }}</td>
-                                        @endif
+                                        <td>{{ $model->announcement }}</td>
                                         <td>
                                             @if($model->status)
                                                 <span class="badge badge-info">Active</span>
@@ -85,10 +71,10 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="{{ route('material.edit', $model) }}">{{ __('Edit') }}</a>
-                                                    <a class="dropdown-item" href="{{ route('material.show', $model) }}">{{ __('Show') }}</a>
+                                                    <a class="dropdown-item" href="{{ route('announcement.edit', $model) }}">{{ __('Edit') }}</a>
+                                                    <a class="dropdown-item" href="{{ route('announcement.show', $model) }}">{{ __('Show') }}</a>
                                                 
-                                                    <form action="{{ route('material.destroy', $model->id) }}" method="post">
+                                                    <form action="{{ route('announcement.destroy', $model->id) }}" method="post">
                                                         @csrf
                                                         @method('delete')
 

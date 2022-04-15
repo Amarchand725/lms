@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\SchoolYear;
+use App\Models\AssignClass;
 use Illuminate\Http\Request;
+use Auth;
 
 class AssignmentController extends Controller
 {
@@ -25,7 +28,9 @@ class AssignmentController extends Controller
      */
     public function create()
     {
-        return view('assignments.index', compact('models'));
+        $batch = SchoolYear::orderby('id', 'desc')->where('status', 1)->first();
+        $assigned_classes = AssignClass::where('user_id', Auth::user()->id)->where('school_year_id', $batch->id)->get();
+        return view('assignments.create', compact('assigned_classes'));
     }
 
     /**
@@ -36,7 +41,7 @@ class AssignmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
 
         \LogActivity::addToLog('Assignment Added');
     }

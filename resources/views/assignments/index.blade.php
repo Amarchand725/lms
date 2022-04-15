@@ -45,7 +45,9 @@
                                 <tr>
                                     <th scope="col">{{ __('Study Class') }}</th>
                                     <th scope="col">{{ __('File Name') }}</th>
-                                    <th scope="col">{{ __('Upload By') }}</th>
+                                    @if(Auth::user()->hasRole('Admin'))
+                                        <th scope="col">{{ __('Upload By') }}</th>
+                                    @endif
                                     <th scope="col">{{ __('Description') }}</th>
                                     <th scope="col">{{ __('Status') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
@@ -57,7 +59,9 @@
                                     <tr>
                                         <td>{{ isset($model->hasStudyClass)?$model->hasStudyClass->name:'N/A' }}</td>
                                         <td>{{ $model->file_name }}</td>
-                                        <td>{{ isset($model->hasUser)?$model->hasUser->name:'N/A' }}</td>
+                                        @if(Auth::user()->hasRole('Admin'))
+                                            <td>{{ isset($model->hasUser)?$model->hasUser->name:'N/A' }}</td>
+                                        @endif
                                         <td>{{ $model->description }}</td>
                                         <td>
                                             @if($model->status)

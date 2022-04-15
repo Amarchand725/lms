@@ -160,20 +160,20 @@
                                 <span class="nav-link-text">{{ __('Backpack') }}</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                        <li class="nav-item {{ $elementName == 'material' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('material.index') }}">
                                 <i class="fa fa-download text-primary"></i>
-                                <span class="nav-link-text">{{ __('Downloadable Materials') }}</span>
+                                <span class="nav-link-text">{{ __('Materials') }}</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                        <li class="nav-item {{ $elementName == 'announcement' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('announcement.index') }}">
                                 <i class="fa fa-bullhorn text-primary"></i>
                                 <span class="nav-link-text">{{ __('Announcements') }}</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                        <li class="nav-item {{ $elementName == 'assignment' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('assignment.index') }}">
                                 <i class="fa fa-tasks text-primary"></i>
                                 <span class="nav-link-text">{{ __('Assignments') }}</span>
                             </a>

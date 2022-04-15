@@ -158,20 +158,20 @@
                                 <span class="nav-link-text"><?php echo e(__('Backpack')); ?></span>
                             </a>
                         </li>
-                        <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
-                            <a class="nav-link" href="<?php echo e(route('page.index','calendar')); ?>">
+                        <li class="nav-item <?php echo e($elementName == 'material' ? 'active' : ''); ?>">
+                            <a class="nav-link" href="<?php echo e(route('material.index')); ?>">
                                 <i class="fa fa-download text-primary"></i>
-                                <span class="nav-link-text"><?php echo e(__('Downloadable Materials')); ?></span>
+                                <span class="nav-link-text"><?php echo e(__('Materials')); ?></span>
                             </a>
                         </li>
-                        <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
-                            <a class="nav-link" href="<?php echo e(route('page.index','calendar')); ?>">
+                        <li class="nav-item <?php echo e($elementName == 'announcement' ? 'active' : ''); ?>">
+                            <a class="nav-link" href="<?php echo e(route('announcement.index')); ?>">
                                 <i class="fa fa-bullhorn text-primary"></i>
                                 <span class="nav-link-text"><?php echo e(__('Announcements')); ?></span>
                             </a>
                         </li>
-                        <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
-                            <a class="nav-link" href="<?php echo e(route('page.index','calendar')); ?>">
+                        <li class="nav-item <?php echo e($elementName == 'assignment' ? 'active' : ''); ?>">
+                            <a class="nav-link" href="<?php echo e(route('assignment.index')); ?>">
                                 <i class="fa fa-tasks text-primary"></i>
                                 <span class="nav-link-text"><?php echo e(__('Assignments')); ?></span>
                             </a>

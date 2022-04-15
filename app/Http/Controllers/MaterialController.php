@@ -17,7 +17,7 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        $models = Material::orderby('id', 'desc')->get();
+        $models = Material::orderby('id', 'desc')->where('created_by', Auth::user()->id)->paginate(10);
         return view('materials.index', compact('models'));
     }
 
