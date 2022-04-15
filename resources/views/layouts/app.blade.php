@@ -41,9 +41,10 @@
         @if(!auth()->check() || in_array(request()->route()->getName(), ['welcome', 'page.pricing', 'page.lock']))
             @include('layouts.footers.guest')
         @endif
-
+        
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{ asset('public/admin/assets') }}/js/jquery-3.6.0.min.js"></script>
+        <script src="{{ asset('public/admin/assets/js/bootstrap.bundle.min.js') }}" crossorigin="anonymous"></script>
         <script src="{{ asset('public/admin/assets') }}/vendor/js-cookie/js.cookie.js"></script>
         <script src="{{ asset('public/admin/assets') }}/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
         <script src="{{ asset('public/admin/assets') }}/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
@@ -52,9 +53,10 @@
         <!-- Optional JS -->
         <script src="{{ asset('public/admin/assets') }}/vendor/chart.js/dist/Chart.min.js"></script>
         <script src="{{ asset('public/admin/assets') }}/vendor/chart.js/dist/Chart.extension.js"></script>
+        
 
         @stack('js')
-
+        
         <!-- Argon JS -->
         <script src="{{ asset('public/admin/assets') }}/js/argon.js?v=1.0.1"></script>
         <script src="{{ asset('public/admin/assets') }}/js/demo.min.js"></script>

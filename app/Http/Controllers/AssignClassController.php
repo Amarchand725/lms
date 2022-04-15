@@ -29,14 +29,13 @@ class AssignClassController extends Controller
 
     public function destroy($id)
     {
-        return $id; 
-        $model = Teacher::where('id', $id)->first();
+        $model = AssignClass::where('id', $id)->first();
         if($model){
-            User::where('id', $model->user_id)->delete();
-            
             $model->delete();
-            \LogActivity::addToLog('Teacher deleted');
-            return redirect()->route('teacher.index')->withStatus(__('Teacher successfully deleted.'));
+            \LogActivity::addToLog('Asigned class removed');
+            return true;
+        }else{
+            return false;
         }
     }
 }

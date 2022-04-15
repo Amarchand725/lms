@@ -11,30 +11,26 @@
             <li class="breadcrumb-item active" aria-current="page"><?php echo e(__('School Year:')); ?> <?php echo e($batch->year); ?></li>
         <?php echo $__env->renderComponent(); ?>
         <div class="row">
-            <div class="col-xl-3 col-md-6">
-                <div class="card card-stats">
-                    <div class="card-body">
-                        <?php $__currentLoopData = $assigned_classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $assigned): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="assigned">
-                                <div class="row">
-                                    <a href="" data-toggle="tooltip" data-placement="top" title="Show all students of this class">
-                                        <div class="col-auto">
-                                            <img src="<?php echo e(asset('public/admin/assets/img/brand/class-default-img.jpg')); ?>" width="200px" alt="">
-                                        </div>
-                                        <div class="col text-center">
-                                            <span class="h2 font-weight-bold mb-0"><?php echo e($assigned->hasStudyClass->name); ?></span>
-                                        </div>
-                                    </a>
+            <?php $__currentLoopData = $assigned_classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $assigned): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="col-xl-3 col-md-6 class-card">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <img src="<?php echo e(asset('public/admin/assets/img/brand/class-default-img.jpg')); ?>" width="200px" alt="">
                                 </div>
-                                <p class="mt-3 mb-0 text-sm">
-                                    <a class="text-danger mr-2" data-toggle="tooltip" data-placement="top" title="Remove Class" style="cursor: pointer" id="remove-btn-class" data-assigned-class-id="<?php echo e($assigned->id); ?>"><i class="fa fa-trash"></i> Remove</a>
-                                    
-                                </p>
+                                <div class="col text-center">
+                                    <span class="h2 font-weight-bold mb-0"><?php echo e($assigned->hasStudyClass->name); ?></span>
+                                </div>
                             </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <p class="mt-3 mb-0 text-sm">
+                                <input type="hidden" id="delete-url" value="<?php echo e(route('assigned_class.destroy', $assigned->id)); ?>">
+                                <a class="text-danger mr-2" data-toggle="tooltip" data-placement="top" title="Remove Class" style="cursor: pointer" id="remove-btn-class" ><i class="fa fa-trash"></i> Remove</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="add-classes-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -95,13 +91,15 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('js'); ?>
+    
     <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/chart.js/dist/Chart.extension.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).on('click', '#remove-btn-class', function(){
-            var assigned_class_id = $(this).attr('data-assigned-class-id');
+            var delete_url = $('#delete-url').val();
+            var card = $(this).parents('.class-card');
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -111,25 +109,33 @@
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url : "<?php echo e(url('assigned_class.destroy')); ?>/"+assigned_class_id,
-                    type : 'DELETE',
-                    success : function(result){
-
-                        console.log("===== " + result + " =====");
-
-                    }
-                });
-                /* if (result.isConfirmed) {
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
-                } */
+                if (result.isConfirmed) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url : delete_url,
+                        type : 'DELETE',
+                        success : function(response){
+                            if(response){
+                                card.hide();
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
+                            }else{
+                                Swal.fire(
+                                    'Not Deleted!',
+                                    'Sorry! Something went wrong.',
+                                    'danger'
+                                )
+                            }
+                        }
+                    });
+                }
             })
         });
         $(document).on('click', '.add-class-btn', function(){
