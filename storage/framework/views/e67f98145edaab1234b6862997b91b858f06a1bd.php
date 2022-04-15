@@ -1,7 +1,7 @@
 <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('public/admin/assets') }}/img/brand/logo.png" />
+        <a class="navbar-brand" href="<?php echo e(route('home')); ?>">
+            <img src="<?php echo e(asset('public/admin/assets')); ?>/img/brand/logo.png" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,8 +11,8 @@
             <div class="navbar-collapse-header">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="{{ route('home') }}">
-                            <img src="{{ asset('public/admin/assets') }}/img/brand/blue.png">
+                        <a href="<?php echo e(route('home')); ?>">
+                            <img src="<?php echo e(asset('public/admin/assets')); ?>/img/brand/blue.png">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -26,22 +26,22 @@
             <!-- Navbar items -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
-                        <span class="nav-link-inner--text">{{ __('Dashboard') }}</span>
+                    <a class="nav-link" href="<?php echo e(route('home')); ?>">
+                        <span class="nav-link-inner--text"><?php echo e(__('Dashboard')); ?></span>
                     </a>
                 </li>
-                @guest
+                <?php if(auth()->guard()->guest()): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">
-                            <span class="nav-link-inner--text">{{ __('Login') }}</span>
+                        <a class="nav-link" href="<?php echo e(route('login')); ?>">
+                            <span class="nav-link-inner--text"><?php echo e(__('Login')); ?></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">
-                            <span class="nav-link-inner--text">{{ __('Register') }}</span>
+                        <a class="nav-link" href="<?php echo e(route('register')); ?>">
+                            <span class="nav-link-inner--text"><?php echo e(__('Register')); ?></span>
                         </a>
                     </li>
-                @endguest
+                <?php endif; ?>
             </ul>
             <hr class="d-lg-none" />
             <ul class="navbar-nav align-items-lg-center ml-lg-auto">
@@ -67,3 +67,4 @@
         </div>
     </div>
 </nav>
+<?php /**PATH C:\xampp\htdocs\lms\resources\views/layouts/navbars/navs/guest.blade.php ENDPATH**/ ?>
