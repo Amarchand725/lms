@@ -1,3 +1,4 @@
+<?php $elementName = \Request::segment(1);  ?>
 <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner scroll-scrollx_visible">
         <div class="sidenav-header d-flex align-items-center">
@@ -188,7 +189,30 @@
                             </a>
                         </li>
                     <?php elseif(Auth::user()->hasRole('Student')): ?>
-                        <li>Student sidebar</li>
+                    <li class="nav-item <?php echo e($elementName == 'my-class' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(url('page.index','calendar')); ?>">
+                            <i class="fa fa-users text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('My Class')); ?></span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo e($elementName == 'notification' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(url('page.index','calendar')); ?>">
+                            <i class="fa fa-bell text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('Notification')); ?></span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo e($elementName == 'Message' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(url('page.index','calendar')); ?>">
+                            <i class="fa fa-envelope text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('Message')); ?></span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo e($elementName == 'backpack' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(url('page.index','calendar')); ?>">
+                            <i class="fa fa-shopping-bag text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('Backpack')); ?></span>
+                        </a>
+                    </li>
                     <?php endif; ?>
                 </ul>
             </div>

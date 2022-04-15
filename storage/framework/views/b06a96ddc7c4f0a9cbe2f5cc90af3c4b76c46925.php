@@ -10,6 +10,7 @@
 
             <li class="breadcrumb-item active" aria-current="page"><?php echo e(__('School Year:')); ?> <?php echo e($batch->year); ?></li>
         <?php echo $__env->renderComponent(); ?>
+        
         <div class="row">
             <?php $__currentLoopData = $assigned_classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $assigned): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-xl-3 col-md-6 class-card">

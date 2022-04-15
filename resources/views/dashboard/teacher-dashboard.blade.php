@@ -11,6 +11,7 @@
 
             <li class="breadcrumb-item active" aria-current="page">{{ __('School Year:') }} {{ $batch->year }}</li>
         @endcomponent
+        
         <div class="row">
             @foreach ($assigned_classes as $assigned)
                 <div class="col-xl-3 col-md-6 class-card">
