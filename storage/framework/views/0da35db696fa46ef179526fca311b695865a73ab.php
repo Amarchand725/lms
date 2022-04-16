@@ -40,7 +40,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col"><?php echo e(__('No#')); ?></th>
-                                    <th scope="col"><?php echo e(__('Study Class')); ?></th>
+                                    <th scope="col"><?php echo e(__('Title')); ?></th>
                                     <th scope="col"><?php echo e(__('Announcement')); ?></th>
                                     <th scope="col"><?php echo e(__('Status')); ?></th>
                                     <th scope="col"><?php echo e(__('Creation Date')); ?></th>
@@ -51,12 +51,12 @@
                                 <?php $__currentLoopData = $models; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$model): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr id="id-<?php echo e($model->id); ?>">
                                         <td><?php echo e($models->firstItem()+$key); ?>.</td>
-                                        <td><?php echo e(isset($model->hasStudyClass)?$model->hasStudyClass->name:'N/A'); ?></td>
-                                        <td><?php echo e($model->announcement); ?></td>
+                                        <td><?php echo \Illuminate\Support\Str::limit($model->title,40); ?></td>
+                                        <td><?php echo \Illuminate\Support\Str::limit($model->announcement,60); ?></td>
                                         <td>
                                             <?php if($model->status): ?>
                                                 <span class="badge badge-info">Active</span>
-                                            <?php else: ?> 
+                                            <?php else: ?>
                                                 <span class="badge badge-danger">In-Active</span>
                                             <?php endif; ?>
                                         </td>
@@ -69,7 +69,7 @@
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                     <a class="dropdown-item" href="<?php echo e(route('announcement.edit', $model)); ?>"><?php echo e(__('Edit')); ?></a>
                                                     <a class="dropdown-item" href="<?php echo e(route('announcement.show', $model)); ?>"><?php echo e(__('Show')); ?></a>
-                                                
+
                                                     <form action="<?php echo e(route('announcement.destroy', $model->id)); ?>" method="post">
                                                         <?php echo csrf_field(); ?>
                                                         <?php echo method_field('delete'); ?>

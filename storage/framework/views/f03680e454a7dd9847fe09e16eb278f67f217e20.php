@@ -39,7 +39,8 @@
                         <table class="table align-items-center table-flush"  id="datatable-basic">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col"><?php echo e(__('Study Class')); ?></th>
+                                    <th scope="col"><?php echo e(__('No#')); ?></th>
+                                    <th scope="col"><?php echo e(__('File')); ?></th>
                                     <th scope="col"><?php echo e(__('File Name')); ?></th>
                                     <?php if(Auth::user()->hasRole('Admin')): ?>
                                         <th scope="col"><?php echo e(__('Upload By')); ?></th>
@@ -51,18 +52,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $__currentLoopData = $models; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $model): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php $__currentLoopData = $models; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$model): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td><?php echo e(isset($model->hasStudyClass)?$model->hasStudyClass->name:'N/A'); ?></td>
-                                        <td><?php echo e($model->file_name); ?></td>
+                                        <td><?php echo e($models->firstItem()+$key); ?>.</td>
+                                        <td>
+                                            <a href="<?php echo e(route('assignment.show', $model->id)); ?>" data-toggle="tooltip" data-placement="top" title="Show File">
+                                                <img src="<?php echo e(asset('public/admin/assets/assignments/file.png')); ?>" width="80px" alt="">
+                                            </a>
+                                        </td>
+                                        <td><?php echo e($model->name); ?></td>
                                         <?php if(Auth::user()->hasRole('Admin')): ?>
                                             <td><?php echo e(isset($model->hasUser)?$model->hasUser->name:'N/A'); ?></td>
                                         <?php endif; ?>
-                                        <td><?php echo e($model->description); ?></td>
+									    <td><?php echo \Illuminate\Support\Str::limit($model->description,60); ?></td>
                                         <td>
                                             <?php if($model->status): ?>
                                                 <span class="badge badge-info">Active</span>
-                                            <?php else: ?> 
+                                            <?php else: ?>
                                                 <span class="badge badge-info">Active</span>
                                             <?php endif; ?>
                                         </td>
@@ -74,7 +80,8 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                     <a class="dropdown-item" href="<?php echo e(route('assignment.edit', $model)); ?>"><?php echo e(__('Edit')); ?></a>
-                                                
+                                                    <a class="dropdown-item" href="<?php echo e(route('assignment.show', $model)); ?>"><?php echo e(__('Show')); ?></a>
+
                                                     <form action="<?php echo e(route('assignment.destroy', $model->id)); ?>" method="post">
                                                         <?php echo csrf_field(); ?>
                                                         <?php echo method_field('delete'); ?>
@@ -89,6 +96,15 @@
                                         </td>
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <tr>
+                                    <td colspan="8">
+                                        Displying <?php echo e($models->firstItem()); ?> to <?php echo e($models->lastItem()); ?> of <?php echo e($models->total()); ?> records
+                                        <div class="d-flex justify-content-center">
+                                            <?php echo $models->links('pagination::bootstrap-4'); ?>
+
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

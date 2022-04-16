@@ -39,13 +39,27 @@
                         <table class="table align-items-center table-flush"  id="datatable-basic">
                             <tbody>
 								<tr>
-									<th>Class</th>
-									<td><?php echo e($announcement->hasStudyClass->name); ?></td>
+									<th>Title</th>
+									<td><?php echo e($announcement->title); ?></td>
 								</tr>
-								
+                                <tr>
+									<th>Assigned to classes</th>
+									<td>
+                                        <ul>
+                                            <?php $__currentLoopData = $announcement->hasAssignedClasses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $class): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <li><?php echo e($class->hasStudyClass->name); ?></li>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </ul>
+                                    </td>
+								</tr>
 								<tr>
 									<th>Announcement</th>
 									<td><?php echo e($announcement->announcement); ?></td>
+								</tr>
+
+                                <tr>
+									<th>Created By</th>
+									<td><?php echo e($announcement->hasCreatedBy->name); ?></td>
 								</tr>
 								<tr>
 									<th>Created at</th>
@@ -56,7 +70,7 @@
 									<td>
 										<?php if($announcement->status): ?>
 											<span class="badge badge-success">Active</span>
-										<?php else: ?> 
+										<?php else: ?>
 											<span class="badge badge-danger">In-Active</span>
 										<?php endif; ?>
 									</td>

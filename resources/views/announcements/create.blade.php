@@ -37,24 +37,57 @@
 
                             <h6 class="heading-small text-muted mb-4">{{ __('Announcement information') }}</h6>
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('study_class_id') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-study_class_id">{{ __('Study Class') }}</label>
-                                    <select name="study_class_id" id="input-study_class_id" class="form-control">
-                                        <option value="" selected>Select class</option>
-                                        @foreach ($study_classes as $study_class)
-                                            <option value="{{ $study_class->hasStudyClass->id }}">{{ $study_class->hasStudyClass->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @include('alerts.feedback', ['field' => 'study_class_id'])
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-announcement">{{ __('Announcement') }}</label>
-                                    <textarea name="announcement" id="input-announcement" rows="10" class="form-control" placeholder="Enter announcement"></textarea>
-                                </div>
-
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-title">{{ __('Title') }}</label>
+                                            <input type="text" id="input-title" class="form-control" name="title" placeholder="Enter title">
+                                            @include('alerts.feedback', ['field' => 'announcement'])
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-announcement">{{ __('Announcement') }}</label>
+                                            <textarea name="announcement" id="input-announcement" rows="5" class="form-control" placeholder="Enter announcement"></textarea>
+                                            @include('alerts.feedback', ['field' => 'announcement'])
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="form-control-label" for="input-name">{{ __('Check The Class you want to put this file.') }}</label>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="checkboxes">
+                                                            <label class="form-check-label" for="checkboxes">
+                                                              Check All
+                                                            </label>
+                                                        </div>
+                                                    </th>
+                                                    <th>Study Class</th>
+                                                    <th>Subject Code</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($assigned_classes as $class)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input individual" name="assigned_to_classes[]" type="checkbox" value="{{ $class->study_class_id }}" id="flexCheckDefault">
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ $class->hasStudyClass->name }}</td>
+                                                        <td>{{ $class->hasSubject->code }}</td>
+                                                    </tr>
+                                                @endforeach
+                                                {{ $errors->first('assigned_to_classes.*') }}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -66,3 +99,10 @@
         @include('layouts.footers.auth')
     </div>
 @endsection
+@push('js')
+    <script>
+        $("#checkboxes").click(function(){
+            $(".individual").prop("checked",$(this).prop("checked"));
+        });
+    </script>
+@endpush

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssignmentsTable extends Migration
+class CreateReadNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateAssignmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assignments', function (Blueprint $table) {
+        Schema::create('read_notifications', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('created_by');
-            $table->string('name');
-            $table->string('description');
-            $table->string('file');
-            $table->boolean('status')->default(1);
-            $table->string('deleted_at')->nullable();
+            $table->bigInteger('notification_id');
+            $table->bigInteger('user_id')->comment('student id');
+            $table->boolean('status')->default(0)->comment('0=unread, 1=read');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateAssignmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assignments');
+        Schema::dropIfExists('read_notifications');
     }
 }

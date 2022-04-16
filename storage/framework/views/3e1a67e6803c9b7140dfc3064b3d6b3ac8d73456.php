@@ -52,8 +52,6 @@
                                             <label class="form-control-label" for="input-description"><?php echo e(__('Description')); ?></label>
                                             <textarea name="description" id="input-description" class="form-control" placeholder="Enter description"></textarea>
                                         </div>
-
-                                        
                                     </div>
                                     <div class="col-sm-6">
                                         <label class="form-control-label" for="input-name"><?php echo e(__('Check The Class you want to put this file.')); ?></label>
@@ -66,7 +64,7 @@
                                                             <label class="form-check-label" for="checkboxes">
                                                               Check All
                                                             </label>
-                                                        </div>    
+                                                        </div>
                                                     </th>
                                                     <th>Study Class</th>
                                                     <th>Subject Code</th>
@@ -77,13 +75,15 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-check">
-                                                                <input class="form-check-input individual" name="assignment_assigned[<?php echo e($class->study_class_id); ?>][]" type="checkbox" value="1" id="flexCheckDefault">
+                                                                <input class="form-check-input individual" name="assigned_to_classes[]" type="checkbox" value="<?php echo e($class->study_class_id); ?>" id="flexCheckDefault">
                                                             </div>
                                                         </td>
                                                         <td><?php echo e($class->hasStudyClass->name); ?></td>
                                                         <td><?php echo e($class->hasSubject->code); ?></td>
                                                     </tr>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                <?php echo e($errors->first('assigned_to_classes.*')); ?>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -110,6 +110,7 @@
         });
     </script>
 <?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('layouts.app', [
     'title' => __('Assignment Management'),
     'parentSection' => 'laravel',

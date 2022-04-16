@@ -43,7 +43,8 @@
                         <table class="table align-items-center table-flush"  id="datatable-basic">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">{{ __('Study Class') }}</th>
+                                    <th scope="col">{{ __('No#') }}</th>
+                                    <th scope="col">{{ __('File') }}</th>
                                     <th scope="col">{{ __('File Name') }}</th>
                                     @if(Auth::user()->hasRole('Admin'))
                                         <th scope="col">{{ __('Upload By') }}</th>
@@ -55,18 +56,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($models as $model)
+                                @foreach ($models as $key=>$model)
                                     <tr>
-                                        <td>{{ isset($model->hasStudyClass)?$model->hasStudyClass->name:'N/A' }}</td>
-                                        <td>{{ $model->file_name }}</td>
+                                        <td>{{  $models->firstItem()+$key }}.</td>
+                                        <td>
+                                            <a href="{{ route('assignment.show', $model->id) }}" data-toggle="tooltip" data-placement="top" title="Show File">
+                                                <img src="{{ asset('public/admin/assets/assignments/file.png') }}" width="80px" alt="">
+                                            </a>
+                                        </td>
+                                        <td>{{ $model->name }}</td>
                                         @if(Auth::user()->hasRole('Admin'))
                                             <td>{{ isset($model->hasUser)?$model->hasUser->name:'N/A' }}</td>
                                         @endif
-                                        <td>{{ $model->description }}</td>
+									    <td>{!! \Illuminate\Support\Str::limit($model->description,60) !!}</td>
                                         <td>
                                             @if($model->status)
                                                 <span class="badge badge-info">Active</span>
-                                            @else 
+                                            @else
                                                 <span class="badge badge-info">Active</span>
                                             @endif
                                         </td>
@@ -78,7 +84,8 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                     <a class="dropdown-item" href="{{ route('assignment.edit', $model) }}">{{ __('Edit') }}</a>
-                                                
+                                                    <a class="dropdown-item" href="{{ route('assignment.show', $model) }}">{{ __('Show') }}</a>
+
                                                     <form action="{{ route('assignment.destroy', $model->id) }}" method="post">
                                                         @csrf
                                                         @method('delete')
@@ -92,6 +99,14 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                <tr>
+                                    <td colspan="8">
+                                        Displying {{$models->firstItem()}} to {{$models->lastItem()}} of {{$models->total()}} records
+                                        <div class="d-flex justify-content-center">
+                                            {!! $models->links('pagination::bootstrap-4') !!}
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

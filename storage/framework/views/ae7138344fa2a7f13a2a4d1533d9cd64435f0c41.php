@@ -32,24 +32,58 @@
 
                             <h6 class="heading-small text-muted mb-4"><?php echo e(__('Announcement information')); ?></h6>
                             <div class="pl-lg-4">
-                                <div class="form-group<?php echo e($errors->has('study_class_id') ? ' has-danger' : ''); ?>">
-                                    <label class="form-control-label" for="input-study_class_id"><?php echo e(__('Study Class')); ?></label>
-                                    <select name="study_class_id" id="input-study_class_id" class="form-control">
-                                        <option value="" selected>Select class</option>
-                                        <?php $__currentLoopData = $study_classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $study_class): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($study_class->hasStudyClass->id); ?>"><?php echo e($study_class->hasStudyClass->name); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-title"><?php echo e(__('Title')); ?></label>
+                                            <input type="text" id="input-title" class="form-control" name="title" placeholder="Enter title">
+                                            <?php echo $__env->make('alerts.feedback', ['field' => 'announcement'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-announcement"><?php echo e(__('Announcement')); ?></label>
+                                            <textarea name="announcement" id="input-announcement" rows="5" class="form-control" placeholder="Enter announcement"></textarea>
+                                            <?php echo $__env->make('alerts.feedback', ['field' => 'announcement'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="form-control-label" for="input-name"><?php echo e(__('Check The Class you want to put this file.')); ?></label>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="checkboxes">
+                                                            <label class="form-check-label" for="checkboxes">
+                                                              Check All
+                                                            </label>
+                                                        </div>
+                                                    </th>
+                                                    <th>Study Class</th>
+                                                    <th>Subject Code</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $__currentLoopData = $assigned_classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $class): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input individual" name="assigned_to_classes[]" type="checkbox" value="<?php echo e($class->study_class_id); ?>" id="flexCheckDefault">
+                                                            </div>
+                                                        </td>
+                                                        <td><?php echo e($class->hasStudyClass->name); ?></td>
+                                                        <td><?php echo e($class->hasSubject->code); ?></td>
+                                                    </tr>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                <?php echo e($errors->first('assigned_to_classes.*')); ?>
 
-                                    <?php echo $__env->make('alerts.feedback', ['field' => 'study_class_id'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-announcement"><?php echo e(__('Announcement')); ?></label>
-                                    <textarea name="announcement" id="input-announcement" rows="10" class="form-control" placeholder="Enter announcement"></textarea>
-                                </div>
-
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-success mt-4"><?php echo e(__('Save')); ?></button>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-success mt-4"><?php echo e(__('Save')); ?></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -61,6 +95,14 @@
         <?php echo $__env->make('layouts.footers.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
 <?php $__env->stopSection(); ?>
+<?php $__env->startPush('js'); ?>
+    <script>
+        $("#checkboxes").click(function(){
+            $(".individual").prop("checked",$(this).prop("checked"));
+        });
+    </script>
+<?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('layouts.app', [
     'title' => __('Announcement Management'),
     'parentSection' => 'laravel',

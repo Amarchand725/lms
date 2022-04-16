@@ -19,4 +19,16 @@ class Assignment extends Model
     {
         return $this->hasOne(StudyClass::class, 'id', 'study_class_id');
     }
+    public function hasAssignedClass()
+    {
+        return $this->hasOne(AssignedClass::class, 'notify_id', 'id')->where('notify_type', 'assignment');
+    }
+    public function hasAssignedClasses()
+    {
+        return $this->hasMany(AssignedClass::class, 'notify_id', 'id')->where('notify_type', 'assignment');
+    }
+    public function hasCreatedBy()
+    {
+        return $this->hasOne(User::class, 'id', 'created_by');
+    }
 }

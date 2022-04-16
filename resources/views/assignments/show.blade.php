@@ -1,17 +1,17 @@
 @extends('layouts.app', [
-    'title' => __('Announcement Management'),
+    'title' => __('Assignment Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'announcement-management'
+    'elementName' => 'assignment-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Announcements') }}
+                {{ __('Assignments') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('announcement.index') }}">{{ __('Announcement Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('assignment.index') }}">{{ __('Assignment Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Show') }}</li>
         @endcomponent
     @endcomponent
@@ -23,13 +23,13 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Announcements') }}</h3>
+                                <h3 class="mb-0">{{ __('Assignments') }}</h3>
                                 <p class="text-sm mb-0">
-									{{ __('This is an example of announcement management. This is a minimal setup in order to get started fast.') }}
+									{{ __('This is an example of assignment management. This is a minimal setup in order to get started fast.') }}
 								</p>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('announcement.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('assignment.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
@@ -43,36 +43,41 @@
                         <table class="table align-items-center table-flush"  id="datatable-basic">
                             <tbody>
 								<tr>
-									<th>Title</th>
-									<td>{{ $announcement->title }}</td>
-								</tr>
-                                <tr>
 									<th>Assigned to classes</th>
 									<td>
                                         <ul>
-                                            @foreach ($announcement->hasAssignedClasses as $class)
+                                            @foreach ($assignment->hasAssignedClases as $class)
                                                 <li>{{ $class->hasStudyClass->name }}</li>
                                             @endforeach
                                         </ul>
                                     </td>
 								</tr>
-								<tr>
-									<th>Announcement</th>
-									<td>{{ $announcement->announcement }}</td>
-								</tr>
-
                                 <tr>
-									<th>Created By</th>
-									<td>{{ $announcement->hasCreatedBy->name }}</td>
+									<th>File Name</th>
+									<td>{{ $assignment->name }}</td>
+								</tr>
+								<tr>
+									<th>Description</th>
+									<td>{{ $assignment->description }}</td>
+								</tr>
+								<tr>
+									<th>File</th>
+									<td>
+										<img src="{{ asset('public/admin/assets/assignments') }}/{{ $assignment->file }}" width="200px" alt="">
+									</td>
+								</tr>
+								<tr>
+									<th>Uploaded By</th>
+									<td>{{ isset($assignment->hasCreatedBy)?$assignment->hasCreatedBy->name:'N/A' }}</td>
 								</tr>
 								<tr>
 									<th>Created at</th>
-									<td>{{ date('d, M-Y H:i A', strtotime($announcement->created_at)) }}</td>
+									<td>{{ date('d, M-Y H:i A', strtotime($assignment->created_at)) }}</td>
 								</tr>
 								<tr>
 									<th>Status</th>
 									<td>
-										@if($announcement->status)
+										@if($assignment->status)
 											<span class="badge badge-success">Active</span>
 										@else
 											<span class="badge badge-danger">In-Active</span>

@@ -16,7 +16,7 @@ class CreateAnnouncementsTable extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('created_by');
-            $table->bigInteger('study_class_id');
+            $table->string('title');
             $table->text('announcement');
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();

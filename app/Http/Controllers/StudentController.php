@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Student;
 use App\Models\StudyClass;
 use App\Models\User;
+use App\Models\SchoolYear;
 
 class StudentController extends Controller
 {
@@ -57,8 +58,10 @@ class StudentController extends Controller
 
         if($user){
             $user->assignRole('Student');
+            $batch = SchoolYear::orderby('id', 'desc')->where('status', 1)->first();
             Student::create([
                 'user_id' => $user->id,
+                'batch_id' => $batch->id,
                 'study_class_id' => $request->study_class_id,
                 'student_id' => $request->student_id,
                 'first_name' => $request->first_name,
@@ -155,7 +158,7 @@ class StudentController extends Controller
         $model = Student::where('id', $id)->first();
         if($model){
             User::where('id', $model->user_id)->delete();
-            
+
             $model->delete();
             \LogActivity::addToLog('Student Deleted');
             return redirect()->route('student.index')->withStatus(__('Student successfully deleted.'));

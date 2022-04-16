@@ -21,17 +21,6 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
-<<<<<<< HEAD
-                    
-                    @if(Auth::user()->hasRole('Admin'))
-
-                    <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('home') }}">
-                            <i class="ni ni-shop text-primary"></i>
-                            <span class="nav-link-text">{{ __('Dashboard') }}</span>
-                        </a>
-                    </li>
-=======
                     @if(Auth::user()->hasRole('Admin'))
                         <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('home') }}">
@@ -39,15 +28,14 @@
                                 <span class="nav-link-text">{{ __('Dashboard') }}</span>
                             </a>
                         </li>
-                   
->>>>>>> f357a2468a5d9a4ea206454b9e7de5a1b382e97a
+
                         <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('page.index','calendar') }}">
                                 <i class="ni ni-calendar-grid-58 text-primary"></i>
                                 <span class="nav-link-text">{{ __('Calendar') }}</span>
                             </a>
                         </li>
-                    
+
                         <li class="nav-item {{ $elementName == 'charts' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('page.index','charts') }}">
                                 <i class="ni ni-chart-pie-35 text-primary"></i>

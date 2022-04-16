@@ -34,36 +34,65 @@
 
                             <h6 class="heading-small text-muted mb-4"><?php echo e(__('Announcement information')); ?></h6>
                             <div class="pl-lg-4">
-                                <div class="form-group<?php echo e($errors->has('study_class_id') ? ' has-danger' : ''); ?>">
-                                    <label class="form-control-label" for="input-department"><?php echo e(__('Study Class')); ?></label>
-                                    <select name="study_class_id" id="input-department" class="form-control">
-                                        <option value="" selected>Select study class</option>
-                                        <?php $__currentLoopData = $study_classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $study_class): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($study_class->hasStudyClass->id); ?>" <?php echo e($study_class->hasStudyClass->id==$announcement->study_class_id?'selected':''); ?>><?php echo e($study_class->hasStudyClass->name); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </select>
-
-                                    <?php echo $__env->make('alerts.feedback', ['field' => 'study_class_id'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </div>
                                 
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-announcement"><?php echo e(__('announcement')); ?></label>
-                                    <textarea name="announcement" id="input-announcement" class="form-control" placeholder="Enter announcement"><?php echo e($announcement->announcement); ?></textarea>
-                                </div>
 
-                                <?php echo $__env->make('alerts.feedback', ['field' => 'announcement'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                <div class="form-group<?php echo e($errors->has('status') ? ' has-danger' : ''); ?>">
-                                    <label class="form-control-label" for="input-status"><?php echo e(__('Status')); ?></label>
-                                    <select name="status" id="input-status" class="form-control">
-                                        <option value="1" <?php echo e($announcement->status==1?'selected':''); ?>>Active</option>
-                                        <option value="0" <?php echo e($announcement->status==0?'selected':''); ?>>In-Active</option>
-                                    </select>
-
-                                    <?php echo $__env->make('alerts.feedback', ['field' => 'status'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </div>
-                               
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-success mt-4"><?php echo e(__('Save')); ?></button>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-title"><?php echo e(__('Title')); ?></label>
+                                            <input type="text" id="input-title" value="<?php echo e($announcement->title); ?>" class="form-control" name="title" placeholder="Enter title">
+                                            <?php echo $__env->make('alerts.feedback', ['field' => 'announcement'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-announcement"><?php echo e(__('Announcement')); ?></label>
+                                            <textarea name="announcement" id="input-announcement" rows="5" class="form-control" placeholder="Enter announcement"><?php echo e($announcement->announcement); ?></textarea>
+                                            <?php echo $__env->make('alerts.feedback', ['field' => 'announcement'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="form-control-label" for="input-name"><?php echo e(__('Check The Class you want to put this file.')); ?></label>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="checkboxes">
+                                                            <label class="form-check-label" for="checkboxes">
+                                                              Check All
+                                                            </label>
+                                                        </div>
+                                                    </th>
+                                                    <th>Study Class</th>
+                                                    <th>Subject Code</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $__currentLoopData = $assigned_classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $class): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <?php if(isset($announcement->hasAssignedClass)?$announcement->hasAssignedClass->hasStudyClass->id==$class->hasStudyClass->id:0): ?>
+                                                                    <input class="form-check-input individual" checked name="assigned_to_classes[]" type="checkbox" value="<?php echo e($class->study_class_id); ?>" id="flexCheckDefault">
+                                                                <?php else: ?>
+                                                                    <input class="form-check-input individual" name="assigned_to_classes[]" type="checkbox" value="<?php echo e($class->study_class_id); ?>" id="flexCheckDefault">
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </td>
+                                                        <td><?php echo e($class->hasStudyClass->name); ?></td>
+                                                        <td><?php echo e($class->hasSubject->code); ?></td>
+                                                    </tr>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                <tr>
+                                                    <td><?php echo e($errors->first('assigned_to_classes.*')); ?></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-success mt-4"><?php echo e(__('Save')); ?></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

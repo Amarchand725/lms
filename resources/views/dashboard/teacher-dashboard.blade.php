@@ -11,14 +11,10 @@
 
             <li class="breadcrumb-item active" aria-current="page">{{ __('School Year:') }} {{ $batch->year }}</li>
         @endcomponent
-<<<<<<< HEAD
-        
-=======
         <div class="col-12 mt-2">
             @include('alerts.success')
             @include('alerts.errors')
         </div>
->>>>>>> f357a2468a5d9a4ea206454b9e7de5a1b382e97a
         <div class="row">
             @foreach ($assigned_classes as $assigned)
                 <div class="col-xl-3 col-md-6 class-card">
@@ -100,7 +96,7 @@
 @endsection
 
 @push('js')
-    
+
     <script src="{{ asset('public/admin/assets') }}/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="{{ asset('public/admin/assets') }}/vendor/chart.js/dist/Chart.extension.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -5,16 +5,16 @@
 ])
 
 @section('content')
-    @component('layouts.headers.auth') 
+    @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
-            @slot('title') 
-                {{ __('Student') }} 
+            @slot('title')
+                {{ __('Student') }}
             @endslot
 
             <li class="breadcrumb-item"><a href="{{ route('student.index') }}">{{ __('student Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Edit Student') }}</li>
         @endcomponent
-    @endcomponent   
+    @endcomponent
 
     <div class="container-fluid mt--6">
         <div class="row">
@@ -37,19 +37,6 @@
 
                             <h6 class="heading-small text-muted mb-4">{{ __('student information') }}</h6>
                             <div class="pl-lg-4">
-                                {{-- <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', $model->name) }}" required autofocus>
-
-                                    @include('alerts.feedback', ['field' => 'name'])
-                                </div>
-                                <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                    <textarea name="description" id="input-description" cols="30" rows="10" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}">{{ old('description', $model->description) }}</textarea>
-
-                                    @include('alerts.feedback', ['field' => 'description'])
-                                </div> --}}
-
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group{{ $errors->has('study_class') ? ' has-danger' : '' }}">
@@ -60,7 +47,7 @@
                                                     <option value="{{ $study_class->id }}" {{ $model->study_class_id==$study_class->id?'selected':'' }}>{{ $study_class->name }}</option>
                                                 @endforeach
                                             </select>
-        
+
                                             @include('alerts.feedback', ['field' => 'study_class'])
                                         </div>
                                     </div>
@@ -113,7 +100,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group{{ $errors->has('location') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-location">{{ __('Location') }}</label>
                                     <textarea name="location" id="input-location" class="form-control{{ $errors->has('location') ? ' is-invalid' : '' }}" placeholder="{{ __('Location') }}">{{ $model->location }}</textarea>
@@ -140,7 +127,7 @@
                 </div>
             </div>
         </div>
-        
+
         @include('layouts.footers.auth')
     </div>
 @endsection

@@ -44,7 +44,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">{{ __('No#') }}</th>
-                                    <th scope="col">{{ __('Study Class') }}</th>
+                                    <th scope="col">{{ __('Title') }}</th>
                                     <th scope="col">{{ __('Announcement') }}</th>
                                     <th scope="col">{{ __('Status') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
@@ -55,12 +55,12 @@
                                 @foreach ($models as $key=>$model)
                                     <tr id="id-{{ $model->id }}">
                                         <td>{{  $models->firstItem()+$key }}.</td>
-                                        <td>{{ isset($model->hasStudyClass)?$model->hasStudyClass->name:'N/A' }}</td>
-                                        <td>{{ $model->announcement }}</td>
+                                        <td>{!! \Illuminate\Support\Str::limit($model->title,40) !!}</td>
+                                        <td>{!! \Illuminate\Support\Str::limit($model->announcement,60) !!}</td>
                                         <td>
                                             @if($model->status)
                                                 <span class="badge badge-info">Active</span>
-                                            @else 
+                                            @else
                                                 <span class="badge badge-danger">In-Active</span>
                                             @endif
                                         </td>
@@ -73,7 +73,7 @@
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                     <a class="dropdown-item" href="{{ route('announcement.edit', $model) }}">{{ __('Edit') }}</a>
                                                     <a class="dropdown-item" href="{{ route('announcement.show', $model) }}">{{ __('Show') }}</a>
-                                                
+
                                                     <form action="{{ route('announcement.destroy', $model->id) }}" method="post">
                                                         @csrf
                                                         @method('delete')

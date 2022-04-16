@@ -21,17 +21,6 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
-<<<<<<< HEAD
-                    
-                    <?php if(Auth::user()->hasRole('Admin')): ?>
-
-                    <li class="nav-item <?php echo e($elementName == 'dashboard' ? 'active' : ''); ?>">
-                        <a class="nav-link" href="<?php echo e(route('home')); ?>">
-                            <i class="ni ni-shop text-primary"></i>
-                            <span class="nav-link-text"><?php echo e(__('Dashboard')); ?></span>
-                        </a>
-                    </li>
-=======
                     <?php if(Auth::user()->hasRole('Admin')): ?>
                         <li class="nav-item <?php echo e($elementName == 'dashboard' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('home')); ?>">
@@ -39,15 +28,14 @@
                                 <span class="nav-link-text"><?php echo e(__('Dashboard')); ?></span>
                             </a>
                         </li>
-                   
->>>>>>> f357a2468a5d9a4ea206454b9e7de5a1b382e97a
+
                         <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('page.index','calendar')); ?>">
                                 <i class="ni ni-calendar-grid-58 text-primary"></i>
                                 <span class="nav-link-text"><?php echo e(__('Calendar')); ?></span>
                             </a>
                         </li>
-                    
+
                         <li class="nav-item <?php echo e($elementName == 'charts' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('page.index','charts')); ?>">
                                 <i class="ni ni-chart-pie-35 text-primary"></i>
