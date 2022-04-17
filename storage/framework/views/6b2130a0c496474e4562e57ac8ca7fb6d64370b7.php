@@ -177,12 +177,13 @@
                                 <span class="nav-link-text"><?php echo e(__('Assignments')); ?></span>
                             </a>
                         </li>
-                        <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
-                            <a class="nav-link" href="<?php echo e(route('page.index','calendar')); ?>">
+                        <li class="nav-item <?php echo e($elementName == 'quiz' ? 'active' : ''); ?>">
+                            <a class="nav-link" href="<?php echo e(route('quiz.index')); ?>">
                                 <i class="fa fa-question text-primary"></i>
                                 <span class="nav-link-text"><?php echo e(__('Quiz')); ?></span>
                             </a>
                         </li>
+
                         <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('page.index','calendar')); ?>">
                                 <i class="fa fa-share-alt text-primary"></i>

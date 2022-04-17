@@ -2,12 +2,15 @@
     <?php $__env->startComponent('layouts.headers.auth'); ?>
         <?php $__env->startComponent('layouts.headers.breadcrumbs'); ?>
             <?php $__env->slot('title'); ?>
-                <?php echo e(__('Announcement')); ?>
+                <?php echo e(__('Class Quiz')); ?>
 
             <?php $__env->endSlot(); ?>
+            <div class="col-12 mt-2">
+                <?php echo $__env->make('alerts.success', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                <?php echo $__env->make('alerts.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            </div>
 
-            <li class="breadcrumb-item"><a href="<?php echo e(route('announcement.index')); ?>"><?php echo e(__('Announcement Management')); ?></a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?php echo e(__('Add Announcement')); ?></li>
+            <li class="breadcrumb-item"><a href="<?php echo e(route('quiz.index')); ?>"><?php echo e(__('Class Quiz Management')); ?></a></li>
         <?php echo $__env->renderComponent(); ?>
     <?php echo $__env->renderComponent(); ?>
 
@@ -18,31 +21,36 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0"><?php echo e(__('Announcement Management')); ?></h3>
+                                <h3 class="mb-0"><?php echo e(__('Class Quiz Management')); ?></h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="<?php echo e(route('announcement.index')); ?>" class="btn btn-sm btn-primary"><?php echo e(__('Back to list')); ?></a>
+                                <a href="<?php echo e(route('quiz.index')); ?>" class="btn btn-sm btn-primary"><?php echo e(__('Back to list')); ?></a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="<?php echo e(route('announcement.store')); ?>" autocomplete="off"
+                        <form method="post" action="<?php echo e(route('study_class_quiz.store')); ?>" autocomplete="off"
                             enctype="multipart/form-data">
                             <?php echo csrf_field(); ?>
 
-                            <h6 class="heading-small text-muted mb-4"><?php echo e(__('Announcement information')); ?></h6>
+                            <h6 class="heading-small text-muted mb-4"><?php echo e(__('Class Quiz information')); ?></h6>
                             <div class="pl-lg-4">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-title"><?php echo e(__('Title')); ?></label>
-                                            <input type="text" id="input-title" class="form-control" name="title" placeholder="Enter title">
-                                            <?php echo $__env->make('alerts.feedback', ['field' => 'announcement'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                            <label class="form-control-label" for="input-quiz"><?php echo e(__('Quiz')); ?> <span style="color: red">*</span></label>
+                                            <select name="quiz_id" id="input-quiz" class="form-control">
+                                                <option value="" selected>Select Quiz</option>
+                                                <?php $__currentLoopData = $quizzes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quiz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($quiz->id); ?>"><?php echo e($quiz->title); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+                                            <?php echo $__env->make('alerts.feedback', ['field' => 'quiz_id'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-announcement"><?php echo e(__('Announcement')); ?></label>
-                                            <textarea name="announcement" id="input-announcement" rows="5" class="form-control" placeholder="Enter announcement"></textarea>
-                                            <?php echo $__env->make('alerts.feedback', ['field' => 'announcement'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                            <label class="form-control-label" for="input-quiz_time"><?php echo e(__('Test Time (in minutes)')); ?> <span style="color: red">*</span></label>
+                                            <input type="text" id="input-quiz_time" class="form-control" name="quiz_time" placeholder="Enter time in minutes e.g 5 or 10">
+                                            <?php echo $__env->make('alerts.feedback', ['field' => 'quiz_time'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -104,7 +112,7 @@
 <?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', [
-    'title' => __('Announcement Management'),
+    'title' => __('Class Quiz Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'announcement-management'
-], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lms\resources\views/announcements/create.blade.php ENDPATH**/ ?>
+    'elementName' => 'study_class_quiz-management'
+], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lms\resources\views/class_quizzes/create.blade.php ENDPATH**/ ?>

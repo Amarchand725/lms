@@ -40,10 +40,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('content', 'ContentController');
     Route::resource('school_year', 'SchoolYearController');
     Route::resource('permission', 'PermissionController');
-
     //teacher
     Route::resource('assigned_class', 'AssignClassController');
-    
+    Route::resource('quiz', 'QuizController');
+    Route::resource('question', 'QuestionController');
+    Route::resource('study_class_quiz', 'StudyClassQuizController');
+
     Route::get('activity_log', 'Admin\AdminController@activityLogs')->name('activity_log.index');
     Route::get('log/index', 'Admin\AdminController@userLogs')->name('log.index');
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);

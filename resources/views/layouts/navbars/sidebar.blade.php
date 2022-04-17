@@ -179,12 +179,13 @@
                                 <span class="nav-link-text">{{ __('Assignments') }}</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                        <li class="nav-item {{ $elementName == 'quiz' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('quiz.index') }}">
                                 <i class="fa fa-question text-primary"></i>
                                 <span class="nav-link-text">{{ __('Quiz') }}</span>
                             </a>
                         </li>
+
                         <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('page.index','calendar') }}">
                                 <i class="fa fa-share-alt text-primary"></i>

@@ -2,11 +2,11 @@
     <?php $__env->startComponent('layouts.headers.auth'); ?>
         <?php $__env->startComponent('layouts.headers.breadcrumbs'); ?>
             <?php $__env->slot('title'); ?>
-                <?php echo e(__('Announcements')); ?>
+                <?php echo e(__('Quizzes')); ?>
 
             <?php $__env->endSlot(); ?>
 
-            <li class="breadcrumb-item"><a href="<?php echo e(route('announcement.index')); ?>"><?php echo e(__('Announcement Management')); ?></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo e(route('quiz.index')); ?>"><?php echo e(__('Quiz Management')); ?></a></li>
             <li class="breadcrumb-item active" aria-current="page"><?php echo e(__('List')); ?></li>
         <?php echo $__env->renderComponent(); ?>
     <?php echo $__env->renderComponent(); ?>
@@ -18,14 +18,15 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0"><?php echo e(__('Announcements')); ?></h3>
+                                <h3 class="mb-0"><?php echo e(__('Quizzes')); ?></h3>
                                 <p class="text-sm mb-0">
-                                        <?php echo e(__('This is an example of announcement management. This is a minimal setup in order to get started fast.')); ?>
+                                        <?php echo e(__('This is an example of quiz management. This is a minimal setup in order to get started fast.')); ?>
 
                                     </p>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="<?php echo e(route('announcement.create')); ?>" class="btn btn-sm btn-primary"><?php echo e(__('Add New Announcement')); ?></a>
+                                <a href="<?php echo e(route('quiz.create')); ?>" class="btn btn-sm btn-primary"><?php echo e(__('Add New Quiz')); ?></a>
+                                <a href="<?php echo e(route('study_class_quiz.create')); ?>" class="btn btn-sm btn-info"><?php echo e(__('Add Quiz to Class')); ?></a>
                             </div>
                         </div>
                     </div>
@@ -41,7 +42,7 @@
                                 <tr>
                                     <th scope="col"><?php echo e(__('No#')); ?></th>
                                     <th scope="col"><?php echo e(__('Title')); ?></th>
-                                    <th scope="col"><?php echo e(__('Announcement')); ?></th>
+                                    <th scope="col"><?php echo e(__('Description')); ?></th>
                                     <th scope="col"><?php echo e(__('Status')); ?></th>
                                     <th scope="col"><?php echo e(__('Creation Date')); ?></th>
                                     <th scope="col"><?php echo e(__('Action')); ?></th>
@@ -52,7 +53,7 @@
                                     <tr id="id-<?php echo e($model->id); ?>">
                                         <td><?php echo e($models->firstItem()+$key); ?>.</td>
                                         <td><?php echo \Illuminate\Support\Str::limit($model->title,40); ?></td>
-                                        <td><?php echo \Illuminate\Support\Str::limit($model->announcement,60); ?></td>
+                                        <td><?php echo \Illuminate\Support\Str::limit($model->description,60); ?></td>
                                         <td>
                                             <?php if($model->status): ?>
                                                 <span class="badge badge-info">Active</span>
@@ -67,10 +68,11 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="<?php echo e(route('announcement.edit', $model)); ?>"><?php echo e(__('Edit')); ?></a>
-                                                    <a class="dropdown-item" href="<?php echo e(route('announcement.show', $model)); ?>"><?php echo e(__('Show')); ?></a>
+                                                    <a class="dropdown-item" href="<?php echo e(route('quiz.edit', $model)); ?>"><?php echo e(__('Edit')); ?></a>
+                                                    <a class="dropdown-item" href="<?php echo e(route('quiz.show', $model)); ?>"><?php echo e(__('Show')); ?></a>
+                                                    <a class="dropdown-item" href="<?php echo e(route('question.index')); ?>"><?php echo e(__('Questions')); ?></a>
 
-                                                    <form action="<?php echo e(route('announcement.destroy', $model->id)); ?>" method="post">
+                                                    <form action="<?php echo e(route('quiz.destroy', $model->id)); ?>" method="post">
                                                         <?php echo csrf_field(); ?>
                                                         <?php echo method_field('delete'); ?>
 
@@ -122,7 +124,7 @@
 <?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', [
-    'title' => __('Announcement Management'),
+    'title' => __('Quiz Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'announcement-management'
-], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lms\resources\views/announcements/index.blade.php ENDPATH**/ ?>
+    'elementName' => 'quiz-management'
+], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lms\resources\views/quizzes/index.blade.php ENDPATH**/ ?>
