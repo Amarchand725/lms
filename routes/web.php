@@ -22,6 +22,7 @@ Route::get('/', function () {
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('message', 'HomeController@message')->name('student.message');
+Route::post('chat-message', 'HomeController@chat_message')->name('student.chat.message');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('role', 'Admin\RoleController', ['except' => ['show', 'destroy']]);

@@ -1,15 +1,11 @@
-@extends('layouts.app', [
-    'title' => __('Student Management'),
-    'parentSection' => 'laravel',
-    'elementName' => 'Message'
-])
 
-@section('content')
-    @component('layouts.headers.auth') 
-        @component('layouts.headers.breadcrumbs')
-            @slot('title') 
-                {{ __('Students') }} 
-            @endslot
+
+<?php $__env->startSection('content'); ?>
+    <?php $__env->startComponent('layouts.headers.auth'); ?> 
+        <?php $__env->startComponent('layouts.headers.breadcrumbs'); ?>
+            <?php $__env->slot('title'); ?> 
+                <?php echo e(__('Students')); ?> 
+            <?php $__env->endSlot(); ?>
 
             <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
@@ -25,16 +21,16 @@
                     <input type="text" class="form-control" placeholder="Search...">
                 </div>
                 <ul class="list-unstyled chat-list mt-2 mb-0">
-                    @foreach($classmates as $friends)
-                    <li class="clearfix" id="user-status" data-id="{{$friends->hasUser->id}}">
+                    <?php $__currentLoopData = $classmates; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $friends): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li class="clearfix" id="user-status" data-id="<?php echo e($friends->hasUser->id); ?>">
                         <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                         <div class="about">
-                            <div class="name">{{ $friends->hasUser->name}}</div>
+                            <div class="name"><?php echo e($friends->hasUser->name); ?></div>
                             <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>                                            
                         </div>
                     </li>
                     
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
             <div class="chat">
@@ -49,12 +45,7 @@
                                 <small>Last seen: dummy</small>
                             </div>
                         </div>
-                        {{-- <div class="col-lg-6 hidden-sm text-right">
-                            <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
-                            <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
-                            <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
-                            <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
-                        </div> --}}
+                        
                     </div>
                 </div>
                 <div class="chat-history" id="chat-history">
@@ -72,12 +63,7 @@
                             </div>
                             <div class="message my-message receiver-message"></div>                                    
                         </li>                               
-                        {{-- <li class="clearfix">
-                            <div class="message-data">
-                                <span class="message-data-time">10:15 AM, Today</span>
-                            </div>
-                            <div class="message my-message">Project has been already finished and I have results to show you.</div>
-                        </li> --}}
+                        
                     </ul>
                 </div>
                 <div class="chat-message clearfix">
@@ -94,11 +80,11 @@
 </div>
 </div>
         
-        @include('layouts.footers.auth')
+        <?php echo $__env->make('layouts.footers.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
     
-@endsection
-@push('js')
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('js'); ?>
 <script>
 
     $(document).on('click','#user-status', function(){
@@ -109,7 +95,7 @@
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url : "{{ route('student.chat.message') }}",
+                url : "<?php echo e(route('student.chat.message')); ?>",
                 type: "post",
                 data : {user_id:user_id},
                 success : function(response){
@@ -120,4 +106,9 @@
             });
     } );
     </script>    
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', [
+    'title' => __('Student Management'),
+    'parentSection' => 'laravel',
+    'elementName' => 'Message'
+], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lms\resources\views/students/message.blade.php ENDPATH**/ ?>
