@@ -1,17 +1,17 @@
 @extends('layouts.app', [
-    'title' => __('Material Management'),
+    'title' => __('Assignment Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'material-management'
+    'elementName' => 'assignment-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Materials') }}
+                {{ __('Assignments') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('material.index') }}">{{ __('Material Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('assignment.index') }}">{{ __('Assignment Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Show') }}</li>
         @endcomponent
     @endcomponent
@@ -23,13 +23,13 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Materials') }}</h3>
+                                <h3 class="mb-0">{{ __('Assignments') }}</h3>
                                 <p class="text-sm mb-0">
-									{{ __('This is an example of material management. This is a minimal setup in order to get started fast.') }}
+									{{ __('This is an example of assignment management. This is a minimal setup in order to get started fast.') }}
 								</p>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('material.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('assignment.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
@@ -43,44 +43,43 @@
                         <table class="table align-items-center table-flush"  id="datatable-basic">
                             <tbody>
 								<tr>
-									<th>Assigned to Classes </th>
+									<th>Assigned to classes</th>
 									<td>
                                         <ul>
-                                            @foreach ($model->hasMaterialDetails as $detail)
-                                                <li>{{ isset($detail->hasStudyClass)?$detail->hasStudyClass->name:'N/A' }}</li>
+                                            @foreach ($assignment->hasAssignedClases as $class)
+                                                <li>{{ $class->hasStudyClass->name }}</li>
                                             @endforeach
                                         </ul>
                                     </td>
 								</tr>
-								<tr>
+                                <tr>
 									<th>File Name</th>
-									<td>{{ $model->file_name }}</td>
+									<td>{{ $assignment->name }}</td>
 								</tr>
-								
 								<tr>
 									<th>Description</th>
-									<td>{{ $model->description }}</td>
+									<td>{{ $assignment->description }}</td>
 								</tr>
 								<tr>
 									<th>File</th>
 									<td>
-										<img src="{{ asset('public/admin/assets/materials') }}/{{ $model->file }}" width="200px" alt="">
+										<img src="{{ asset('public/admin/assets/assignments') }}/{{ $assignment->file }}" width="200px" alt="">
 									</td>
 								</tr>
 								<tr>
 									<th>Uploaded By</th>
-									<td>{{ $model->hasCreatedBy->name }}</td>
+									<td>{{ isset($assignment->hasCreatedBy)?$assignment->hasCreatedBy->name:'N/A' }}</td>
 								</tr>
 								<tr>
 									<th>Created at</th>
-									<td>{{ date('d, M-Y H:i A', strtotime($model->created_at)) }}</td>
+									<td>{{ date('d, M-Y H:i A', strtotime($assignment->created_at)) }}</td>
 								</tr>
 								<tr>
 									<th>Status</th>
 									<td>
-										@if($model->status)
+										@if($assignment->status)
 											<span class="badge badge-success">Active</span>
-										@else 
+										@else
 											<span class="badge badge-danger">In-Active</span>
 										@endif
 									</td>

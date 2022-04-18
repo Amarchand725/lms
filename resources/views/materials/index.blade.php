@@ -45,7 +45,6 @@
                                 <tr>
                                     <th scope="col">{{ __('No#') }}</th>
                                     <th scope="col">{{ __('File') }}</th>
-                                    <th scope="col">{{ __('Study Class') }}</th>
                                     <th scope="col">{{ __('File Name') }}</th>
                                     <th scope="col">{{ __('Description') }}</th>
                                     @if(Auth::user()->hasRole('Admin'))
@@ -65,7 +64,6 @@
                                                 <img src="{{ asset('public/admin/assets/materials/file.png') }}" alt="" width="80px" height="80px">
                                             </a>
                                         </td>
-                                        <td>{{ isset($model->hasStudyClass)?$model->hasStudyClass->name:'N/A' }}</td>
                                         <td>{{ $model->file_name }}</td>
                                         <td>{{ $model->description }}</td>
                                         @if(Auth::user()->hasRole('Admin'))

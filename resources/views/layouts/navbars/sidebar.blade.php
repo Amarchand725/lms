@@ -186,8 +186,8 @@
                             </a>
                         </li>
 
-                        <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                        <li class="nav-item {{ $elementName == 'share_file' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('share_file.index') }}">
                                 <i class="fa fa-share-alt text-primary"></i>
                                 <span class="nav-link-text">{{ __('Shared Files') }}</span>
                             </a>

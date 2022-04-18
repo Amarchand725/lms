@@ -1,18 +1,18 @@
 @extends('layouts.app', [
-    'title' => __('Material Management'),
+    'title' => __('Assignment Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'material-management'
+    'elementName' => 'assignment-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Material') }}
+                {{ __('Assignment') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('material.index') }}">{{ __('Material Management') }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ __('Add Material') }}</li>
+            <li class="breadcrumb-item"><a href="{{ route('assignment.index') }}">{{ __('Assignment Management') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('Add Assignment') }}</li>
         @endcomponent
     @endcomponent
 
@@ -23,44 +23,43 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Material Management') }}</h3>
+                                <h3 class="mb-0">{{ __('Assignment Management') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('material.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('assignment.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('material.store') }}" autocomplete="off"
+                        <form method="post" action="{{ route('assignment.store') }}" autocomplete="off"
                             enctype="multipart/form-data">
                             @csrf
 
-                            <h6 class="heading-small text-muted mb-4">{{ __('material information') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">{{ __('assignment information') }}</h6>
                             <div class="pl-lg-4">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="form-group{{ $errors->has('file_name') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label" for="input-file_name">{{ __('File Name') }}</label>
-                                            <input type="text" name="file_name" id="input-file_name" class="form-control{{ $errors->has('file_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Document Name') }}" value="{{ old('file_name') }}"  required autofocus>
+                                        <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-name">{{ __('Name') }} <span style="color: red">*</span></label>
+                                            <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
 
-                                            @include('alerts.feedback', ['field' => 'file_name'])
+                                            @include('alerts.feedback', ['field' => 'name'])
                                         </div>
+
                                         <div class="form-group{{ $errors->has('file') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label" for="input-file">{{ __('File') }}</label>
-                                            <input type="file" name="file" id="input-file" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" value="{{ old('file') }}"  required autofocus>
+                                            <label class="form-control-label" for="input-file">{{ __('File') }} <span style="color: red">*</span></label>
+                                            <input type="file" name="file" id="input-file" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" required autofocus>
 
                                             @include('alerts.feedback', ['field' => 'file'])
                                         </div>
+
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                            <textarea name="description" id="input-description" class="form-control" placeholder="Enter description">{{ old('description') }}</textarea>
+                                            <textarea name="description" id="input-description" class="form-control" placeholder="Enter description"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label class="form-control-label" for="input-name">
-                                            {{ __('Check The Class you want to put this file.') }} <span style="color: red">{{ __('*') }}</span>
-                                            @include('alerts.feedback', ['field' => 'assigned_to_classes'])
-                                        </label>
+                                        <label class="form-control-label" for="input-name">{{ __('Check The Class you want to put this file.') }}</label>
                                         <table class="table">
                                             <thead>
                                                 <tr>

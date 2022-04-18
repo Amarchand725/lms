@@ -10,9 +10,13 @@ class Material extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function hasStudyClass()
+    public function hasMaterialDetails()
     {
-        return $this->hasOne(StudyClass::class, 'id', 'study_class_id');
+        return $this->hasMany(MaterialDetail::class, 'material_id', 'id');
+    }
+    public function hasMaterialDetail()
+    {
+        return $this->hasOne(MaterialDetail::class, 'material_id', 'id');
     }
     public function hasCreatedBy()
     {

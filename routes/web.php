@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('quiz', 'QuizController');
     Route::resource('question', 'QuestionController');
     Route::resource('study_class_quiz', 'StudyClassQuizController');
+    Route::resource('share_file', 'ShareFileController');
 
     Route::get('activity_log', 'Admin\AdminController@activityLogs')->name('activity_log.index');
     Route::get('log/index', 'Admin\AdminController@userLogs')->name('log.index');
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
     Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'Admin\PageController@index']);
+    Route::get('donwloadables/{id}', 'ShareFileController@downloadale')->name('donwloadables');
 
 
 });

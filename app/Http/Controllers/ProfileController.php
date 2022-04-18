@@ -20,7 +20,7 @@ namespace App\Http\Controllers;
 use Gate;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\ProfileRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\PasswordRequest;
 
 class ProfileController extends Controller
@@ -41,7 +41,7 @@ class ProfileController extends Controller
      * @param  \App\Http\Requests\ProfileRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ProfileRequest $request)
+    public function update(Request $request)
     {
         if (Gate::denies('update', auth()->user())) {
             return back()->withErrors(['not_allow_profile' => __('You are not allowed to change data for a default user.')]);

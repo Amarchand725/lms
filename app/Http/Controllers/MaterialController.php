@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Material;
+use App\Models\MaterialDetail;
 use App\Models\StudyClass;
 use App\Models\User;
+use App\Models\SchoolYear;
+use App\Models\AssignClass;
 use Auth;
 
 class MaterialController extends Controller
@@ -28,8 +31,9 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        $study_classes = StudyClass::orderby('id', 'desc')->where('status', 1)->get();
-        return view('materials.create', compact('study_classes'));
+        $batch = SchoolYear::orderby('id', 'desc')->where('status', 1)->first();
+        $assigned_classes = AssignClass::where('user_id', Auth::user()->id)->where('school_year_id', $batch->id)->get();
+        return view('materials.create', compact('assigned_classes'));
     }
 
     /**
@@ -41,7 +45,8 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'study_class_id' => 'required',
+            "assigned_to_classes" => "required|array",
+            "assigned_to_classes.*"  => "required",
             'file_name' => 'required|max:255',
             'file' => 'required',
             'description' => 'max:255',
@@ -56,10 +61,20 @@ class MaterialController extends Controller
         }
 
         $model->created_by = Auth::user()->id;
-        $model->study_class_id = $request->study_class_id;
         $model->file_name = $request->file_name;
         $model->description = $request->description;
         $model->save();
+
+        if($model){
+            foreach($request->assigned_to_classes as $class){
+                if(!empty($class)){
+                    MaterialDetail::create([
+                        'material_id' => $model->id,
+                        'study_class_id' => $class,
+                    ]);
+                }
+            }
+        }
         \LogActivity::addToLog('Material Added');
         return redirect()->route('material.index')->withStatus(__('Material successfully uploaded.'));
     }
@@ -85,8 +100,9 @@ class MaterialController extends Controller
     public function edit($id)
     {
         $model = Material::where('id', $id)->first();
-        $study_classes = StudyClass::orderby('id', 'desc')->where('status', 1)->get();
-        return view('materials.edit', compact('model', 'study_classes'));
+        $batch = SchoolYear::orderby('id', 'desc')->where('status', 1)->first();
+        $assigned_classes = AssignClass::where('user_id', Auth::user()->id)->where('school_year_id', $batch->id)->get();
+        return view('materials.edit', compact('model', 'assigned_classes'));
     }
 
     /**
@@ -99,7 +115,8 @@ class MaterialController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'study_class_id' => 'required',
+            "assigned_to_classes" => "required|array",
+            "assigned_to_classes.*"  => "required",
             'file_name' => 'required|max:255',
             'description' => 'max:255',
         ]);
@@ -112,11 +129,23 @@ class MaterialController extends Controller
             $model->file = $file;
         }
 
-        $model->study_class_id = $request->study_class_id;
         $model->file_name = $request->file_name;
         $model->description = $request->description;
         $model->status = $request->status;
         $model->save();
+
+        if($model){
+            MaterialDetail::where('material_id', $id)->delete();
+            foreach($request->assigned_to_classes as $class){
+                if(!empty($class)){
+                    MaterialDetail::create([
+                        'material_id' => $model->id,
+                        'study_class_id' => $class,
+                    ]);
+                }
+            }
+        }
+
         \LogActivity::addToLog('Material Updated');
         return redirect()->route('material.index')->withStatus(__('Material successfully updated.'));
     }
@@ -129,11 +158,10 @@ class MaterialController extends Controller
      */
     public function destroy($id)
     {
-        $model = Material::where('id', $id)->first();
+        $model = Material::where('id', $id)->delete();
         if($model){
-            User::where('id', $model->user_id)->delete();
+            MaterialDetail::where('material_id', $id)->delete();
             
-            $model->delete();
             \LogActivity::addToLog('Material Deleted');
             return redirect()->route('material.index')->withStatus(__('Material successfully deleted.'));
         }

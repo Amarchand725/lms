@@ -31,7 +31,7 @@ class QuestionController extends Controller
     {
         $quizzes = Quiz::orderby('id', 'desc')->where('status', 1)->get();
         $question_types = QuestionType::orderby('id', 'desc')->where('status', 1)->get();
-        return view('quizzes.create', compact('quizzes', 'question_types'));
+        return view('questions.create', compact('quizzes', 'question_types'));
     }
 
     /**

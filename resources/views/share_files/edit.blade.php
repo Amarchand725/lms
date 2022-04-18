@@ -1,18 +1,18 @@
 @extends('layouts.app', [
-    'title' => __('Material Management'),
+    'title' => __('Assignment Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'material-management'
+    'elementName' => 'assignment-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Materials') }}
+                {{ __('Assignments') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('material.index') }}">{{ __('Material Management') }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ __('Edit Material') }}</li>
+            <li class="breadcrumb-item"><a href="{{ route('assignment.index') }}">{{ __('assignment Management') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('Edit Assignment') }}</li>
         @endcomponent
     @endcomponent
 
@@ -23,63 +23,49 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Material Management') }}</h3>
+                                <h3 class="mb-0">{{ __('Assignment Management') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('material.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('assignment.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('material.update', $model->id) }}" autocomplete="off"
+                        <form method="post" action="{{ route('assignment.update', $assignment->id) }}" autocomplete="off"
                             enctype="multipart/form-data">
                             @csrf
                             {{ method_field('PATCH') }}
 
-                            <h6 class="heading-small text-muted mb-4">{{ __('material information') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">{{ __('assignment information') }}</h6>
                             <div class="pl-lg-4">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="form-group{{ $errors->has('file_name') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label" for="input-file_name">{{ __('File Name') }}</label>
-                                            <input type="text" name="file_name" id="input-file_name" class="form-control{{ $errors->has('file_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Document Name') }}" value="{{ $model->file_name }}"  required autofocus>
+                                        <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-name">{{ __('Name') }} <span style="color: red">*</span></label>
+                                            <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ $assignment->name }}" required autofocus>
 
-                                            @include('alerts.feedback', ['field' => 'file_name'])
+                                            @include('alerts.feedback', ['field' => 'name'])
                                         </div>
+
                                         <div class="form-group{{ $errors->has('file') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label" for="input-file">{{ __('File') }}</label>
-                                            <input type="file" name="file" id="input-file" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" value="{{ old('file') }}" autofocus>
+                                            <label class="form-control-label" for="input-file">{{ __('File') }} </label>
+                                            <input type="file" name="file" id="input-file" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" autofocus>
 
                                             @include('alerts.feedback', ['field' => 'file'])
                                         </div>
-                                        @if(!empty($model->file))
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <img src="{{ asset('public/admin/assets/materials') }}/{{ $model->file }}" width="100px" alt="">
-                                                </div>
+                                        @if(!empty($assignment->file))
+                                            <div class="form-group">
+                                                <img src="{{ asset('public/admin/assets/assignments') }}/{{ $assignment->file }}" width="100px" alt="">
                                             </div>
                                         @endif
+
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                            <textarea name="description" id="input-description" class="form-control" placeholder="Enter description">{{ $model->description }}</textarea>
-                                        </div>
-                                        <div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label" for="input-status">{{ __('Status') }}</label>
-                                            <select name="status" id="input-status" class="form-control">
-                                                <option value="1" {{ $model->status==1?'selected':'' }}>Active</option>
-                                                <option value="0" {{ $model->status==0?'selected':'' }}>In-Active</option>
-                                            </select>
-
-                                            @include('alerts.feedback', ['field' => 'status'])
+                                            <textarea name="description" id="input-description" class="form-control" placeholder="Enter description">{{ $assignment->description }}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label class="form-control-label" for="input-name">
-                                            {{ __('Check The Class you want to put this file.') }} <span style="color: red">{{ __('*') }}</span>
-                                            @include('alerts.feedback', ['field' => 'assigned_to_classes'])
-                                        </label>
+                                        <label class="form-control-label" for="input-name">{{ __('Check The Class you want to put this file.') }}</label>
                                         <table class="table">
                                             <thead>
                                                 <tr>
@@ -100,7 +86,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-check">
-                                                                @if(isset($model->hasMaterialDetail)?$model->hasMaterialDetail->hasStudyClass->id==$class->hasStudyClass->id:0)
+                                                                @if(isset($assignment->hasAssignedClasses)?$assignment->hasAssignedClasses->hasStudyClass->id==$class->hasStudyClass->id:0)
                                                                     <input class="form-check-input individual" checked name="assigned_to_classes[]" type="checkbox" value="{{ $class->study_class_id }}" id="flexCheckDefault">
                                                                 @else
                                                                     <input class="form-check-input individual" name="assigned_to_classes[]" type="checkbox" value="{{ $class->study_class_id }}" id="flexCheckDefault">
@@ -111,7 +97,6 @@
                                                         <td>{{ $class->hasSubject->code }}</td>
                                                     </tr>
                                                 @endforeach
-                                                {{ $errors->first('assigned_to_classes.*') }}
                                             </tbody>
                                         </table>
                                     </div>
