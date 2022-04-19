@@ -53,4 +53,9 @@ class User extends Authenticatable
 
          return 'http://i.pravatar.cc/200';
     }
+
+    public function hasStudent()
+    {
+        return $this->hasOne(Student::class, 'user_id', 'id');
+    }
 }
