@@ -58,6 +58,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'Admin\PageController@index']);
     Route::get('donwloadables/{id}', 'ShareFileController@downloadale')->name('donwloadables');
     Route::get('backpack/delete', 'BackpackController@destroy')->name('backpack.delete');
-
-
+    Route::get('notifications/show', 'StudentController@notifications')->name('notifications.show');
+    Route::get('student/classmates/{study_class_id}', 'StudentController@classmates')->name('student.classmates');
 });

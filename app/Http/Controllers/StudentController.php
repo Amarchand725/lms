@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\StudyClass;
 use App\Models\User;
 use App\Models\SchoolYear;
+use App\Models\Notification;
 
 class StudentController extends Controller
 {
@@ -82,6 +83,19 @@ class StudentController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function notifications()
+    {
+        $models = Notification::orderby('id', 'desc')->paginate(10);
+        return view('classmates.notifications', compact('models'));
+    }
+
+    public function classmates($study_class_id)
+    {
+        $batch = SchoolYear::orderby('id', 'desc')->where('status', 1)->first();
+        $models = Student::orderby('id', 'desc')->where('study_class_id', $study_class_id)->get();
+        return view('classmates.classmate', compact('models', 'batch'));
     }
 
     /**

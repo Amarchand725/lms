@@ -143,8 +143,8 @@
                                 <span class="nav-link-text">{{ __('My Classes') }}</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                        <li class="nav-item {{ $elementName == 'notifications/show' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('notifications.show') }}">
                                 <i class="fa fa-bell text-primary"></i>
                                 <span class="nav-link-text">{{ __('Notifications') }}</span>
                             </a>
@@ -193,30 +193,30 @@
                             </a>
                         </li>
                     @elseif(Auth::user()->hasRole('Student'))
-                    <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('home') }}">
-                            <i class="fa fa-users text-primary"></i>
-                            <span class="nav-link-text">{{ __('My Class') }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ $elementName == 'notification' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('page.index','calendar') }}">
-                            <i class="fa fa-bell text-primary"></i>
-                            <span class="nav-link-text">{{ __('Notification') }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ $elementName == 'Message' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('student.message') }}">
-                            <i class="fa fa-envelope text-primary"></i>
-                            <span class="nav-link-text">{{ __('Message') }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ $elementName == 'backpack' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('page.index','calendar') }}">
-                            <i class="fa fa-shopping-bag text-primary"></i>
-                            <span class="nav-link-text">{{ __('Backpack') }}</span>
-                        </a>
-                    </li>
+                        <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('home') }}">
+                                <i class="fa fa-users text-primary"></i>
+                                <span class="nav-link-text">{{ __('My Class') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ $elementName == 'notification' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('notifications.show') }}">
+                                <i class="fa fa-bell text-primary"></i>
+                                <span class="nav-link-text">{{ __('Notification') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ $elementName == 'Message' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('student.message') }}">
+                                <i class="fa fa-envelope text-primary"></i>
+                                <span class="nav-link-text">{{ __('Message') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ $elementName == 'backpack' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('backpack.index') }}">
+                                <i class="fa fa-shopping-bag text-primary"></i>
+                                <span class="nav-link-text">{{ __('Backpack') }}</span>
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </div>
