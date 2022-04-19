@@ -49,22 +49,9 @@
                     </div>
                 </div>
                 <div class="chat-history" id="chat-history">
-                    <ul class="m-b-0">
-                        <li class="clearfix">
-                            <div class="message-data text-right">
-                                <span class="message-data-time time-sender">10:10 AM, Today</span>
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                            </div>
-                            <div class="message other-message float-right sender-message"></div>
-                        </li>
-                        <li class="clearfix">
-                            <div class="message-data receiver-side">
-                                <span class="message-data-time time-receiver">dummy AM, Today</span>
-                            </div>
-                            <div class="message my-message receiver-message"></div>                                    
-                        </li>                               
-                        
-                    </ul>
+                     <ul class="m-b-0">
+                        <h1 class="text-center"> Welcome to chat</h1>
+                    </ul> 
                 </div>
                 <div class="chat-message clearfix">
                     <div class="input-group mb-0">
