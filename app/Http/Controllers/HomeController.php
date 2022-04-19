@@ -8,6 +8,9 @@ use App\Models\SchoolYear;
 use App\Models\StudyClass;
 use App\Models\Subject;
 use App\Models\AssignClass;
+use App\Models\Student;
+use App\Models\User;
+use App\Models\ChatSystem;
 use Auth;
 
 class HomeController extends Controller
@@ -53,6 +56,21 @@ class HomeController extends Controller
 
     public function message(){
 
-        return view('students.message');
+        $classmates = Student::where('study_class_id',Auth::user()->hasStudent->study_class_id)->get();
+
+
+        return view('students.message',compact('classmates'));
     }
-}
+
+
+    public function chat_message(Request $request){
+        // return $request;
+     $messages = Chatsystem::where('sender_id',Auth::user()->id)->where('receiver_id', $request->user_id)->orWhere('sender_id',$request->user_id)->orwhere('receiver_id',Auth::user()->id)->get();
+
+     return (string) view('chats.chat', compact('messages'));
+    //  return response()->json([
+    //      'data' => $chat
+    //  ]);
+    }
+    }
+
