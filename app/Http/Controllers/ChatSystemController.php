@@ -20,35 +20,21 @@ class ChatSystemController extends Controller
         $this->middleware('auth');
     }
     public function message(){
-      
         $classmates = Student::where('study_class_id',Auth::user()->hasStudent->study_class_id)->get();
         return view('chats.message',compact('classmates'));
     }
 
-
     public function chat_message(Request $request){
-        // return $request;exit;
         if($request->user_id == Auth::user()->id){
             $messages = Chatsystem::where('sender_id', Auth::user()->id)->where('receiver_id', Auth::user()->id)->get();
+        }else{
+            $messages = Chatsystem::where('sender_id',Auth::user()->id)->where('receiver_id', $request->user_id)->orWhere('sender_id',$request->user_id)->where('receiver_id',Auth::user()->id)->get();
         }
-        else{
-     $messages = Chatsystem::where('sender_id',Auth::user()->id)->where('receiver_id', $request->user_id)->orWhere('sender_id',$request->user_id)->where('receiver_id',Auth::user()->id)->get();
-        }
 
-        // return $messages;
-
-     
-
-     return (string) view('chats.chat', compact('messages'));
-    //  return response()->json([
-    //      'data' => $chat
-    //  ]);
+        return (string) view('chats.chat', compact('messages'));
     }
 
     public function save_chat(Request $request){
-
         return $request;
-
-
     }
 }

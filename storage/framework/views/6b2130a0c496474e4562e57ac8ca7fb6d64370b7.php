@@ -153,8 +153,8 @@
                                 <span class="nav-link-text"><?php echo e(__('Messages')); ?></span>
                             </a>
                         </li>
-                        <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
-                            <a class="nav-link" href="<?php echo e(route('page.index','calendar')); ?>">
+                        <li class="nav-item <?php echo e($elementName == 'backpack' ? 'active' : ''); ?>">
+                            <a class="nav-link" href="<?php echo e(route('backpack.index')); ?>">
                                 <i class="fa fa-suitcase text-primary"></i>
                                 <span class="nav-link-text"><?php echo e(__('Backpack')); ?></span>
                             </a>
