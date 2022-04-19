@@ -1,5 +1,5 @@
 @extends('layouts.app', [
-    'title' => __('Shared Files Management'),
+    'title' => __('Backpack Management'),
     'parentSection' => 'laravel',
     'elementName' => 'share_file-management'
 ])
@@ -8,10 +8,10 @@
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Shared Files') }}
+                {{ __('Backpack') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('share_file.index') }}">{{ __('Shared Files Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('backpack.index') }}">{{ __('Backpack Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('List') }}</li>
         @endcomponent
     @endcomponent
@@ -23,13 +23,13 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Shared Files') }}</h3>
+                                <h3 class="mb-0">{{ __('Backpack') }}</h3>
                                 <p class="text-sm mb-0">
-                                        {{ __('This is an example of share_file management. This is a minimal setup in order to get started fast.') }}
-                                    </p>
+                                    {{ __('This is an example of share_file management. This is a minimal setup in order to get started fast.') }}
+                                </p>
                             </div>
                             <div class="col-4 text-right">
-                                <button type="button" class="btn btn-sm btn-primary share-file-btn">{{ __('Share File') }}</button>
+                                <button class="btn btn-sm btn-danger del-btn" data-toggle="tooltip" data-placement="top" title="Delete checked items"><i class="fa fa-trash"></i> {{ __('Delete') }}</button>
                             </div>
                         </div>
                     </div>
@@ -45,13 +45,16 @@
                                 <tr>
                                     <th scope="col">{{ __('No#') }}</th>
                                     <th scope="col">{{ __('File Name') }}</th>
-                                    @if(Auth::user()->hasRole('Admin'))
-                                        <th scope="col">{{ __('Shared By') }}</th>
-                                    @endif
-                                    <th scope="col">{{ __('Shared To') }}</th>
+                                    <th scope="col">{{ __('Shared By') }}</th>
                                     <th scope="col">{{ __('Description') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
-                                    <th scope="col">Download</th>
+                                    <th scope="col">{{ __('Action') }}</th>
+                                    <th>
+                                        <input class="form-check-input" type="checkbox" value="" id="checkboxes">
+                                        <label class="form-check-label" for="checkboxes">
+                                            {{ __('Check All') }}
+                                        </label>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,16 +62,16 @@
                                     <tr>
                                         <td>{{  $models->firstItem()+$key }}.</td>
                                         <td>{{ $model->hasMaterialFile->file_name }}</td>
-                                        @if(Auth::user()->hasRole('Admin'))
-                                            <td>{{ isset($model->hasSharedByUser)?$model->hasSharedByUser->name:'N/A' }}</td>
-                                        @endif
-                                        <td>{{ isset($model->hasSharedToUser)?$model->hasSharedToUser->name:'N/A' }}</td>
+                                        <td>{{ isset($model->hasUser)?$model->hasUser->name:'N/A' }}</td>
 									    <td>{!! \Illuminate\Support\Str::limit($model->hasMaterialFile->description,60) !!}</td>
                                         <td>{{ $model->created_at->format('d/m/Y H:i') }}</td>
                                         <td>
                                             <a href="{{ asset('public/admin/assets/materials') }}/{{ $model->hasMaterialFile->file }}" class="btn btn-info btn-sm download-btn" data-toggle="tooltip" data-placement="top" title="Download File" download>
                                                 <i class="fa fa-download"></i>
                                             </a>
+                                        </td>
+                                        <td>
+                                            <input class="form-check-input individual material_files" name="material_files[]" type="checkbox" value="{{ $model->id }}" id="flexCheckDefault">
                                         </td>
                                     </tr>
                                 @endforeach
@@ -86,39 +89,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="share-file-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-top" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Share Files</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="{{ route('share_file.store') }}" method="post">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="input-study-class">Move to</label>
-                                <select name="study_class_id" id="input-study-class" class="form-control">
-                                    <option value="" selected>Select Class</option>
-                                    @foreach ($study_classes as $class)
-                                        <option value="{{ $class->study_class_id }}">{{ $class->hasStudyClass->name }} - {{ $class->hasSubject->code }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Share</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         @include('layouts.footers.auth')
     </div>
 @endsection
@@ -138,10 +108,68 @@
     <script src="{{ asset('public/argon') }}/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
     <script src="{{ asset('public/argon') }}/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="{{ asset('public/argon') }}/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        $(document).on('click', '.share-file-btn', function(){
-            $('#share-file-modal').modal('show');
+        $(document).on('click', '.del-btn', function(){
+            var material_files = [];
+            $(".material_files:checked").each(function() {
+                material_files.push($(this).val());
+            });
+
+            if(material_files==''){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Check file to delete!',
+                    footer: 'To delete file have to check file.'
+                })
+                return false; 
+            }
+
+            var material_files = JSON.stringify(material_files);
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url : "{{ route('backpack.delete') }}",
+                        type : 'DELETE',
+                        data : {material_files:material_files},
+                        success : function(response){
+                            if(response){
+                                window.location.reload();
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
+                            }else{
+                                Swal.fire(
+                                    'Not Deleted!',
+                                    'Sorry! Something went wrong.',
+                                    'danger'
+                                )
+                            }
+                        }
+                    });
+                }
+            })
+        });
+        $("#checkboxes").click(function(){
+            $(".individual").prop("checked",$(this).prop("checked"));
         });
     </script>
 @endpush
