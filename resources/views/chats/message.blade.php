@@ -101,6 +101,7 @@
         @endsection
         @push('js')
         <script>
+            
         var user_id = null;
 
         function refresh(id){
