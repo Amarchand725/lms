@@ -16,13 +16,13 @@ class CreateChatSystemsTable extends Migration
     {
         Schema::create('chat_systems', function (Blueprint $table) {
             $table->id();
-            $table->integer('sender_id');
-            $table->integer('receiver_id');
-            $table->integer('status')->default(1);
-            $table->string('message');
+            $table->bigInteger('sender_id');
+            $table->bigInteger('reciever_id');
+            $table->boolean('is_read')->default(0)->comment('0=unread, 1=read');
+            $table->text('message')->nullable();
             $table->string('file')->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->boolean('status')->default(1);
+            $table->timestamps();
         });
     }
 

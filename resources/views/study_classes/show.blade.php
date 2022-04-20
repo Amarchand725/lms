@@ -9,7 +9,7 @@
         {{ __('My Students') }}
     @endslot
 
-    <li class="breadcrumb-item active" aria-current="page">{{ __('School Year:') }} {{ $batch->year }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{ $study_class->name }} / {{ $study_class->teacherHasAssignedClass->hasSubject->code }} / {{ __('School Year:') }} {{ $batch->year }}</li>
 @endcomponent
 
 <div class="row">

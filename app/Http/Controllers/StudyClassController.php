@@ -58,7 +58,8 @@ class StudyClassController extends Controller
     {
         $models = Student::where('study_class_id', $study_class_id)->get();
         $batch = SchoolYear::orderby('id', 'desc')->where('status', 1)->first();
-        return view('study_classes.show', compact('models', 'batch'));
+        $study_class = StudyClass::where('id', $study_class_id)->first();
+        return view('study_classes.show', compact('models', 'batch', 'study_class'));
     }
 
     /**

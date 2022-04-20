@@ -28,9 +28,11 @@
                                         {{ __('This is an example of material management. This is a minimal setup in order to get started fast.') }}
                                     </p>
                             </div>
-                            <div class="col-4 text-right">
-                                <a href="{{ route('material.create') }}" class="btn btn-sm btn-primary">{{ __('Upload New Material') }}</a>
-                            </div>
+                            @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
+                                <div class="col-4 text-right">
+                                    <a href="{{ route('material.create') }}" class="btn btn-sm btn-primary">{{ __('Upload New Material') }}</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -78,14 +80,16 @@
                                                     <a class="dropdown-item" href="{{ route('material.edit', $model) }}">{{ __('Edit') }}</a>
                                                     <a class="dropdown-item" href="{{ route('material.show', $model) }}">{{ __('Show') }}</a>
                                                 
-                                                    <form action="{{ route('material.destroy', $model->id) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
+                                                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
+                                                        <form action="{{ route('material.destroy', $model->id) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
 
-                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
-                                                            {{ __('Delete') }}
-                                                        </button>
-                                                    </form>
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
+                                                                {{ __('Delete') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </td>

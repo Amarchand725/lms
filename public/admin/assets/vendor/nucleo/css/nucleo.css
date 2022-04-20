@@ -571,6 +571,7 @@ License - nucleoapp.com/license/
 body{
     background-color: #f4f7f6;
     margin-top:20px;
+    overflow: hidden !important;
 }
 .card {
     background: #fff;
@@ -583,17 +584,22 @@ body{
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
 }
 .chat-app .people-list {
-    width: 280px;
+    width: 350px;
     position: absolute;
     left: 0;
     top: 0;
     padding: 20px;
-    z-index: 7
+    z-index: 7;
+    overflow-y: scroll;
+    max-height: 550px;
+    height: 550px;
 }
 
 .chat-app .chat {
-    margin-left: 280px;
-    border-left: 1px solid #eaeaea
+    margin-left: 350px;
+    border-left: 1px solid #eaeaea;
+    min-height: 550px;
+    
 }
 
 .people-list {
@@ -659,8 +665,11 @@ body{
 }
 
 .chat .chat-history {
-    padding: 20px;
-    border-bottom: 2px solid #fff
+    padding: 0px 40px 0px 20px;
+    border-bottom: 2px solid #fff;
+    height: 350px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .chat .chat-history ul {

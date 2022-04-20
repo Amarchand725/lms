@@ -28,9 +28,11 @@
                                         {{ __('This is an example of announcement management. This is a minimal setup in order to get started fast.') }}
                                     </p>
                             </div>
-                            <div class="col-4 text-right">
-                                <a href="{{ route('announcement.create') }}" class="btn btn-sm btn-primary">{{ __('Add New Announcement') }}</a>
-                            </div>
+                            @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
+                                <div class="col-4 text-right">
+                                    <a href="{{ route('announcement.create') }}" class="btn btn-sm btn-primary">{{ __('Add New Announcement') }}</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -73,15 +75,16 @@
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                     <a class="dropdown-item" href="{{ route('announcement.edit', $model) }}">{{ __('Edit') }}</a>
                                                     <a class="dropdown-item" href="{{ route('announcement.show', $model) }}">{{ __('Show') }}</a>
+                                                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
+                                                        <form action="{{ route('announcement.destroy', $model->id) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
 
-                                                    <form action="{{ route('announcement.destroy', $model->id) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
-
-                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
-                                                            {{ __('Delete') }}
-                                                        </button>
-                                                    </form>
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
+                                                                {{ __('Delete') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </td>

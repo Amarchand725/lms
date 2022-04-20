@@ -10,4 +10,9 @@ class StudyClass extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function teacherHasAssignedClass()
+    {
+        return $this->hasOne(AssignClass::class, 'study_class_id', 'id');
+    }
 }

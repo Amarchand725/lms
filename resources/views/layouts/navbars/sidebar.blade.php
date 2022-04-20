@@ -150,9 +150,11 @@
                             </a>
                         </li>
                         <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                            <a class="nav-link" href="{{ route('student.message') }}">
                                 <i class="fa fa-envelope text-primary"></i>
-                                <span class="nav-link-text">{{ __('Messages') }}</span>
+                                <span class="nav-link-text">{{ __('Chats') }} 
+                                    {{-- <span class="badge rounded-pill bg-danger" style="color: white; background-color:red">{{ count(Auth::user()->hasNewMessages) }}</span> --}}
+                                </span>
                             </a>
                         </li>
                         <li class="nav-item {{ $elementName == 'backpack' ? 'active' : '' }}">
@@ -199,6 +201,12 @@
                                 <span class="nav-link-text">{{ __('My Class') }}</span>
                             </a>
                         </li>
+                        <li class="nav-item {{ $elementName == 'classmates' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('student.classmates', Auth::user()->hasStudent->study_class_id) }}">
+                                <i class="fa fa-users text-primary"></i>
+                                <span class="nav-link-text">{{ __('My Classmates') }}</span>
+                            </a>
+                        </li>
                         <li class="nav-item {{ $elementName == 'notification' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('notifications.show') }}">
                                 <i class="fa fa-bell text-primary"></i>
@@ -208,7 +216,25 @@
                         <li class="nav-item {{ $elementName == 'Message' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('student.message') }}">
                                 <i class="fa fa-envelope text-primary"></i>
-                                <span class="nav-link-text">{{ __('Message') }}</span>
+                                <span class="nav-link-text">{{ __('Chats') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ $elementName == 'material' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('material.index') }}">
+                                <i class="fa fa-download text-primary"></i>
+                                <span class="nav-link-text">{{ __('Materials') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ $elementName == 'announcement' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('announcement.index') }}">
+                                <i class="fa fa-bullhorn text-primary"></i>
+                                <span class="nav-link-text">{{ __('Announcements') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ $elementName == 'assignment' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('assignment.index') }}">
+                                <i class="fa fa-tasks text-primary"></i>
+                                <span class="nav-link-text">{{ __('Assignments') }}</span>
                             </a>
                         </li>
                         <li class="nav-item {{ $elementName == 'backpack' ? 'active' : '' }}">
