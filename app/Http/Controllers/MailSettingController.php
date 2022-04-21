@@ -31,26 +31,30 @@ class MailSettingController extends Controller
     public function setting(){
 
      $data = MailSetting::first();
-     self::putPermanentEnv("MAIL_MAILER",null);
-     self::putPermanentEnv("MAIL_HOST",null);
-     self::putPermanentEnv("MAIL_PORT"," ");
-     self::putPermanentEnv("MAIL_USERNAME"," ");
-     self::putPermanentEnv("MAIL_PASSWORD"," ");
-     self::putPermanentEnv("MAIL_ENCRYPTION"," ");
-     self::putPermanentEnv("MAIL_FROM_ADDRESS"," ");
-     self::putPermanentEnv("MAIL_FROM_NAME","");
-      
-    self::putPermanentEnv("MAIL_MAILER",$data->mail_mailer);
-    self::putPermanentEnv("MAIL_HOST",$data->mail_host);
-    self::putPermanentEnv("MAIL_PORT",$data->mail_port);
-    self::putPermanentEnv("MAIL_USERNAME",$data->mail_username);
-    self::putPermanentEnv("MAIL_PASSWORD",$data->mail_password);
-    self::putPermanentEnv("MAIL_ENCRYPTION",$data->mail_encryption);
-    self::putPermanentEnv("MAIL_FROM_ADDRESS",$data->mail_from_address);
-    self::putPermanentEnv("MAIL_FROM_NAME",$data->mail_from_name);
-      
 
-     return ".env updated successfullly";
+    
+
+     putenv ("MAIL_MAILER=".$data->mail_mailer);
+     putenv ("MAIL_HOST=".$data->mail_host);
+     putenv ("MAIL_PORT=".$data->mail_port);
+     putenv ("MAIL_USERNAME=".$data->mail_username);
+     putenv ("MAIL_PASSWORD=".$data->mail_password);
+     putenv ("MAIL_ENCRYPTION=".$data->mail_encryption);
+     putenv ("MAIL_FROM_ADDRESS=".$data->mail_from_address);
+     putenv ("MAIL_FROM_NAME=".$data->mail_from_name);
+      
+      $x = array(
+        "MAIL_MAILER" =>  env("MAIL_MAILER"),
+        "MAIL_HOST" =>  env("MAIL_HOST"),
+        "MAIL_PORT" =>  env("MAIL_PORT"),
+        "MAIL_USERNAME" =>  env("MAIL_USERNAME"),
+        "MAIL_PASSWORD" =>  env("MAIL_PASSWORD"),
+        "MAIL_ENCRYPTION" =>  env("MAIL_ENCRYPTION"),
+        "MAIL_FROM_ADDRESS" => env("MAIL_FROM_ADDRESS"),
+        "MAIL_FROM_NAME" =>  env("MAIL_FROM_NAME"),
+      );
+
+      print_r($x);
 
 
     }
