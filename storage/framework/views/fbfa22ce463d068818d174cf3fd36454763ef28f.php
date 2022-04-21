@@ -145,6 +145,7 @@
                     <th>End Date</th>
                     <th>Status</th>
                 </tr>
+                <?php if(isset($events)): ?>
                 <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
                     <td><?php echo e($event->id); ?></td>
@@ -160,6 +161,7 @@
 
  
                  </div>
+                 <?php endif; ?>
               
                 </table>
                

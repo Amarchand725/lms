@@ -147,6 +147,7 @@
                     <th>End Date</th>
                     <th>Status</th>
                 </tr>
+                @if(isset($events))
                 @foreach($events as $event)
                 <tr>
                     <td>{{ $event->id}}</td>
@@ -161,6 +162,7 @@
                 {{ $events->links('pagination::bootstrap-4') }}
  
                  </div>
+                 @endif()
               
                 </table>
                
