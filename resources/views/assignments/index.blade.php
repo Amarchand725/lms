@@ -28,9 +28,11 @@
                                         {{ __('This is an example of assignment management. This is a minimal setup in order to get started fast.') }}
                                     </p>
                             </div>
-                            <div class="col-4 text-right">
-                                <a href="{{ route('assignment.create') }}" class="btn btn-sm btn-primary">{{ __('Add Assignment') }}</a>
-                            </div>
+                            @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
+                                <div class="col-4 text-right">
+                                    <a href="{{ route('assignment.create') }}" class="btn btn-sm btn-primary">{{ __('Add Assignment') }}</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -83,17 +85,19 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="{{ route('assignment.edit', $model) }}">{{ __('Edit') }}</a>
                                                     <a class="dropdown-item" href="{{ route('assignment.show', $model) }}">{{ __('Show') }}</a>
 
-                                                    <form action="{{ route('assignment.destroy', $model->id) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
+                                                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
+                                                        <a class="dropdown-item" href="{{ route('assignment.edit', $model) }}">{{ __('Edit') }}</a> 
+                                                        <form action="{{ route('assignment.destroy', $model->id) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
 
-                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
-                                                            {{ __('Delete') }}
-                                                        </button>
-                                                    </form>
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
+                                                                {{ __('Delete') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </td>

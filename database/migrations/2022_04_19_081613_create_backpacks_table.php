@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShareFilesTable extends Migration
+class CreateBackpacksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateShareFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('share_files', function (Blueprint $table) {
+        Schema::create('backpacks', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('shared_by_teacher_id');
-            $table->bigInteger('shared_to_teacher_id');
+            $table->bigInteger('by_teacher_id');
+            $table->bigInteger('material_id');
             $table->bigInteger('study_class_id');
-            $table->bigInteger('shared_material_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateShareFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('share_files');
+        Schema::dropIfExists('backpacks');
     }
 }

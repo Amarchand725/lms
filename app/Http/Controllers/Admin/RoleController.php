@@ -55,7 +55,7 @@ class RoleController extends Controller
         $this->validate($request, $rules);
 
         $role = Role::create(['name' => $request->name, 'description'=>$request->description]);
-        $role->syncPermissions($request->input('permission'));
+        // $role->syncPermissions($request->input('permission'));
 
         \LogActivity::addToLog('Role Added');
         return redirect()->route('role.index')->withStatus(__('Role successfully created.'));

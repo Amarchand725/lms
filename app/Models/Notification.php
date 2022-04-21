@@ -10,4 +10,9 @@ class Notification extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function hasCreatedBy()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

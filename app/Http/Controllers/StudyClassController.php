@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\StudyClass;
 use Illuminate\Http\Request;
+use App\Models\Student;
+use App\Models\SchoolYear;
 
 class StudyClassController extends Controller
 {
@@ -52,9 +54,12 @@ class StudyClassController extends Controller
      * @param  \App\Models\StudyClass  $studyClass
      * @return \Illuminate\Http\Response
      */
-    public function show(StudyClass $studyClass)
+    public function show($study_class_id)
     {
-        //
+        $models = Student::where('study_class_id', $study_class_id)->get();
+        $batch = SchoolYear::orderby('id', 'desc')->where('status', 1)->first();
+        $study_class = StudyClass::where('id', $study_class_id)->first();
+        return view('study_classes.show', compact('models', 'batch', 'study_class'));
     }
 
     /**

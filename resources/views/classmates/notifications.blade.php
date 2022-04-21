@@ -1,17 +1,17 @@
 @extends('layouts.app', [
-    'title' => __('Announcement Management'),
+    'title' => __('notification Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'announcement-management'
+    'elementName' => 'notification-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Announcements') }}
+                {{ __('notifications') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('announcement.index') }}">{{ __('Announcement Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="">{{ __('notification Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('List') }}</li>
         @endcomponent
     @endcomponent
@@ -23,16 +23,11 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Announcements') }}</h3>
+                                <h3 class="mb-0">{{ __('notifications') }}</h3>
                                 <p class="text-sm mb-0">
-                                        {{ __('This is an example of announcement management. This is a minimal setup in order to get started fast.') }}
+                                        {{ __('This is an example of notification management. This is a minimal setup in order to get started fast.') }}
                                     </p>
                             </div>
-                            @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
-                                <div class="col-4 text-right">
-                                    <a href="{{ route('announcement.create') }}" class="btn btn-sm btn-primary">{{ __('Add New Announcement') }}</a>
-                                </div>
-                            @endif
                         </div>
                     </div>
 
@@ -46,19 +41,18 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">{{ __('No#') }}</th>
-                                    <th scope="col">{{ __('Title') }}</th>
-                                    <th scope="col">{{ __('Announcement') }}</th>
+                                    <th scope="col">{{ __('Teacher') }}</th>
+                                    <th scope="col">{{ __('Notification') }}</th>
                                     <th scope="col">{{ __('Status') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
-                                    <th scope="col">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($models as $key=>$model)
                                     <tr id="id-{{ $model->id }}">
                                         <td>{{  $models->firstItem()+$key }}.</td>
-                                        <td>{!! \Illuminate\Support\Str::limit($model->title,40) !!}</td>
-                                        <td>{!! \Illuminate\Support\Str::limit($model->announcement,60) !!}</td>
+                                        <td>{{ $model->hasCreatedBy->name }}</td>
+                                        <td>{!! \Illuminate\Support\Str::limit($model->notification,60) !!}</td>
                                         <td>
                                             @if($model->status)
                                                 <span class="badge badge-info">Active</span>
@@ -67,27 +61,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $model->created_at->format('d/m/Y H:i') }}</td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="{{ route('announcement.edit', $model) }}">{{ __('Edit') }}</a>
-                                                    <a class="dropdown-item" href="{{ route('announcement.show', $model) }}">{{ __('Show') }}</a>
-                                                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
-                                                        <form action="{{ route('announcement.destroy', $model->id) }}" method="post">
-                                                            @csrf
-                                                            @method('delete')
 
-                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
-                                                                {{ __('Delete') }}
-                                                            </button>
-                                                        </form>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </td>
                                     </tr>
                                 @endforeach
                                 <tr>

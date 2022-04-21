@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -57,5 +58,29 @@ class User extends Authenticatable
     public function hasStudent()
     {
         return $this->hasOne(Student::class, 'user_id', 'id');
+    }
+
+    public function hasAssignedClassTeacher()
+    {
+        return $this->hasOne(AssignClass::class, 'user_id', 'id');
+    }
+
+    public function hasNewMessages()
+    {
+        return $this->hasMany(ChatSystem::class, 'reciever_id', Auth::user()->id)->where('is_read', 0);
+    }
+    public function hasRecievedMessages()
+    {
+        return $this->hasMany(ChatSystem::class, 'sender_id', 'id')->where('reciever_id', Auth::user()->id)->where('is_read', 0);
+    }
+
+    public function hasLogOut()
+    {
+        return $this->hasOne(UserLog::class, 'user_id', 'id')->orderby('id', 'desc');
+    }
+
+    public function hasReadNotification()
+    {
+        return $this->hasMany(ReadNotification::class, 'user_id', 'id')->where('is_read', 0);
     }
 }

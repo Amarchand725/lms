@@ -6,6 +6,10 @@ use App\Models\ShareFile;
 use Illuminate\Http\Request;
 use App\Models\AssignClass;
 use App\Models\Material;
+use App\Models\MaterialDetail;
+use App\Models\User;
+use App\Models\Backpack;
+use Auth;
 
 class ShareFileController extends Controller
 {
@@ -39,6 +43,33 @@ class ShareFileController extends Controller
      */
     public function store(Request $request)
     {
+        if(isset($request->status)){
+            if($request->btn_type=='share'){
+                foreach(json_decode($request->material_files) as $file){
+                    ShareFile::create([
+                        'shared_by_teacher_id' => Auth::user()->id,
+                        'shared_to_teacher_id' => $request->share_to_teacher_id,
+                        'study_class_id' => $request->study_class_id,
+                        'shared_material_id' => $file,
+                    ]);
+                }
+
+                \LogActivity::addToLog('Teacher Shared file');
+                return redirect()->route('share_file.index')->withStatus(__('File shared successfully !.'));
+            }else{
+                foreach(json_decode($request->material_files) as $file){
+                    Backpack::create([
+                        'by_teacher_id' => Auth::user()->id,
+                        'study_class_id' => $request->study_class_id,
+                        'material_id' => $file,
+                    ]);
+                }
+
+                \LogActivity::addToLog('Teacher backpacked file');
+                return redirect()->route('backpack.index')->withStatus(__('File backpacked successfully !.'));
+            }
+
+        }
         return redirect()->route('donwloadables', $request->study_class_id);
     }
 
@@ -89,7 +120,10 @@ class ShareFileController extends Controller
 
     public function downloadale($id)
     {
-        // return $id;
-        return Material::where('study_class_id', $id)->get();
+        $study_classes = MaterialDetail::where('study_class_id', $id)->get(['material_id']);
+        $models = Material::whereIn('id', $study_classes)->paginate(10);
+        $teachers = User::role('Teacher')->get();
+        $study_class_id = $id;
+        return view('share_files.shareable', compact('models', 'teachers', 'study_class_id'));
     }
 }

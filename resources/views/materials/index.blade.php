@@ -28,9 +28,11 @@
                                         {{ __('This is an example of material management. This is a minimal setup in order to get started fast.') }}
                                     </p>
                             </div>
-                            <div class="col-4 text-right">
-                                <a href="{{ route('material.create') }}" class="btn btn-sm btn-primary">{{ __('Upload New Material') }}</a>
-                            </div>
+                            @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
+                                <div class="col-4 text-right">
+                                    <a href="{{ route('material.create') }}" class="btn btn-sm btn-primary">{{ __('Upload New Material') }}</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -44,39 +46,31 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">{{ __('No#') }}</th>
-                                    <th scope="col">{{ __('File') }}</th>
                                     <th scope="col">{{ __('File Name') }}</th>
                                     <th scope="col">{{ __('Description') }}</th>
                                     @if(Auth::user()->hasRole('Admin'))
                                         <th scope="col">{{ __('Uploaded By') }}</th>
                                     @endif
-                                    <th scope="col">{{ __('Status') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">{{ __('Download') }}</th>
+                                    <th scope="col">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($models as $key=>$model)
                                     <tr id="id-{{ $model->id }}">
                                         <td>{{  $models->firstItem()+$key }}.</td>
-                                        <td>
-                                            <a href="{{ route('material.show', $model->id) }}">
-                                                <img src="{{ asset('public/admin/assets/materials/file.png') }}" alt="" width="80px" height="80px">
-                                            </a>
-                                        </td>
                                         <td>{{ $model->file_name }}</td>
                                         <td>{{ $model->description }}</td>
                                         @if(Auth::user()->hasRole('Admin'))
                                             <td>{{ isset($model->hasCreatedBy)?$model->hasCreatedBy->name:'N/A' }}</td>
                                         @endif
-                                        <td>
-                                            @if($model->status)
-                                                <span class="badge badge-info">Active</span>
-                                            @else 
-                                                <span class="badge badge-danger">In-Active</span>
-                                            @endif
-                                        </td>
                                         <td>{{ $model->created_at->format('d/m/Y H:i') }}</td>
+                                        <td>
+                                            <a href="{{ asset('public/admin/assets/materials') }}/{{ $model->file }}" class="btn btn-info btn-sm download-btn" data-toggle="tooltip" data-placement="top" title="Download File" download>
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                        </td>
                                         <td class="text-right">
                                             <div class="dropdown">
                                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,14 +80,16 @@
                                                     <a class="dropdown-item" href="{{ route('material.edit', $model) }}">{{ __('Edit') }}</a>
                                                     <a class="dropdown-item" href="{{ route('material.show', $model) }}">{{ __('Show') }}</a>
                                                 
-                                                    <form action="{{ route('material.destroy', $model->id) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
+                                                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
+                                                        <form action="{{ route('material.destroy', $model->id) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
 
-                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
-                                                            {{ __('Delete') }}
-                                                        </button>
-                                                    </form>
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
+                                                                {{ __('Delete') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </td>
