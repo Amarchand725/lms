@@ -26,6 +26,9 @@ Route::get('message', 'ChatSystemController@message')->name('student.message');
 Route::post('chat-message', 'ChatSystemController@chat_message')->name('student.chat.message');
 Route::post('chat-message-store', 'ChatSystemController@save_chat')->name('student.save.chat.message');
 Route::get('mail-setting', 'MailSettingController@setting');
+Route::get('calendar-show', 'EventController@index')->name('calendar.show');
+Route::post('event-store/{id}', 'EventController@storing_event')->name('event.store');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('role', 'Admin\RoleController', ['except' => ['show', 'destroy']]);
 
