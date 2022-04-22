@@ -129,6 +129,14 @@
                                 <span class="nav-link-text"><?php echo e(__('Activity Logs')); ?></span>
                             </a>
                         </li>
+                        <li class="nav-item <?php echo e($elementName == 'chat' ? 'active' : ''); ?>">
+                            <a class="nav-link" href="<?php echo e(route('student.message')); ?>">
+                                <i class="fa fa-envelope text-primary"></i>
+                                <span class="nav-link-text"><?php echo e(__('Chats')); ?> 
+                                    
+                                </span>
+                            </a>
+                        </li>
                         <li class="nav-item <?php echo e($elementName == 'school_year' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('school_year.index')); ?>">
                                 <i class="fa fa-school text-primary"></i>

@@ -571,7 +571,7 @@ License - nucleoapp.com/license/
 body{
     background-color: #f4f7f6;
     margin-top:20px;
-    overflow: hidden !important;
+    /* overflow: hidden !important; */
 }
 .card {
     background: #fff;

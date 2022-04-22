@@ -3,7 +3,7 @@
 <?php $__env->startSection('content'); ?>
     <?php echo $__env->make('layouts.headers.guest', ['infoLogin' => 1], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-    <div class="container mt--8 pb-5">
+    <div class="container mt-2 ">
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary shadow border-0">

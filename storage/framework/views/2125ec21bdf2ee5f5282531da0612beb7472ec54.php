@@ -35,6 +35,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#teacher" role="tab">Teacher</a>
                                 </li>
+                                <?php if(!Auth::user()->hasRole('Admin')): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#admin" role="tab">Admin</a>
+                                </li>
+                                <?php endif; ?>
                             </ul>
                         </div>
                         <div class="tab-content">
@@ -98,6 +103,31 @@
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </ul>
                             </div>
+                             <?php if(isset($admin)): ?>
+                            <div class="tab-pane" id="admin" role="tabpanel">
+                                <ul class="list-unstyled chat-list mt-2 mb-0">
+                                    <li class="clearfix active" data-user-id="<?php echo e($admin->id); ?> ">
+                                        <i class="fa fa-thumb-tack text-warning pull-right"></i>
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                        <div class="about">     
+                                            <div class="name">Admin </div> 
+                                            <?php if(!empty(Auth::user()->hasLogOut->logged_out)): ?>
+                                            <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                                                                                  
+                                            <?php else: ?> 
+                                            <div class="status"> <i class="fa fa-circle offline"></i> Offline </div>                                  
+                                            <?php endif; ?>
+                                        </div>
+                                    </li>
+                                
+                        
+                                       
+                                
+                                </ul>
+                              
+                            </div>
+                            <?php endif; ?>
+                            
                         </div>
                         
                     </div>
@@ -165,18 +195,10 @@
             refresh(reciever_id);
         } );
 
-<<<<<<< HEAD
-        <?php $__env->stopSection(); ?>
-        <?php $__env->startPush('js'); ?>
-        <script>
-            
-        var user_id = null;
-=======
         setInterval(function(){
             var reciever_id = $('.chat-list li.active').attr('data-user-id');
             refresh(reciever_id);
         },5000);
->>>>>>> 84f2a0bab8cdda12482415beaabbc2f08d39609e
 
         function refresh(reciever_id){
             $.ajax({
@@ -221,7 +243,6 @@
         }
     </script>    
 <?php $__env->stopPush(); ?>
-
 <?php echo $__env->make('layouts.app', [
     'title' => __('Student Management'),
     'parentSection' => 'laravel',

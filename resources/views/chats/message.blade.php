@@ -42,6 +42,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#teacher" role="tab">Teacher</a>
                                 </li>
+                                @if(!Auth::user()->hasRole('Admin'))
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#admin" role="tab">Admin</a>
+                                </li>
+                                @endif
                             </ul>
                         </div>
                         <div class="tab-content">
@@ -105,6 +110,31 @@
                                     @endforeach
                                 </ul>
                             </div>
+                             @if(isset($admin))
+                            <div class="tab-pane" id="admin" role="tabpanel">
+                                <ul class="list-unstyled chat-list mt-2 mb-0">
+                                    <li class="clearfix active" data-user-id="{{$admin->id}} ">
+                                        <i class="fa fa-thumb-tack text-warning pull-right"></i>
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                        <div class="about">     
+                                            <div class="name">Admin </div> 
+                                            @if(!empty(Auth::user()->hasLogOut->logged_out))
+                                            <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                                                                                  
+                                            @else 
+                                            <div class="status"> <i class="fa fa-circle offline"></i> Offline </div>                                  
+                                            @endif
+                                        </div>
+                                    </li>
+                                
+                        
+                                       
+                                
+                                </ul>
+                              
+                            </div>
+                            @endif
+                            
                         </div>
                         
                     </div>
@@ -177,18 +207,10 @@
             refresh(reciever_id);
         } );
 
-<<<<<<< HEAD
-        @endsection
-        @push('js')
-        <script>
-            
-        var user_id = null;
-=======
         setInterval(function(){
             var reciever_id = $('.chat-list li.active').attr('data-user-id');
             refresh(reciever_id);
         },5000);
->>>>>>> 84f2a0bab8cdda12482415beaabbc2f08d39609e
 
         function refresh(reciever_id){
             $.ajax({
