@@ -1,9 +1,5 @@
-@extends('layouts.app', [
-    'title' => __('Student Management'),
-    'parentSection' => 'laravel',
-    'elementName' => 'Message'
-])
-@push('css')
+
+<?php $__env->startPush('css'); ?>
     <style>
         .container{
             max-width: 100% !important;
@@ -14,13 +10,13 @@
             font-size: 1.575rem !important;
         }
     </style>
-@endpush
-@section('content')
-    @component('layouts.headers.auth') 
-    @component('layouts.headers.breadcrumbs')
-    @slot('title') 
-        {{ __('Students') }} 
-    @endslot
+<?php $__env->stopPush(); ?>
+<?php $__env->startSection('content'); ?>
+    <?php $__env->startComponent('layouts.headers.auth'); ?> 
+    <?php $__env->startComponent('layouts.headers.breadcrumbs'); ?>
+    <?php $__env->slot('title'); ?> 
+        <?php echo e(__('Students')); ?> 
+    <?php $__env->endSlot(); ?>
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
@@ -30,10 +26,7 @@
                 <div class="card chat-app">
                     <div id="plist" class="people-list">
                         <div class="input-group">
-                            {{-- <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Search..."> --}}
+                            
 
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
@@ -42,17 +35,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#teacher" role="tab">Teacher</a>
                                 </li>
-                                @if(!Auth::user()->hasRole('Admin'))
+                                <?php if(!Auth::user()->hasRole('Admin')): ?>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#admin" role="tab">Admin</a>
                                 </li>
-                                @endif
+                                <?php endif; ?>
                             </ul>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane active" id="student" role="tabpanel">
                                 <ul class="list-unstyled chat-list mt-2 mb-0">
-                                    <li class="clearfix active" data-user-id="{{ Auth::user()->id }}">
+                                    <li class="clearfix active" data-user-id="<?php echo e(Auth::user()->id); ?>">
                                         <i class="fa fa-thumb-tack text-warning pull-right"></i>
                                         <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                                         <div class="about">     
@@ -60,29 +53,29 @@
                                             <div class="status"> <i class="fa fa-circle online"></i> online </div>                                   
                                         </div>
                                     </li>
-                                    @foreach($students as $student)
-                                        @if($student->hasUser->id != Auth::user()->id)
-                                            <li class="clearfix" data-user-id="{{ $student->hasUser->id }}">
+                                    <?php $__currentLoopData = $students; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $student): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php if($student->hasUser->id != Auth::user()->id): ?>
+                                            <li class="clearfix" data-user-id="<?php echo e($student->hasUser->id); ?>">
                                                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                                                 <div class="about">
-                                                    <div class="name">{{ $student->hasUser->name}} </div>
-                                                    @if(count($student->hasUser->hasRecievedMessages))
-                                                        <div id="te-{{ $student->hasUser->id }}"><span class="badge rounded-pill bg-danger pull-right" style="color: white; background-color:red;">{{ count($student->hasUser->hasRecievedMessages) }}</span></div>
-                                                    @endif
-                                                    @if($student->hasUser->hasLogOut)
-                                                        <div class="status"> <i class="fa fa-circle offline"></i>{{ \Carbon\Carbon::parse($student->hasUser->hasLogOut->logged_out)->diffForHumans() }} left</div>
-                                                    @else 
+                                                    <div class="name"><?php echo e($student->hasUser->name); ?> </div>
+                                                    <?php if(count($student->hasUser->hasRecievedMessages)): ?>
+                                                        <div id="te-<?php echo e($student->hasUser->id); ?>"><span class="badge rounded-pill bg-danger pull-right" style="color: white; background-color:red;"><?php echo e(count($student->hasUser->hasRecievedMessages)); ?></span></div>
+                                                    <?php endif; ?>
+                                                    <?php if($student->hasUser->hasLogOut): ?>
+                                                        <div class="status"> <i class="fa fa-circle offline"></i><?php echo e(\Carbon\Carbon::parse($student->hasUser->hasLogOut->logged_out)->diffForHumans()); ?> left</div>
+                                                    <?php else: ?> 
                                                         <div class="status"> <i class="fa fa-circle online"></i></div>
-                                                    @endif
+                                                    <?php endif; ?>
                                                 </div>
                                             </li>
-                                        @endif
-                                    @endforeach
+                                        <?php endif; ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </ul>
                             </div>
                             <div class="tab-pane" id="teacher" role="tabpanel">
                                 <ul class="list-unstyled chat-list mt-2 mb-0">
-                                    <li class="clearfix active" data-user-id="{{ Auth::user()->id }}">
+                                    <li class="clearfix active" data-user-id="<?php echo e(Auth::user()->id); ?>">
                                         <i class="fa fa-thumb-tack text-warning pull-right"></i>
                                         <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                                         <div class="about">     
@@ -90,40 +83,40 @@
                                             <div class="status"> <i class="fa fa-circle online"></i> online </div>                                   
                                         </div>
                                     </li>
-                                    @foreach($teachers as $teacher)
-                                        @if($teacher->hasUser->id != Auth::user()->id)
-                                            <li class="clearfix" data-user-id="{{ $teacher->hasUser->id }}">
+                                    <?php $__currentLoopData = $teachers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $teacher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php if($teacher->hasUser->id != Auth::user()->id): ?>
+                                            <li class="clearfix" data-user-id="<?php echo e($teacher->hasUser->id); ?>">
                                                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                                                 <div class="about">
-                                                    <div class="name">{{ $teacher->hasUser->name}}</div>
-                                                    @if(count($teacher->hasUser->hasRecievedMessages))
-                                                        <div id="te-{{ $teacher->hasUser->id }}"><span class="badge rounded-pill bg-danger pull-right" style="color: white; background-color:red;">{{ count($teacher->hasUser->hasRecievedMessages) }}</span></div>
-                                                    @endif
-                                                    @if($teacher->hasUser->hasLogOut)
-                                                        <div class="status"> <i class="fa fa-circle offline"></i>{{ \Carbon\Carbon::parse($teacher->hasUser->hasLogOut->logged_out)->diffForHumans() }} left</div>
-                                                    @else 
+                                                    <div class="name"><?php echo e($teacher->hasUser->name); ?></div>
+                                                    <?php if(count($teacher->hasUser->hasRecievedMessages)): ?>
+                                                        <div id="te-<?php echo e($teacher->hasUser->id); ?>"><span class="badge rounded-pill bg-danger pull-right" style="color: white; background-color:red;"><?php echo e(count($teacher->hasUser->hasRecievedMessages)); ?></span></div>
+                                                    <?php endif; ?>
+                                                    <?php if($teacher->hasUser->hasLogOut): ?>
+                                                        <div class="status"> <i class="fa fa-circle offline"></i><?php echo e(\Carbon\Carbon::parse($teacher->hasUser->hasLogOut->logged_out)->diffForHumans()); ?> left</div>
+                                                    <?php else: ?> 
                                                         <div class="status"> <i class="fa fa-circle online"></i></div>
-                                                    @endif                                       
+                                                    <?php endif; ?>                                       
                                                 </div>
                                             </li>
-                                        @endif
-                                    @endforeach
+                                        <?php endif; ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </ul>
                             </div>
-                             @if(isset($admin))
+                             <?php if(isset($admin)): ?>
                             <div class="tab-pane" id="admin" role="tabpanel">
                                 <ul class="list-unstyled chat-list mt-2 mb-0">
-                                    <li class="clearfix active" data-user-id="{{$admin->id}} ">
+                                    <li class="clearfix active" data-user-id="<?php echo e($admin->id); ?> ">
                                         <i class="fa fa-thumb-tack text-warning pull-right"></i>
                                         <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                                         <div class="about">     
                                             <div class="name">Admin </div> 
-                                            @if(!empty(Auth::user()->hasLogOut->logged_out))
+                                            <?php if(!empty(Auth::user()->hasLogOut->logged_out)): ?>
                                             <div class="status"> <i class="fa fa-circle online"></i> online </div>
                                                                                   
-                                            @else 
+                                            <?php else: ?> 
                                             <div class="status"> <i class="fa fa-circle offline"></i> Offline </div>                                  
-                                            @endif
+                                            <?php endif; ?>
                                         </div>
                                     </li>
                                 
@@ -133,7 +126,7 @@
                                 </ul>
                               
                             </div>
-                            @endif
+                            <?php endif; ?>
                             
                         </div>
                         
@@ -146,16 +139,11 @@
                                         <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
                                     </a>
                                     <div class="chat-about">
-                                        <h6 class="m-b-0"><span id="active-user-name">{{Auth::user()->name}}</span></h6>
+                                        <h6 class="m-b-0"><span id="active-user-name"><?php echo e(Auth::user()->name); ?></span></h6>
                                         <div class="status"> <i class="fa fa-circle login-status"></i> <span id="login-status-label">online</span></div>
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6 hidden-sm text-right">
-                                    <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
-                                    <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
-                                    <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
-                                    <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
-                                </div> --}}
+                                
                             </div>
                         </div>
                         <div class="chat-history" id="chat-history">
@@ -178,9 +166,9 @@
         </div>
     </div>
 
-    @include('layouts.footers.auth')
-@endsection
-@push('js')
+    <?php echo $__env->make('layouts.footers.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('js'); ?>
     <script>
         $(document).ready(function(){
             $('ul li').click(function(){
@@ -217,7 +205,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url : "{{ route('student.chat.message') }}",
+                url : "<?php echo e(route('student.chat.message')); ?>",
                 type: "post",
                 data : {reciever_id:reciever_id},
                 success : function(response){
@@ -244,7 +232,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url : "{{ route('student.save.chat.message') }}",
+                url : "<?php echo e(route('student.save.chat.message')); ?>",
                 type: "post",
                 data : {reciever_id:reciever_id, message:$('#chatsystem').val()},
                 success : function(response){
@@ -254,4 +242,9 @@
             });
         }
     </script>    
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', [
+    'title' => __('Student Management'),
+    'parentSection' => 'laravel',
+    'elementName' => 'Message'
+], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lms\resources\views/chats/message.blade.php ENDPATH**/ ?>

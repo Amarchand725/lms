@@ -47,23 +47,21 @@ class HomeController extends Controller
         }
     }
 
-    public function message(){
+    // public function message(){
 
-        $classmates = Student::where('study_class_id',Auth::user()->hasStudent->study_class_id)->get();
-
-
-        return view('students.message',compact('classmates'));
-    }
+    //     $classmates = Student::where('study_class_id',Auth::user()->hasStudent->study_class_id)->get();
 
 
-    public function chat_message(Request $request){
-        // return $request;
-     $messages = Chatsystem::where('sender_id',Auth::user()->id)->where('receiver_id', $request->user_id)->orWhere('sender_id',$request->user_id)->orwhere('receiver_id',Auth::user()->id)->get();
+    //     return view('students.message',compact('classmates'));
+    // }
 
-     return (string) view('chats.chat', compact('messages'));
-    //  return response()->json([
-    //      'data' => $chat
-    //  ]);
-    }
+
+    // public function chat_message(Request $request){
+    //     // return $request;
+    //  $messages = Chatsystem::where('sender_id',Auth::user()->id)->where('receiver_id', $request->user_id)->orWhere('sender_id',$request->user_id)->orwhere('receiver_id',Auth::user()->id)->get();
+
+    //  return (string) view('chats.chat', compact('messages'));
+  
+    // }
     }
 

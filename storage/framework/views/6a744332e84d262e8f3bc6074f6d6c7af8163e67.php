@@ -1,19 +1,17 @@
-@extends('layouts.app', [
-    'parentSection' => '',
-    'elementName' => 'calendar'
-])
 
-@section('content')
-    @component('layouts.headers.auth')
-        @component('layouts.headers.breadcrumbs')
-            @slot('title')
-                {{ now()->format('F Y') }}
-            @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('page.index', 'calendar') }}">{{ __('Dashboard') }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ __('Calendar') }}</li>
+<?php $__env->startSection('content'); ?>
+    <?php $__env->startComponent('layouts.headers.auth'); ?>
+        <?php $__env->startComponent('layouts.headers.breadcrumbs'); ?>
+            <?php $__env->slot('title'); ?>
+                <?php echo e(now()->format('F Y')); ?>
 
-            @slot('calendar')
+            <?php $__env->endSlot(); ?>
+
+            <li class="breadcrumb-item"><a href="<?php echo e(route('page.index', 'calendar')); ?>"><?php echo e(__('Dashboard')); ?></a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo e(__('Calendar')); ?></li>
+
+            <?php $__env->slot('calendar'); ?>
                 <div class="col-lg-6 mt-3 mt-lg-0 text-lg-right">
                     <a href="#" class="fullcalendar-btn-prev btn btn-sm btn-neutral">
                         <i class="fas fa-angle-left"></i>
@@ -25,9 +23,9 @@
                     <a href="#" class="btn btn-sm btn-neutral" data-calendar-view="basicWeek">Week</a>
                     <a href="#" class="btn btn-sm btn-neutral" data-calendar-view="basicDay">Day</a>
                 </div>
-            @endslot
-        @endcomponent
-    @endcomponent
+            <?php $__env->endSlot(); ?>
+        <?php echo $__env->renderComponent(); ?>
+    <?php echo $__env->renderComponent(); ?>
 
     <div class="container-fluid mt--6">
         <div class="row">
@@ -127,17 +125,22 @@
             </div>
         </div>
         <!-- Footer -->
-        @include('layouts.footers.auth')
+        <?php echo $__env->make('layouts.footers.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('css')
-    <link rel="stylesheet" href="{{ asset('public/admin/assets') }}/vendor/fullcalendar/dist/fullcalendar.min.css">
-    <link rel="stylesheet" href="{{ asset('public/admin/assets') }}/vendor/sweetalert2/dist/sweetalert2.min.css">
-@endpush
+<?php $__env->startPush('css'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('public/admin/assets')); ?>/vendor/fullcalendar/dist/fullcalendar.min.css">
+    <link rel="stylesheet" href="<?php echo e(asset('public/admin/assets')); ?>/vendor/sweetalert2/dist/sweetalert2.min.css">
+<?php $__env->stopPush(); ?>
 
-@push('js')
-    <script src="{{ asset('public/admin/assets') }}/vendor/moment/min/moment.min.js"></script>
-    <script src="{{ asset('public/admin/assets') }}/vendor/fullcalendar/dist/fullcalendar.min.js"></script>
-    <script src="{{ asset('public/admin/assets') }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
-@endpush
+<?php $__env->startPush('js'); ?>
+    <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/moment/min/moment.min.js"></script>
+    <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="<?php echo e(asset('public/admin/assets')); ?>/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.app', [
+    'parentSection' => '',
+    'elementName' => 'calendar'
+], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lms\resources\views/pages/calendar.blade.php ENDPATH**/ ?>

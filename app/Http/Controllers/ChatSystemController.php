@@ -22,21 +22,38 @@ class ChatSystemController extends Controller
         $this->middleware('auth');
     }
     public function message(){
-        if(Auth::user()->hasRole('Student')){
+
+        if(Auth::user()->hasRole('Admin')){
+
+          
+            $students = Student::where('status', 1)->get();
+            $teachers = Teacher::where('status', 1)->get();
+            return view('chats.message',compact('students', 'teachers',));
+        }
+
+        elseif(Auth::user()->hasRole('Student')){
+
+        
             $students = Student::where('study_class_id', Auth::user()->hasStudent->study_class_id)->get();
             $assigned_teachers = AssignClass::where('study_class_id', Auth::user()->hasStudent->study_class_id)->get(['user_id']);
             $teachers = Teacher::orderby('id', 'desc')->whereIn('user_id', $assigned_teachers)->where('status', 1)->get();
-            return view('chats.message',compact('students', 'teachers'));
-        }elseif(Auth::user()->hasRole('Teacher')){
+            $admin = User::where('id',1)->first();
+            return view('chats.message',compact('students', 'teachers','admin'));
+
+
+        }
+        elseif(Auth::user()->hasRole('Teacher')){
             $assigned_classes = AssignClass::where('user_id', Auth::user()->id)->get(['study_class_id']);
             $students = Student::whereIn('study_class_id', $assigned_classes)->get();
             $teachers = Teacher::orderby('id', 'desc')->where('status', 1)->get();
-            return view('chats.message',compact('students', 'teachers'));
+            $admin = User::where('id',1)->first();
+            return view('chats.message',compact('students', 'teachers','admin'));
         }
     }
 
     public function chat_message(Request $request){
         if($request->reciever_id == Auth::user()->id){
+
             $messages = Chatsystem::where('sender_id', Auth::user()->id)->where('reciever_id', Auth::user()->id)->get(); 
         }else{
             Chatsystem::where('sender_id', $request->reciever_id)->where('reciever_id', Auth::user()->id)->where('is_read', 0)->update(['is_read'=>1]);

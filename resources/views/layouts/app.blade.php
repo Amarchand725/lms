@@ -22,7 +22,9 @@
 
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('public/admin/css') }}/argon.css?v=2.0.0" rel="stylesheet">
+       
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+        
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
