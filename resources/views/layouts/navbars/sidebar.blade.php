@@ -21,34 +21,38 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
+                    <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('home') }}">
+                            <i class="ni ni-shop text-primary"></i>
+                            <span class="nav-link-text">{{ __('Dashboard') }}</span>
+                        </a>
+                    </li>
 
-                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                    <li class="nav-item {{ $elementName == 'event' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('event.index') }}">
                             <i class="ni ni-calendar-grid-58 text-primary"></i>
                             <span class="nav-link-text">{{ __('Calendar') }}</span>
                         </a>
                     </li>
 
-
-                <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('calendar.show') }}">
-                                <i class="ni ni-calendar-grid-58 text-primary"></i>
-                                <span class="nav-link-text">{{ __('Calendar') }}</span>
-                            </a>
-                        </li>
-
                     @if(Auth::user()->hasRole('Admin'))
-                        <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('home') }}">
-                                <i class="ni ni-shop text-primary"></i>
-                                <span class="nav-link-text">{{ __('Dashboard') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item {{ $elementName == 'charts' ? 'active' : '' }}">
+                        {{-- <li class="nav-item {{ $elementName == 'charts' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('page.index','charts') }}">
                                 <i class="ni ni-chart-pie-35 text-primary"></i>
                                 <span class="nav-link-text">{{ __('Charts') }}</span>
+                            </a>
+                        </li> --}}
+                        <li class="nav-item {{ $elementName == 'mail_setting.*' ? 'active' : '' }}">
+                            @php
+                                $mail_setting = App\Models\MailSetting::orderby('id', 'desc')->first();
+                            @endphp
+                            @if($mail_setting)
+                                <a class="nav-link" href="{{ route('mail_setting.edit', $mail_setting->id) }}">
+                            @else
+                                <a class="nav-link" href="{{ route('mail_setting.create') }}">
+                            @endif
+                                <i class="ni ni-chart-pie-35 text-primary"></i>
+                                <span class="nav-link-text">{{ __('Mail Setting') }}</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -142,7 +146,7 @@
                         <li class="nav-item {{ $elementName == 'chat' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('student.message') }}">
                                 <i class="fa fa-envelope text-primary"></i>
-                                <span class="nav-link-text">{{ __('Chats') }} 
+                                <span class="nav-link-text">{{ __('Chats') }}
                                     {{-- <span class="badge rounded-pill bg-danger" style="color: white; background-color:red">{{ count(Auth::user()->hasNewMessages) }}</span> --}}
                                 </span>
                             </a>
@@ -169,7 +173,7 @@
                         <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('student.message') }}">
                                 <i class="fa fa-envelope text-primary"></i>
-                                <span class="nav-link-text">{{ __('Chats') }} 
+                                <span class="nav-link-text">{{ __('Chats') }}
                                     {{-- <span class="badge rounded-pill bg-danger" style="color: white; background-color:red">{{ count(Auth::user()->hasNewMessages) }}</span> --}}
                                 </span>
                             </a>

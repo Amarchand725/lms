@@ -25,9 +25,6 @@ Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('message', 'ChatSystemController@message')->name('student.message');
 Route::post('chat-message', 'ChatSystemController@chat_message')->name('student.chat.message');
 Route::post('chat-message-store', 'ChatSystemController@save_chat')->name('student.save.chat.message');
-Route::get('mail-setting', 'MailSettingController@setting');
-Route::get('calendar-show', 'EventController@index')->name('calendar.show');
-Route::post('event-store/{id}', 'EventController@storing_event')->name('event.store');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('role', 'Admin\RoleController', ['except' => ['show', 'destroy']]);
@@ -55,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('backpack', 'BackPackController');
     Route::resource('subject_overview', 'SubjectOverviewController');
     Route::resource('quiz_attempt', 'QuizAttemptController');
+    Route::resource('event', 'EventController');
+    Route::resource('mail_setting', 'MailSettingController');
 
     Route::get('activity_log', 'Admin\AdminController@activityLogs')->name('activity_log.index');
     Route::get('log/index', 'Admin\AdminController@userLogs')->name('log.index');

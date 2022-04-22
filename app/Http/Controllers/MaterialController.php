@@ -48,7 +48,7 @@ class MaterialController extends Controller
             "assigned_to_classes" => "required|array",
             "assigned_to_classes.*"  => "required",
             'file_name' => 'required|max:255',
-            'file' => 'required',
+            'file' => 'required|max:10000|mimes:doc,docx,jpeg,jpg,png',
             'description' => 'max:255',
         ]);
 
@@ -161,7 +161,7 @@ class MaterialController extends Controller
         $model = Material::where('id', $id)->delete();
         if($model){
             MaterialDetail::where('material_id', $id)->delete();
-            
+
             \LogActivity::addToLog('Material Deleted');
             return redirect()->route('material.index')->withStatus(__('Material successfully deleted.'));
         }

@@ -47,7 +47,9 @@
                                         </div>
                                         <div class="form-group{{ $errors->has('file') ? ' has-danger' : '' }}">
                                             <label class="form-control-label" for="input-file">{{ __('File') }}</label>
-                                            <input type="file" name="file" id="input-file" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" value="{{ old('file') }}"  required autofocus>
+                                            <input type="file" name="file" id="input-file" accept=
+                                            "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                                            text/plain, application/pdf, image/*, video/*" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" value="{{ old('file') }}"  required autofocus>
 
                                             @include('alerts.feedback', ['field' => 'file'])
                                         </div>
@@ -88,7 +90,7 @@
                                                         <td>{{ $class->hasSubject->code }}</td>
                                                     </tr>
                                                 @endforeach
-                                                {{ $errors->first('assigned_to_classes.*') }}
+                                                {{ $errors->first('assigned_to_classes') }}
                                             </tbody>
                                         </table>
                                     </div>

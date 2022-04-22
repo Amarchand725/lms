@@ -24,8 +24,7 @@ class CreateMailSettingsTable extends Migration
             $table->string('mail_encryption')->nullable();
             $table->string('mail_from_address')->nullable();
             $table->string('mail_from_name')->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

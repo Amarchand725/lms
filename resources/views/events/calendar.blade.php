@@ -44,55 +44,37 @@
                         <div class="calendar" data-toggle="calendar" id="calendar"></div>
                     </div>
                 </div>
-                
+
                 <!-- Modal - Add new event -->
-                <!--* Modal header *-->
-                <!--* Modal body *-->
-                <!--* Modal footer *-->
-                <!--* Modal init *-->
                 <div class="modal fade" id="new-event" tabindex="-1" role="dialog" aria-labelledby="new-event-label" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-secondary" role="document">
                         <div class="modal-content">
                             <!-- Modal body -->
-                            <div class="modal-body">
-                                <form class="form" action="{{ route('event.store',$id) }}" method="post" >
-                                    @csrf
+                            <form class="form" action="{{ route('event.store') }}" method="post" >
+                                @csrf
+                                <div class="modal-body">
                                     <div class="form-group">
                                         <label class="form-control-label">Event title</label>
-                                        <input type="text" class="form-control form-control-alternative new-event--title" name="title" placeholder="Event Title">
+                                        <input type="text" class="form-control form-control-alternative new-event--title" name="title" placeholder="Event Title" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label">Starting Date</label>
-                                        <input type="date" name="starting_date" min="{{ Carbon\Carbon::now()}}" class="form-control form-control-alternative ">
+                                        <input type="date" name="starting_date" min="{{ Carbon\Carbon::now()}}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label">Ending Date</label>
-                                        <input type="date" name="ending_date" min="{{ Carbon\Carbon::now()}}" class="form-control form-control-alternative">
+                                        <input type="date" name="ending_date" min="{{ Carbon\Carbon::now()}}" class="form-control">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-control-label">Status</label>
-                                        <select class="form-group" name="status">
-                                            <option value="1">Active</option>
-                                            <option value="0">Inactive</option>
-                                         </select>
-                                    </div>
-                                    
-        
-                               
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary new-event--add">Add event</button>
-                                </form>
-                                <button type="button" class="btn btn-link ml-auto" data-dismiss="modal">Close</button>
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary new-event--add"> Save</button>
+                                    <button type="button" class="btn btn-danger ml-auto" data-dismiss="modal"> Close</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <!-- Modal - Edit event -->
-                <!--* Modal body *-->
-                <!--* Modal footer *-->
-                <!--* Modal init *-->
                 <div class="modal fade" id="edit-event" tabindex="-1" role="dialog" aria-labelledby="edit-event-label" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-secondary" role="document">
                         <div class="modal-content">
@@ -133,45 +115,47 @@
                 </div>
             </div>
             <div class="col-md-6">
-            <div class="card card-calendar">
-    
-            <div class="card-header">
+                <div class="card card-calendar">
+                    <div class="card-header">
+                        <h1> Events</h1>
+                        <table id="customers">
+                            <tr>
+                                <th>SNo#</th>
+                                <th>Event title</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Action</th>
+                            </tr>
+                            @if(isset($events))
+                                @php($counter=1)
+                                @foreach($events as $event)
+                                    <tr>
+                                        <td>{{ $counter++ }}.</td>
+                                        <td>{{ $event->title}}</td>
+                                        <td>{{date('d M Y',strtotime($event->starting_date)) }}</td>
+                                        <td>{{date('d M Y',strtotime($event->ending_date)) }}</td>
+                                        <td>
+                                            <form action="{{ route('event.destroy', $event->id) }}" method="post">
+                                                @csrf
+                                                @method('delete')
 
-            <h1> Events</h1>
-
-            <table id="customers">
-                <tr>
-                    <th>S#no</th>
-                    <th>Event title</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Status</th>
-                </tr>
-                @if(isset($events))
-                @foreach($events as $event)
-                <tr>
-                    <td>{{ $event->id}}</td>
-                    <td>{{ $event->title}}</td>
-                    <td>{{date('d M Y',strtotime($event->starting_date)) }}</td>
-                    <td>{{date('d M Y',strtotime($event->ending_date)) }}</td>
-                    <td>{{ $event->status==1? "Active":"Inactive" }}</td>
-                </tr>
-                @endforeach
-                <div class="d-felx justify-content-center">
-
-                {{ $events->links('pagination::bootstrap-4') }}
- 
-                 </div>
-                 @endif()
-              
-                </table>
-               
-          </div>
-          
-          </div>
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="confirm('{{ __("Are you sure you want to delete this event?") }}') ? this.parentElement.submit() : ''">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                <div class="d-felx justify-content-center">
+                                    {{ $events->links('pagination::bootstrap-4') }}
+                                </div>
+                            @endif
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @include('layouts.footers.auth')
         </div>
-        <!-- Footer -->
-        @include('layouts.footers.auth')
     </div>
 @endsection
 
@@ -184,6 +168,6 @@
     <script src="{{ asset('public/admin/assets') }}/vendor/moment/min/moment.min.js"></script>
     <script src="{{ asset('public/admin/assets') }}/vendor/fullcalendar/dist/fullcalendar.min.js"></script>
     <scrip src="{{ asset('public/admin/assets') }}/vendor/sweetalert2/dist/sweetalert2.min.js"></scrip>
-   
+
 @endpush
 
