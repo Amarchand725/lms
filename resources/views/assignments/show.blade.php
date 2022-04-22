@@ -46,7 +46,7 @@
 									<th>Assigned to classes</th>
 									<td>
                                         <ul>
-                                            @foreach ($assignment->hasAssignedClases as $class)
+                                            @foreach ($assignment->hasAssignedClasses as $class)
                                                 <li>{{ $class->hasStudyClass->name }}</li>
                                             @endforeach
                                         </ul>

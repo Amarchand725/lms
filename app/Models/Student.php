@@ -19,4 +19,8 @@ class Student extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+    public function hasClassmates()
+    {
+        return $this->hasMany(Student::class, 'study_class_id');
+    }
 }

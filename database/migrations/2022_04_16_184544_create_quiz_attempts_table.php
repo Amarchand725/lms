@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentClassQuizzesTable extends Migration
+class CreateQuizAttemptsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateStudentClassQuizzesTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_class_quizzes', function (Blueprint $table) {
+        Schema::create('quiz_attempts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('quize_id');
             $table->bigInteger('student_id');
-            $table->string('quiz_time');
-            $table->string('grade')->nullable();
+            $table->bigInteger('total_questions');
+            $table->string('correct_answers')->nullable();
+            $table->string('quiz_attempt_time');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateStudentClassQuizzesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_class_quizzes');
+        Schema::dropIfExists('quiz_attempts');
     }
 }

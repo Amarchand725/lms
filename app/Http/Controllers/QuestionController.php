@@ -46,23 +46,30 @@ class QuestionController extends Controller
             'quiz_id' => 'required',
             'question_type_id' => 'required',
             'question' => 'required|max:255',
-            'answer' => 'required|max:255',
+            'answers' => 'required',
+            'answers.*' => 'required',
         ]);
 
         $model = Question::create([
             'question_type_id' => $request->question_type_id,
             'quiz_id' => $request->quiz_id,
             'question' => $request->question,
-            'answer' => $request->answer,
         ]);
 
         if($model){
-            foreach($request->options as $option){
+            foreach($request->options as $key=>$option){
+                $opt = new Option();
                 if(!empty($option)){
-                    Option::create([
-                        'question_id' => $model->id,
-                        'option' => $option,
-                    ]);
+                    $opt->question_id = $model->id;
+                    $opt->option = $option;
+                    if(!empty($request->answers)){
+                        foreach($request->answers as $k=>$answer){
+                            if($key==$k){
+                                $opt->is_answer = 1;
+                            }
+                        }
+                    }
+                    $opt->save();
                 }
             }
 
@@ -108,7 +115,8 @@ class QuestionController extends Controller
             'quiz_id' => 'required',
             'question_type_id' => 'required',
             'question' => 'required|max:255',
-            'answer' => 'required|max:255',
+            'answers' => 'required',
+            'answers.*' => 'required',
         ]);
 
         $question->question_type_id = $request->question_type_id;
@@ -119,24 +127,21 @@ class QuestionController extends Controller
 
         if($question){
             Option::where('question_id', $question->id)->delete();
-            $question_type = QuestionType::where('id',  $request->question_type_id)->first();
-            if($question_type->type=="True or False"){
-                foreach($request->edit_options as $option){
-                    if(!empty($option)){
-                        Option::create([
-                            'question_id' => $question->id,
-                            'option' => $option,
-                        ]);
+            
+            foreach($request->options as $key=>$option){
+                $opt = new Option();
+
+                if(!empty($option)){
+                    $opt->question_id = $question->id;
+                    $opt->option = $option;
+                    if(!empty($request->answers)){
+                        foreach($request->answers as $k=>$answer){
+                            if($key==$k){
+                                $opt->is_answer = 1;
+                            }
+                        }
                     }
-                }
-            }else{
-                foreach($request->options as $option){
-                    if(!empty($option)){
-                        Option::create([
-                            'question_id' => $question->id,
-                            'option' => $option,
-                        ]);
-                    }
+                    $opt->save();
                 }
             }
 
@@ -153,12 +158,11 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        $model = $question->first();
+        $model = $question->delete();
         if($model){
-            Option::where('question_id', $model->id)->delete();
-            $model->delete();
+            Option::where('question_id', $question->id)->delete();
             \LogActivity::addToLog('Question Deleted');
-            return redirect()->route('quiz.index')->withStatus(__('Question successfully deleted.'));
+            return redirect()->route('question.index')->withStatus(__('Question successfully deleted.'));
         }
     }
 }

@@ -19,7 +19,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-auto">
-                            <img src="{{ asset('public/admin/assets/img/brand/class-default-img.jpg') }}" width="200px" alt="">
+                            @if($assigned->picture)
+                                <img src="{{ asset('public/admin/assets/img/theme') }}/{{ $assigned->picture }}" width="200px" alt="">
+                            @else 
+                                <img src="{{ asset('public/admin/assets/img/theme/user-default-img.png') }}" width="200px" alt="">
+                            @endif
                         </div>
                         <div class="col text-center">
                             <span class="h2 font-weight-bold mb-0">{{ $assigned->first_name }} {{ $assigned->last_name }}</span>

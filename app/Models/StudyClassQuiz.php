@@ -15,4 +15,9 @@ class StudyClassQuiz extends Model
     {
         return $this->hasOne(StudyClass::class, 'id', 'study_class_id');
     }
+
+    public function hasQuiz()
+    {
+        return $this->hasOne(Quiz::class, 'id', 'quiz_id');
+    }
 }

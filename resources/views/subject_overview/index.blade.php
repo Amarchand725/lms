@@ -1,17 +1,17 @@
 @extends('layouts.app', [
-    'title' => __('Assignment Management'),
+    'title' => __('Subject Overview Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'assignment-management'
+    'elementName' => 'subject_overview-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Assignments') }}
+                {{ __('Subject Overviews') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('assignment.index') }}">{{ __('Assignment Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('subject_overview.index') }}">{{ __('Subject Overview Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('List') }}</li>
         @endcomponent
     @endcomponent
@@ -23,14 +23,14 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Assignments') }}</h3>
+                                <h3 class="mb-0">{{ __('Subject Overviews') }}</h3>
                                 <p class="text-sm mb-0">
-                                        {{ __('This is an example of assignment management. This is a minimal setup in order to get started fast.') }}
+                                        {{ __('This is an example of subject_overview management. This is a minimal setup in order to get started fast.') }}
                                     </p>
                             </div>
                             @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
                                 <div class="col-4 text-right">
-                                    <a href="{{ route('assignment.create') }}" class="btn btn-sm btn-primary">{{ __('Add Assignment') }}</a>
+                                    <a href="{{ route('subject_overview.create') }}" class="btn btn-sm btn-primary">{{ __('Add New Subject Overview') }}</a>
                                 </div>
                             @endif
                         </div>
@@ -46,32 +46,18 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">{{ __('No#') }}</th>
-                                    <th scope="col">{{ __('File Name') }}</th>
-                                    @if(Auth::user()->hasRole('Admin'))
-                                        <th scope="col">{{ __('Upload By') }}</th>
-                                    @endif
-                                    <th scope="col">{{ __('Description') }}</th>
-                                    <th scope="col">{{ __('Status') }}</th>
+                                    <th scope="col">{{ __('Subject') }}</th>
+                                    <th scope="col">{{ __('subject overview') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
                                     <th scope="col">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($models as $key=>$model)
-                                    <tr>
+                                    <tr id="id-{{ $model->id }}">
                                         <td>{{  $models->firstItem()+$key }}.</td>
-                                        <td>{{ $model->name }}</td>
-                                        @if(Auth::user()->hasRole('Admin'))
-                                            <td>{{ isset($model->hasUser)?$model->hasUser->name:'N/A' }}</td>
-                                        @endif
-									    <td>{!! \Illuminate\Support\Str::limit($model->description,60) !!}</td>
-                                        <td>
-                                            @if($model->status)
-                                                <span class="badge badge-info">Active</span>
-                                            @else
-                                                <span class="badge badge-info">Active</span>
-                                            @endif
-                                        </td>
+                                        <td>{!! \Illuminate\Support\Str::limit($model->hasSubject->title, 40) !!}</td>
+                                        <td>{!! \Illuminate\Support\Str::limit($model->overview,60) !!}</td>
                                         <td>{{ $model->created_at->format('d/m/Y H:i') }}</td>
                                         <td class="text-right">
                                             <div class="dropdown">
@@ -79,11 +65,10 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="{{ route('assignment.show', $model) }}">{{ __('Show') }}</a>
-
+                                                    <a class="dropdown-item" href="{{ route('subject_overview.edit', $model) }}">{{ __('Edit') }}</a>
+                                                    <a class="dropdown-item" href="{{ route('subject_overview.show', $model) }}">{{ __('Show') }}</a>
                                                     @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teacher'))
-                                                        <a class="dropdown-item" href="{{ route('assignment.edit', $model) }}">{{ __('Edit') }}</a> 
-                                                        <form action="{{ route('assignment.destroy', $model->id) }}" method="post">
+                                                        <form action="{{ route('subject_overview.destroy', $model->id) }}" method="post">
                                                             @csrf
                                                             @method('delete')
 
@@ -117,18 +102,18 @@
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/argon') }}/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('public/argon') }}/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('public/argon') }}/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin/assets') }}/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin/assets') }}/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin/assets') }}/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css">
 @endpush
 
 @push('js')
-    <script src="{{ asset('public/argon') }}/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('public/argon') }}/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('public/argon') }}/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="{{ asset('public/argon') }}/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-    <script src="{{ asset('public/argon') }}/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="{{ asset('public/argon') }}/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="{{ asset('public/argon') }}/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="{{ asset('public/argon') }}/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+    <script src="{{ asset('public/admin/assets') }}/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('public/admin/assets') }}/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('public/admin/assets') }}/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('public/admin/assets') }}/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="{{ asset('public/admin/assets') }}/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('public/admin/assets') }}/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="{{ asset('public/admin/assets') }}/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ asset('public/admin/assets') }}/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 @endpush

@@ -21,18 +21,18 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
+                    <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('page.index','calendar') }}">
+                            <i class="ni ni-calendar-grid-58 text-primary"></i>
+                            <span class="nav-link-text">{{ __('Calendar') }}</span>
+                        </a>
+                    </li>
+
                     @if(Auth::user()->hasRole('Admin'))
                         <li class="nav-item {{ $elementName == 'dashboard' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('home') }}">
                                 <i class="ni ni-shop text-primary"></i>
                                 <span class="nav-link-text">{{ __('Dashboard') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item {{ $elementName == 'calendar' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('page.index','calendar') }}">
-                                <i class="ni ni-calendar-grid-58 text-primary"></i>
-                                <span class="nav-link-text">{{ __('Calendar') }}</span>
                             </a>
                         </li>
 
@@ -169,6 +169,12 @@
                                 <span class="nav-link-text">{{ __('Materials') }}</span>
                             </a>
                         </li>
+                        <li class="nav-item {{ $elementName == 'subject_overview' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('subject_overview.index') }}">
+                                <i class="fa fa-book text-primary"></i>
+                                <span class="nav-link-text">{{ __('Subject Overviews') }}</span>
+                            </a>
+                        </li>
                         <li class="nav-item {{ $elementName == 'announcement' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('announcement.index') }}">
                                 <i class="fa fa-bullhorn text-primary"></i>
@@ -241,6 +247,12 @@
                             <a class="nav-link" href="{{ route('backpack.index') }}">
                                 <i class="fa fa-shopping-bag text-primary"></i>
                                 <span class="nav-link-text">{{ __('Backpack') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ $elementName == 'study_class_quiz' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('study_class_quiz.index') }}">
+                                <i class="fa fa-shopping-bag text-primary"></i>
+                                <span class="nav-link-text">{{ __('Quiz') }}</span>
                             </a>
                         </li>
                     @endif

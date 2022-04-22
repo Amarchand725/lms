@@ -86,7 +86,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-check">
-                                                                @if(isset($assignment->hasAssignedClasses)?$assignment->hasAssignedClasses->hasStudyClass->id==$class->hasStudyClass->id:0)
+                                                                @if(isset($assignment->hasAssignedClass)?$assignment->hasAssignedClass->hasStudyClass->id==$class->hasStudyClass->id:0)
                                                                     <input class="form-check-input individual" checked name="assigned_to_classes[]" type="checkbox" value="{{ $class->study_class_id }}" id="flexCheckDefault">
                                                                 @else
                                                                     <input class="form-check-input individual" name="assigned_to_classes[]" type="checkbox" value="{{ $class->study_class_id }}" id="flexCheckDefault">

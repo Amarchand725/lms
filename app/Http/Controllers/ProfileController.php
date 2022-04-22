@@ -18,10 +18,11 @@
 namespace App\Http\Controllers;
 
 use Gate;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Requests\PasswordRequest;
+use Auth;
 
 class ProfileController extends Controller
 {
@@ -43,14 +44,22 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        if (Gate::denies('update', auth()->user())) {
+        /* if (Gate::denies('update', auth()->user())) {
             return back()->withErrors(['not_allow_profile' => __('You are not allowed to change data for a default user.')]);
+        } */
+
+        $user = User::where('id', Auth::user()->id)->first();
+
+        if (isset($request->picture)) {
+            $file = date('d-m-Y-His').'.'.$request->file('picture')->getClientOriginalExtension();
+            $request->picture->move(public_path('/admin/assets/img/theme'), $file);
+
+            $user->picture = $file;
         }
 
-        auth()->user()->update(
-            $request->merge(['picture' => $request->photo ? $request->photo->store('profile_user', 'public') : null])
-                ->except([$request->hasFile('photo') ? '' : 'picture'])
-        );
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
 
         return back()->withStatus(__('Profile successfully updated.'));
     }

@@ -45,10 +45,9 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">{{ __('No#') }}</th>
-                                    <th scope="col">{{ __('Title') }}</th>
+                                    <th scope="col">{{ __('Quiz Title') }}</th>
                                     <th scope="col">{{ __('Description') }}</th>
-                                    <th scope="col">{{ __('Status') }}</th>
-                                    <th scope="col">{{ __('Creation Date') }}</th>
+                                    <th scope="col">{{ __('QUIZ TIME (IN MINUTES)') }}</th>
                                     <th scope="col">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
@@ -56,35 +55,11 @@
                                 @foreach ($models as $key=>$model)
                                     <tr id="id-{{ $model->id }}">
                                         <td>{{  $models->firstItem()+$key }}.</td>
-                                        <td>{!! \Illuminate\Support\Str::limit($model->title,40) !!}</td>
-                                        <td>{!! \Illuminate\Support\Str::limit($model->description,60) !!}</td>
-                                        <td>
-                                            @if($model->status)
-                                                <span class="badge badge-info">Active</span>
-                                            @else
-                                                <span class="badge badge-danger">In-Active</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $model->created_at->format('d/m/Y H:i') }}</td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="{{ route('quiz.edit', $model) }}">{{ __('Edit') }}</a>
-                                                    <a class="dropdown-item" href="{{ route('question.index') }}">{{ __('Questions') }}</a>
-
-                                                    <form action="{{ route('quiz.destroy', $model->id) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
-
-                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this model?") }}') ? this.parentElement.submit() : ''">
-                                                            {{ __('Delete') }}
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                        <td>{{ $model->hasQuiz->title }}</td>
+                                        <td>{!! \Illuminate\Support\Str::limit($model->hasQuiz->description, 60) !!}</td>
+                                        <td>{{ $model->quiz_time }}</td>
+                                        <td class="text-left">
+                                            <a href="{{ route('study_class_quiz.show', $model->quiz_id) }}" data-toggle="tooltip" data-placement="top" title="Attempt Test" class="btn bt-success btn-sm"><i class="fas fa-check-circle"></i> Take This Quize</a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -63,31 +63,103 @@
                                     <input type="text" id="input-question" class="form-control" value="{{ $question->question }}" name="question" placeholder="Enter question">
                                     @include('alerts.feedback', ['field' => 'question'])
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-answer">{{ __('Answer') }} <span style="color: red">*</span></label>
-                                    <input type="text" id="input-answer" class="form-control" value="{{ $question->answer }}" name="answer" placeholder="Enter answer">
-                                    @include('alerts.feedback', ['field' => 'answer'])
-                                </div>
-                                <div class="form-group" id="true-false-option" style="display: @if($question->question_type_id==2) none @endif">
-                                    <label class="form-control-label" for="input-option">{{ __('Option (True or False)') }}</label>
-                                    <input type="text" id="input-option" class="form-control" name="edit_options[]" value="{{ $question->hasOptions[0]->option }}" placeholder="Enter true or false">
-                                    @include('alerts.feedback', ['field' => 'option'])
-                                </div>
-                                <span id="mcqs-option" style="display: @if($question->question_type_id==1) none @endif">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-option">{{ __('Option 1') }}</label>
-                                        <input type="text" id="input-option" class="form-control" value="{{ isset($question->hasOptions[0])?$question->hasOptions[0]->option:'' }}" name="options[]" placeholder="Enter option">
-                                        @include('alerts.feedback', ['field' => 'option'])
+                                
+                                <span id="mcqs-option" style="display: @if(!$question->question_type_id) none @endif">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label class="form-control-label text-danger" for="input-option">{{ __('Add only one Option if question type is True or False and check one answer bellow of them.') }}</label>
+                                                @include('alerts.feedback', ['field' => 'answers'])
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-option">{{ __('Option 2') }}</label>
-                                        <input type="text" id="input-option" class="form-control" value="{{ isset($question->hasOptions[1])?$question->hasOptions[1]->option:'' }}" name="options[]" placeholder="Enter option">
-                                        @include('alerts.feedback', ['field' => 'option'])
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-option">{{ __('Option 1') }}</label>
+                                                <input type="text" id="input-option" class="form-control" value="{{ isset($question->hasOptions[0])?$question->hasOptions[0]->option:'' }}" name="options[1]" placeholder="Enter option">
+                                                @include('alerts.feedback', ['field' => 'option'])
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="form-control-label mt-4" for="input-option"></label>
+                                            <div class="form-check">
+                                                @if(isset($question->hasOptions[0])?$question->hasOptions[0]->is_answer:0)
+                                                    <input class="form-check-input" checked type="checkbox" value="1" name="answers[1]" id="check-answer-1">    
+                                                @else 
+                                                    <input class="form-check-input" type="checkbox" value="1" name="answers[1]" id="check-answer-1">    
+                                                @endif
+                                                <label class="form-check-label" for="check-answer-1">
+                                                    Ans?
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-option">{{ __('Option 3') }}</label>
-                                        <input type="text" id="input-option" class="form-control" value="{{ isset($question->hasOptions[2])?$question->hasOptions[2]->option:'' }}" name="options[]" placeholder="Enter option">
-                                        @include('alerts.feedback', ['field' => 'option'])
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-option">{{ __('Option 2') }}</label>
+                                                <input type="text" id="input-option" class="form-control" value="{{ isset($question->hasOptions[1])?$question->hasOptions[1]->option:'' }}" name="options[2]" placeholder="Enter option">
+                                                @include('alerts.feedback', ['field' => 'option'])
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="form-control-label mt-4" for="input-option"></label>
+                                              <div class="form-check">
+                                                @if(isset($question->hasOptions[1])?$question->hasOptions[1]->is_answer:0)
+                                                    <input class="form-check-input" checked type="checkbox" value="1" name="answers[2]" id="check-answer-1">    
+                                                @else 
+                                                    <input class="form-check-input" type="checkbox" value="1" name="answers[2]" id="check-answer-2">    
+                                                @endif
+                                                <label class="form-check-label" for="check-answer-2">
+                                                  Ans?
+                                                </label>
+                                              </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-option">{{ __('Option 3') }}</label>
+                                                <input type="text" id="input-option" class="form-control" value="{{ isset($question->hasOptions[2])?$question->hasOptions[2]->option:'' }}" name="options[3]" placeholder="Enter option">
+                                                @include('alerts.feedback', ['field' => 'option'])
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="form-control-label mt-4" for="input-option"></label>
+                                            <div class="form-check">
+                                                @if(isset($question->hasOptions[2])?$question->hasOptions[2]->is_answer:0)
+                                                    <input class="form-check-input" checked type="checkbox" value="1" name="answers[3]" id="check-answer-1">    
+                                                @else 
+                                                    <input class="form-check-input" type="checkbox" value="1" name="answers[3]" id="check-answer-3">    
+                                                @endif
+                                                <label class="form-check-label" for="check-answer-3">
+                                                    Ans?
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-option">{{ __('Option 4') }}</label>
+                                                <input type="text" id="input-option" class="form-control" value="{{ isset($question->hasOptions[3])?$question->hasOptions[3]->option:'' }}" name="options[4]" placeholder="Enter option">
+                                                @include('alerts.feedback', ['field' => 'option'])
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="form-control-label mt-4" for="input-option"></label>
+                                            <div class="form-check">
+                                                @if(isset($question->hasOptions[3])?$question->hasOptions[3]->is_answer:0)
+                                                    <input class="form-check-input" checked type="checkbox" value="1" name="answers[4]" id="check-answer-1">    
+                                                @else 
+                                                    <input class="form-check-input" type="checkbox" value="1" name="answers[4]" id="check-answer-4">    
+                                                @endif
+                                                <label class="form-check-label" for="check-answer-4">
+                                                    Ans?
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </span>
                                 <div class="text-left">

@@ -49,6 +49,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('study_class_quiz', 'StudyClassQuizController');
     Route::resource('share_file', 'ShareFileController');
     Route::resource('backpack', 'BackPackController');
+    Route::resource('subject_overview', 'SubjectOverviewController');
+    Route::resource('quiz_attempt', 'QuizAttemptController');
 
     Route::get('activity_log', 'Admin\AdminController@activityLogs')->name('activity_log.index');
     Route::get('log/index', 'Admin\AdminController@userLogs')->name('log.index');

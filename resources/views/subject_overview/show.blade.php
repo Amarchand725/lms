@@ -1,17 +1,17 @@
 @extends('layouts.app', [
-    'title' => __('Question Management'),
+    'title' => __('Subject Overview Management'),
     'parentSection' => 'laravel',
-    'elementName' => 'question-management'
+    'elementName' => 'subject_overview-management'
 ])
 
 @section('content')
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Questions') }}
+                {{ __('Subject Overviews') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('question.index') }}">{{ __('Question Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('subject_overview.index') }}">{{ __('Subject Overview Management') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Show') }}</li>
         @endcomponent
     @endcomponent
@@ -23,13 +23,13 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Questions') }}</h3>
+                                <h3 class="mb-0">{{ __('Subject Overviews') }}</h3>
                                 <p class="text-sm mb-0">
-									{{ __('This is an example of question management. This is a minimal setup in order to get started fast.') }}
+									{{ __('This is an example of subject_overview management. This is a minimal setup in order to get started fast.') }}
 								</p>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('question.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('subject_overview.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
@@ -42,48 +42,22 @@
                     <div class="table-responsive py-4">
                         <table class="table align-items-center table-flush"  id="datatable-basic">
                             <tbody>
-                                <tr>
-									<th>Quiz</th>
-									<td>{{ $question->hasQuiz->title }}</td>
+								<tr>
+									<th>Subject</th>
+									<td>{{ $subjectOverview->hasSubject->title }}</td>
 								</tr>
-                                <tr>
-									<th>Question Type</th>
-									<td>{{ $question->hasQuestionType->type }}</td>
-								</tr>
-                                <tr>
-									<th>Question</th>
-									<td>{{ $question->question }}</td>
-								</tr>
-                                <tr>
-									<th>Options</th>
-									<td>
-                                        <ul>
-                                            @foreach ($question->hasOptions as $option)
-                                                <li>
-                                                    @if($option->is_answer)
-                                                       <span class="badge badge-success"><i class="fa fa-check"></i> {{ $option->option }}</span>
-                                                    @else 
-                                                        <span class="badge badge-danger"><i class="fa fa-times"></i> {{ $option->option }}</span>
-                                                    @endif
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </td>
+								<tr>
+									<th>Subject Overview</th>
+									<td>{{ $subjectOverview->overview }}</td>
 								</tr>
 
-								<tr>
-									<th>Created at</th>
-									<td>{{ date('d, M-Y H:i A', strtotime($question->created_at)) }}</td>
+                                <tr>
+									<th>Created By</th>
+									<td>{{ $subjectOverview->hasCreatedBy->name }}</td>
 								</tr>
 								<tr>
-									<th>Status</th>
-									<td>
-										@if($question->status)
-											<span class="badge badge-success">Active</span>
-										@else
-											<span class="badge badge-danger">In-Active</span>
-										@endif
-									</td>
+									<th>Created at</th>
+									<td>{{ date('d, M-Y H:i A', strtotime($subjectOverview->created_at)) }}</td>
 								</tr>
                             </tbody>
                         </table>
