@@ -21,12 +21,22 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
+
+                    <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
+                        <a class="nav-link" href="<?php echo e(route('page.index','calendar')); ?>">
+                            <i class="ni ni-calendar-grid-58 text-primary"></i>
+                            <span class="nav-link-text"><?php echo e(__('Calendar')); ?></span>
+                        </a>
+                    </li>
+
+
                 <li class="nav-item <?php echo e($elementName == 'calendar' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('calendar.show')); ?>">
                                 <i class="ni ni-calendar-grid-58 text-primary"></i>
                                 <span class="nav-link-text"><?php echo e(__('Calendar')); ?></span>
                             </a>
                         </li>
+
                     <?php if(Auth::user()->hasRole('Admin')): ?>
                         <li class="nav-item <?php echo e($elementName == 'dashboard' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('home')); ?>">
@@ -34,8 +44,6 @@
                                 <span class="nav-link-text"><?php echo e(__('Dashboard')); ?></span>
                             </a>
                         </li>
-
-                        
 
                         <li class="nav-item <?php echo e($elementName == 'charts' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('page.index','charts')); ?>">
@@ -176,6 +184,12 @@
                                 <span class="nav-link-text"><?php echo e(__('Materials')); ?></span>
                             </a>
                         </li>
+                        <li class="nav-item <?php echo e($elementName == 'subject_overview' ? 'active' : ''); ?>">
+                            <a class="nav-link" href="<?php echo e(route('subject_overview.index')); ?>">
+                                <i class="fa fa-book text-primary"></i>
+                                <span class="nav-link-text"><?php echo e(__('Subject Overviews')); ?></span>
+                            </a>
+                        </li>
                         <li class="nav-item <?php echo e($elementName == 'announcement' ? 'active' : ''); ?>">
                             <a class="nav-link" href="<?php echo e(route('announcement.index')); ?>">
                                 <i class="fa fa-bullhorn text-primary"></i>
@@ -248,6 +262,12 @@
                             <a class="nav-link" href="<?php echo e(route('backpack.index')); ?>">
                                 <i class="fa fa-shopping-bag text-primary"></i>
                                 <span class="nav-link-text"><?php echo e(__('Backpack')); ?></span>
+                            </a>
+                        </li>
+                        <li class="nav-item <?php echo e($elementName == 'study_class_quiz' ? 'active' : ''); ?>">
+                            <a class="nav-link" href="<?php echo e(route('study_class_quiz.index')); ?>">
+                                <i class="fa fa-shopping-bag text-primary"></i>
+                                <span class="nav-link-text"><?php echo e(__('Quiz')); ?></span>
                             </a>
                         </li>
                     <?php endif; ?>
