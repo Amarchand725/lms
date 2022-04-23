@@ -135,7 +135,7 @@
                             <span class="avatar avatar-sm rounded-circle">
                                 @if(!empty(auth()->user()->picture))
                                     <img alt="Image placeholder" src="{{ asset('public/admin/assets/img/theme') }}{{ auth()->user()->profilePicture() }}">
-                                @else 
+                                @else
                                     <img alt="Image placeholder" src="{{ asset('public/admin/assets/img/theme/user-default-img.png') }}">
                                 @endif
                             </span>

@@ -11,7 +11,7 @@
                 {{ __('Mail Setting') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('mail_setting.index') }}">{{ __('Mail Setting Management') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Dashboard') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Edit Mail Setting') }}</li>
         @endcomponent
     @endcomponent

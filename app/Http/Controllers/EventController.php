@@ -16,7 +16,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::where('user_id',Auth::user()->id)->orderBy('id','DESC')->paginate(10);
-        return view('events.calendar',compact('events'));
+        return view('events.index',compact('events'));
     }
 
     public function store(Request $request)

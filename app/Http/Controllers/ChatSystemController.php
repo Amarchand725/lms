@@ -22,27 +22,17 @@ class ChatSystemController extends Controller
         $this->middleware('auth');
     }
     public function message(){
-
         if(Auth::user()->hasRole('Admin')){
-
-          
             $students = Student::where('status', 1)->get();
             $teachers = Teacher::where('status', 1)->get();
             return view('chats.message',compact('students', 'teachers',));
-        }
-
-        elseif(Auth::user()->hasRole('Student')){
-
-        
+        }elseif(Auth::user()->hasRole('Student')){
             $students = Student::where('study_class_id', Auth::user()->hasStudent->study_class_id)->get();
             $assigned_teachers = AssignClass::where('study_class_id', Auth::user()->hasStudent->study_class_id)->get(['user_id']);
             $teachers = Teacher::orderby('id', 'desc')->whereIn('user_id', $assigned_teachers)->where('status', 1)->get();
             $admin = User::where('id',1)->first();
             return view('chats.message',compact('students', 'teachers','admin'));
-
-
-        }
-        elseif(Auth::user()->hasRole('Teacher')){
+        }elseif(Auth::user()->hasRole('Teacher')){
             $assigned_classes = AssignClass::where('user_id', Auth::user()->id)->get(['study_class_id']);
             $students = Student::whereIn('study_class_id', $assigned_classes)->get();
             $teachers = Teacher::orderby('id', 'desc')->where('status', 1)->get();
@@ -53,8 +43,7 @@ class ChatSystemController extends Controller
 
     public function chat_message(Request $request){
         if($request->reciever_id == Auth::user()->id){
-
-            $messages = Chatsystem::where('sender_id', Auth::user()->id)->where('reciever_id', Auth::user()->id)->get(); 
+            $messages = Chatsystem::where('sender_id', Auth::user()->id)->where('reciever_id', Auth::user()->id)->get();
         }else{
             Chatsystem::where('sender_id', $request->reciever_id)->where('reciever_id', Auth::user()->id)->where('is_read', 0)->update(['is_read'=>1]);
             $messages = Chatsystem::where('sender_id',Auth::user()->id)->where('reciever_id', $request->reciever_id)->orWhere('sender_id',$request->reciever_id)->where('reciever_id',Auth::user()->id)->get();
@@ -85,13 +74,13 @@ class ChatSystemController extends Controller
             $model->file = $file;
         }
 
-        $model->sender_id = Auth::user()->id; 
-        $model->reciever_id = $request->reciever_id; 
-        $model->message = $request->message; 
+        $model->sender_id = Auth::user()->id;
+        $model->reciever_id = $request->reciever_id;
+        $model->message = $request->message;
         $model->save();
 
         if($request->reciever_id == Auth::user()->id){
-            $messages = Chatsystem::where('sender_id', Auth::user()->id)->where('reciever_id', Auth::user()->id)->get(); 
+            $messages = Chatsystem::where('sender_id', Auth::user()->id)->where('reciever_id', Auth::user()->id)->get();
         }else{
             $messages = Chatsystem::where('sender_id', Auth::user()->id)->where('reciever_id', $request->reciever_id)->orWhere('sender_id',$request->reciever_id)->where('reciever_id',Auth::user()->id)->get();
         }

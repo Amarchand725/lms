@@ -7,7 +7,7 @@
                     <a href="<?php echo e(route('home')); ?>">
                         <?php if(Auth::user()->hasRole('Teacher')): ?>
                             <i class="fa fa-calendar"></i>
-                        <?php else: ?> 
+                        <?php else: ?>
                             <i class="fas fa-home"></i>
                         <?php endif; ?>
                     </a>
@@ -20,11 +20,11 @@
     <?php if(isset($calendar)): ?>
         <?php echo e($calendar); ?>
 
-    
     <?php endif; ?>
     <?php if(Auth::user()->hasRole('Teacher') && request()->is('assigned_class')): ?>
         <div class="col-lg-6 col-5 text-right">
             <a class="btn btn-sm btn-neutral add-class-btn"><i class="fa fa-plus"></i> <?php echo e(__('Add Class')); ?></a>
         </div>
     <?php endif; ?>
-</div><?php /**PATH C:\xampp\htdocs\lms\resources\views/layouts/headers/breadcrumbs.blade.php ENDPATH**/ ?>
+</div>
+<?php /**PATH C:\xampp\htdocs\lms\resources\views/layouts/headers/breadcrumbs.blade.php ENDPATH**/ ?>

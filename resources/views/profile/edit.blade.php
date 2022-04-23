@@ -22,9 +22,9 @@
                             <div class="card-profile-image">
                                 <a href="{{ url('profile') }}">
                                     @if(Auth::user()->picture)
-                                        <img src="{{ asset('public/admin/assets/img/theme') }}{{ auth()->user()->profilePicture() }}" class="rounded-circle">   
-                                    @else 
-                                        <img src="{{ asset('public/admin/assets/img/theme/user-default-img.png') }}" class="rounded-circle">   
+                                        <img src="{{ asset('public/admin/assets/img/theme') }}{{ auth()->user()->profilePicture() }}" class="rounded-circle">
+                                    @else
+                                        <img src="{{ asset('public/admin/assets/img/theme/user-default-img.png') }}" class="rounded-circle">
                                     @endif
                                 </a>
                             </div>
@@ -41,7 +41,7 @@
                             <div class="col">
                                 <div class="card-profile-stats d-flex justify-content-center">
                                     <div>
-                                        <span class="heading">{{ count(auth()->user()->hasStudent->hasClassmates) }}</span>
+                                        <span class="heading">{{ isset(auth()->user()->hasStudent->hasClassmates)?count(auth()->user()->hasStudent->hasClassmates):0 }}</span>
                                         <span class="description">Friends</span>
                                     </div>
                                 </div>

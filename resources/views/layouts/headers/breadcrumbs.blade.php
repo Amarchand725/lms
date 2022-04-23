@@ -7,7 +7,7 @@
                     <a href="{{ route('home') }}">
                         @if(Auth::user()->hasRole('Teacher'))
                             <i class="fa fa-calendar"></i>
-                        @else 
+                        @else
                             <i class="fas fa-home"></i>
                         @endif
                     </a>
@@ -18,11 +18,6 @@
     </div>
     @if (isset($calendar))
         {{ $calendar }}
-    {{-- @else
-        <div class="col-lg-6 col-5 text-right">
-            <a href="#" class="btn btn-sm btn-neutral">{{ __('New') }}</a>
-            <a href="#" class="btn btn-sm btn-neutral">{{ __('Filters') }}</a>
-        </div> --}}
     @endif
     @if(Auth::user()->hasRole('Teacher') && request()->is('assigned_class'))
         <div class="col-lg-6 col-5 text-right">

@@ -135,7 +135,7 @@
                             <span class="avatar avatar-sm rounded-circle">
                                 <?php if(!empty(auth()->user()->picture)): ?>
                                     <img alt="Image placeholder" src="<?php echo e(asset('public/admin/assets/img/theme')); ?><?php echo e(auth()->user()->profilePicture()); ?>">
-                                <?php else: ?> 
+                                <?php else: ?>
                                     <img alt="Image placeholder" src="<?php echo e(asset('public/admin/assets/img/theme/user-default-img.png')); ?>">
                                 <?php endif; ?>
                             </span>

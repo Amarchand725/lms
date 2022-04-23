@@ -1,7 +1,8 @@
 <div class="header bg-primary pb-6">
     <div class="container-fluid">
         <div class="header-body">
-           <?php echo e($slot); ?> 
+           <?php echo e($slot); ?>
+
         </div>
     </div>
 </div>

@@ -7,11 +7,11 @@
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ now()->format('F Y') }}
+                {{ __('Calendar') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('page.index', 'calendar') }}">{{ __('Dashboard') }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ __('Calendar') }}</li>
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Dashboard') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ date('d-m-Y') }}</li>
 
             @slot('calendar')
                 <div class="col-lg-6 mt-3 mt-lg-0 text-lg-right">
