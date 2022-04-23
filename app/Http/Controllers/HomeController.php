@@ -11,6 +11,9 @@ use App\Models\AssignClass;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\ChatSystem;
+use App\Models\Department;
+use App\Models\Assignment;
+use App\Models\Material;
 use Auth;
 
 class HomeController extends Controller
@@ -33,7 +36,15 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('Admin')){
-            return view('dashboard.dashboard');
+            $data = [];
+            $data['total_teachers'] = User::role('Teacher')->count();
+            $data['total_students'] = User::role('Student')->count();
+            $data['total_subjects'] = Subject::whereStatus(1)->count();
+            $data['total_departments'] = Department::whereStatus(1)->count();
+            $data['total_classes'] = StudyClass::whereStatus(1)->count();
+            $data['total_assignments'] = Assignment::whereStatus(1)->count();
+            $data['total_materials'] = Material::whereStatus(1)->count();
+            return view('dashboard.dashboard', compact('data'));
         }elseif(Auth::user()->hasRole('Teacher')){
             $batch = SchoolYear::where('status', 1)->first();
             $study_classes = StudyClass::where('status', 1)->get();
@@ -61,7 +72,7 @@ class HomeController extends Controller
     //  $messages = Chatsystem::where('sender_id',Auth::user()->id)->where('receiver_id', $request->user_id)->orWhere('sender_id',$request->user_id)->orwhere('receiver_id',Auth::user()->id)->get();
 
     //  return (string) view('chats.chat', compact('messages'));
-  
+
     // }
     }
 

@@ -42,6 +42,14 @@
                                 <span class="nav-link-text">{{ __('Charts') }}</span>
                             </a>
                         </li> --}}
+                        <li class="nav-item {{ $elementName == 'chat' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('student.message') }}">
+                                <i class="fa fa-envelope text-primary"></i>
+                                <span class="nav-link-text">{{ __('Chats') }}
+                                    {{-- <span class="badge rounded-pill bg-danger" style="color: white; background-color:red">{{ count(Auth::user()->hasNewMessages) }}</span> --}}
+                                </span>
+                            </a>
+                        </li>
                         <li class="nav-item {{ $elementName == 'mail_setting.*' ? 'active' : '' }}">
                             @php
                                 $mail_setting = App\Models\MailSetting::orderby('id', 'desc')->first();
@@ -141,14 +149,6 @@
                             <a class="nav-link" href="{{ route('activity_log.index') }}">
                                 <i class="fa fa-tasks text-primary"></i>
                                 <span class="nav-link-text">{{ __('Activity Logs') }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item {{ $elementName == 'chat' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('student.message') }}">
-                                <i class="fa fa-envelope text-primary"></i>
-                                <span class="nav-link-text">{{ __('Chats') }}
-                                    {{-- <span class="badge rounded-pill bg-danger" style="color: white; background-color:red">{{ count(Auth::user()->hasNewMessages) }}</span> --}}
-                                </span>
                             </a>
                         </li>
                         <li class="nav-item {{ $elementName == 'school_year' ? 'active' : '' }}">

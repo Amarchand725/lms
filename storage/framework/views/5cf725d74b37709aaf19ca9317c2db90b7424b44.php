@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Teachers</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $data['total_teachers'] }}</span>
+                        <span class="h2 font-weight-bold mb-0"><?php echo e($data['total_teachers']); ?></span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                    <a href="{{ route('teacher.index') }}">
+                    <a href="<?php echo e(route('teacher.index')); ?>">
                         <span class="text-success mr-2"><i class="fa fa-arrow-right"></i></span>
                         <span class="text-nowrap">Teachers</span>
                     </a>
@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Students</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $data['total_students'] }}</span>
+                        <span class="h2 font-weight-bold mb-0"><?php echo e($data['total_students']); ?></span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                    <a href="{{ route('student.index') }}">
+                    <a href="<?php echo e(route('student.index')); ?>">
                         <span class="text-success mr-2"><i class="fa fa-arrow-right"></i></span>
                         <span class="text-nowrap">Students</span>
                     </a>
@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Departments</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $data['total_departments'] }}</span>
+                        <span class="h2 font-weight-bold mb-0"><?php echo e($data['total_departments']); ?></span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                    <a href="{{ route('department.index') }}">
+                    <a href="<?php echo e(route('department.index')); ?>">
                         <span class="text-success mr-2"><i class="fa fa-arrow-right"></i></span>
                         <span class="text-nowrap">Departments</span>
                     </a>
@@ -74,7 +74,7 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Subjects</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $data['total_subjects'] }}</span>
+                        <span class="h2 font-weight-bold mb-0"><?php echo e($data['total_subjects']); ?></span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                    <a href="{{ route('subject.index') }}">
+                    <a href="<?php echo e(route('subject.index')); ?>">
                         <span class="text-success mr-2"><i class="fa fa-arrow-right"></i></span>
                         <span class="text-nowrap">Subjects</span>
                     </a>
@@ -97,7 +97,7 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Classes</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $data['total_classes'] }}</span>
+                        <span class="h2 font-weight-bold mb-0"><?php echo e($data['total_classes']); ?></span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                    <a href="{{ route('study_class.index') }}">
+                    <a href="<?php echo e(route('study_class.index')); ?>">
                         <span class="text-success mr-2"><i class="fa fa-arrow-right"></i></span>
                         <span class="text-nowrap">Classes</span>
                     </a>
@@ -121,7 +121,7 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Assignments</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $data['total_assignments'] }}</span>
+                        <span class="h2 font-weight-bold mb-0"><?php echo e($data['total_assignments']); ?></span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                    <a href="{{ route('assignment.index') }}">
+                    <a href="<?php echo e(route('assignment.index')); ?>">
                         <span class="text-success mr-2"><i class="fa fa-arrow-right"></i></span>
                         <span class="text-nowrap">Assignments</span>
                     </a>
@@ -144,7 +144,7 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Materials</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $data['total_materials'] }}</span>
+                        <span class="h2 font-weight-bold mb-0"><?php echo e($data['total_materials']); ?></span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
@@ -153,7 +153,7 @@
                     </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                    <a href="{{ route('material.index') }}">
+                    <a href="<?php echo e(route('material.index')); ?>">
                         <span class="text-success mr-2"><i class="fa fa-arrow-right"></i></span>
                         <span class="text-nowrap">Downloadable Files</span>
                     </a>
@@ -162,3 +162,4 @@
         </div>
     </div>
 </div>
+<?php /**PATH C:\xampp\htdocs\lms\resources\views/layouts/headers/cards.blade.php ENDPATH**/ ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2022 at 05:22 PM
+-- Generation Time: Apr 22, 2022 at 06:50 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.23
 
@@ -59,7 +59,8 @@ CREATE TABLE `assigned_classes` (
 --
 
 INSERT INTO `assigned_classes` (`id`, `study_class_id`, `notify_id`, `notify_type`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'assignment', 1, '2022-04-19 09:45:42', '2022-04-19 09:45:42');
+(1, 1, 1, 'assignment', 1, '2022-04-22 07:01:53', '2022-04-22 07:01:53'),
+(2, 2, 1, 'assignment', 1, '2022-04-22 07:01:53', '2022-04-22 07:01:53');
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,7 @@ CREATE TABLE `assignments` (
 --
 
 INSERT INTO `assignments` (`id`, `created_by`, `name`, `description`, `file`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 5, 'Hashim Valencia', 'Quae doloribus iste', '19-04-2022-144542.jpg', 1, NULL, '2022-04-19 09:45:42', '2022-04-19 09:45:42');
+(1, 5, 'Jessamine Tillman', 'Quia officia proiden', '22-04-2022-120153.png', 1, NULL, '2022-04-22 07:01:53', '2022-04-22 07:01:53');
 
 -- --------------------------------------------------------
 
@@ -133,14 +134,46 @@ CREATE TABLE `backpacks` (
 
 CREATE TABLE `chat_systems` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `sender_id` int(11) NOT NULL,
-  `receiver_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `message` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sender_id` bigint(20) NOT NULL,
+  `reciever_id` bigint(20) NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=unread, 1=read',
+  `message` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `chat_systems`
+--
+
+INSERT INTO `chat_systems` (`id`, `sender_id`, `reciever_id`, `is_read`, `message`, `file`, `status`, `created_at`, `updated_at`) VALUES
+(1, 5, 5, 0, 'ttes', NULL, 1, '2022-04-20 04:00:17', '2022-04-20 04:00:17'),
+(2, 5, 5, 0, 'ttesd', NULL, 1, '2022-04-20 04:00:26', '2022-04-20 04:00:26'),
+(3, 5, 5, 0, 'ttesd', NULL, 1, '2022-04-20 04:00:45', '2022-04-20 04:00:45'),
+(4, 5, 5, 0, 'ttesd', NULL, 1, '2022-04-20 04:00:55', '2022-04-20 04:00:55'),
+(5, 5, 5, 0, 'ttesd', NULL, 1, '2022-04-20 04:01:05', '2022-04-20 04:01:05'),
+(6, 5, 5, 0, 'hi', NULL, 1, '2022-04-20 04:01:28', '2022-04-20 04:01:28'),
+(7, 5, 5, 0, 'hi', NULL, 1, '2022-04-20 04:01:42', '2022-04-20 04:01:42'),
+(8, 5, 9, 1, 'HID', NULL, 1, '2022-04-20 04:18:08', '2022-04-20 06:49:44'),
+(9, 5, 9, 1, 'HID', NULL, 1, '2022-04-20 04:18:10', '2022-04-20 06:49:44'),
+(10, 5, 9, 1, 'HID', NULL, 1, '2022-04-20 04:19:09', '2022-04-20 06:49:44'),
+(11, 5, 9, 1, 'HID', NULL, 1, '2022-04-20 04:19:23', '2022-04-20 06:49:44'),
+(12, 5, 9, 1, 'gxgd', NULL, 1, '2022-04-20 04:20:23', '2022-04-20 06:49:44'),
+(13, 5, 5, 0, 'tested', NULL, 1, '2022-04-20 04:23:19', '2022-04-20 04:23:19'),
+(14, 5, 5, 0, 'testeddfd', NULL, 1, '2022-04-20 04:23:31', '2022-04-20 04:23:31'),
+(15, 5, 5, 0, 'test', NULL, 1, '2022-04-20 04:24:54', '2022-04-20 04:24:54'),
+(16, 5, 5, 0, 'sdf', NULL, 1, '2022-04-20 04:25:44', '2022-04-20 04:25:44'),
+(17, 5, 5, 0, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', NULL, 1, '2022-04-20 05:02:13', '2022-04-20 05:02:13'),
+(18, 5, 6, 0, 'hi bro', NULL, 1, '2022-04-20 05:14:32', '2022-04-20 05:14:32'),
+(19, 5, 6, 0, 'tested', NULL, 1, '2022-04-20 05:17:12', '2022-04-20 05:17:12'),
+(20, 5, 6, 0, 'g', NULL, 1, '2022-04-20 05:24:00', '2022-04-20 05:24:00'),
+(21, 5, 14, 0, 'what is your full name?', NULL, 1, '2022-04-20 05:24:15', '2022-04-20 05:24:15'),
+(22, 9, 5, 1, 'Hello sir how are you?', NULL, 1, '2022-04-20 05:31:42', '2022-04-20 06:20:41'),
+(23, 9, 5, 1, 'hi', NULL, 1, '2022-04-20 05:31:55', '2022-04-20 06:20:41'),
+(24, 9, 5, 1, 'ji ji sir', NULL, 1, '2022-04-20 05:32:51', '2022-04-20 06:20:41'),
+(25, 1, 1, 0, 'test', NULL, 1, '2022-04-22 08:03:16', '2022-04-22 08:03:16');
 
 -- --------------------------------------------------------
 
@@ -183,6 +216,30 @@ INSERT INTO `departments` (`id`, `person_in_charge`, `department_name`, `descrip
 (1, 'John Smith', 'Department 1', 'Lorem ipsum', 1, NULL, '2022-04-19 07:13:27', '2022-04-19 07:13:27'),
 (2, 'Max', 'Department 2', 'max', 1, NULL, '2022-04-19 07:26:03', '2022-04-19 07:26:03'),
 (3, 'John Doe', 'Dempartment 3', 'lorem ipsum', 1, NULL, '2022-04-19 07:26:28', '2022-04-19 07:26:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events`
+--
+
+CREATE TABLE `events` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `starting_date` date NOT NULL,
+  `ending_date` date NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `user_id`, `title`, `starting_date`, `ending_date`, `status`, `created_at`, `updated_at`) VALUES
+(2, 1, 'Test Event', '2022-04-22', '2022-04-26', 0, '2022-04-22 10:24:55', '2022-04-22 10:24:55');
 
 -- --------------------------------------------------------
 
@@ -257,7 +314,75 @@ INSERT INTO `log_activity` (`id`, `user_id`, `subject`, `url`, `method`, `ip`, `
 (32, 1, 'Student Added', 'http://localhost/lms/student', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36', '2022-04-19 07:37:47', '2022-04-19 07:37:47'),
 (33, 1, 'Student Added', 'http://localhost/lms/student', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36', '2022-04-19 07:37:59', '2022-04-19 07:37:59'),
 (34, 1, 'Student Added', 'http://localhost/lms/student', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36', '2022-04-19 07:38:12', '2022-04-19 07:38:12'),
-(35, 5, 'Assignment Added', 'http://localhost/lms/assignment', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-19 09:45:42', '2022-04-19 09:45:42');
+(35, 5, 'Subject Overview Added', 'http://localhost/lms/subject_overview', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 01:39:20', '2022-04-21 01:39:20'),
+(36, 5, 'Subject Overview Added', 'http://localhost/lms/subject_overview', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 01:49:56', '2022-04-21 01:49:56'),
+(37, 5, 'Subject Overview Updated', 'http://localhost/lms/subject_overview/1', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 01:59:39', '2022-04-21 01:59:39'),
+(38, 5, 'Subject Overview Updated', 'http://localhost/lms/subject_overview/1', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 01:59:56', '2022-04-21 01:59:56'),
+(39, 5, 'Subject Overview Deleted', 'http://localhost/lms/subject_overview/1', 'DELETE', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:00:12', '2022-04-21 02:00:12'),
+(40, 5, 'Quiz Added', 'http://localhost/lms/quiz', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:03:33', '2022-04-21 02:03:33'),
+(41, 5, 'Quiz Added', 'http://localhost/lms/quiz', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:03:52', '2022-04-21 02:03:52'),
+(42, 5, 'Question Added', 'http://localhost/lms/question', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:44:55', '2022-04-21 02:44:55'),
+(43, 5, 'Question Added', 'http://localhost/lms/question', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:45:39', '2022-04-21 02:45:39'),
+(44, 5, 'Question Added', 'http://localhost/lms/question', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:46:24', '2022-04-21 02:46:24'),
+(45, 5, 'Question Added', 'http://localhost/lms/question', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:47:11', '2022-04-21 02:47:11'),
+(46, 5, 'Question Added', 'http://localhost/lms/question', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:48:00', '2022-04-21 02:48:00'),
+(47, 5, 'Question Added', 'http://localhost/lms/question', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:50:03', '2022-04-21 02:50:03'),
+(48, 5, 'Question Added', 'http://localhost/lms/question', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:51:47', '2022-04-21 02:51:47'),
+(49, 5, 'Question Added', 'http://localhost/lms/question', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:56:00', '2022-04-21 02:56:00'),
+(50, 5, 'Question Deleted', 'http://localhost/lms/question/8', 'DELETE', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 02:57:17', '2022-04-21 02:57:17'),
+(51, 5, 'Question Deleted', 'http://localhost/lms/question/8', 'DELETE', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 03:02:45', '2022-04-21 03:02:45'),
+(52, 5, 'Question Deleted', 'http://localhost/lms/question/8', 'DELETE', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 03:04:50', '2022-04-21 03:04:50'),
+(53, 5, 'Question Deleted', 'http://localhost/lms/question/8', 'DELETE', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 03:06:16', '2022-04-21 03:06:16'),
+(54, 5, 'Class quiz Added', 'http://localhost/lms/study_class_quiz', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 03:06:42', '2022-04-21 03:06:42'),
+(55, 5, 'Class quiz Added', 'http://localhost/lms/study_class_quiz', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-21 04:43:44', '2022-04-21 04:43:44'),
+(56, 5, 'Question Added', 'http://localhost/lms/question', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 04:10:34', '2022-04-22 04:10:34'),
+(57, 5, 'Question Updated', 'http://localhost/lms/question/7', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 04:33:25', '2022-04-22 04:33:25'),
+(58, 5, 'Question Updated', 'http://localhost/lms/question/7', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 04:36:01', '2022-04-22 04:36:01'),
+(59, 5, 'Question Updated', 'http://localhost/lms/question/6', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 04:37:26', '2022-04-22 04:37:26'),
+(60, 5, 'Question Updated', 'http://localhost/lms/question/6', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 04:40:01', '2022-04-22 04:40:01'),
+(61, 5, 'Question Updated', 'http://localhost/lms/question/5', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 04:41:40', '2022-04-22 04:41:40'),
+(62, 5, 'Question Updated', 'http://localhost/lms/question/4', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 04:43:38', '2022-04-22 04:43:38'),
+(63, 9, 'Quiz Attempt Added', 'http://localhost/lms/quiz_attempt', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 06:20:58', '2022-04-22 06:20:58'),
+(64, 9, 'Quiz Attempt Added', 'http://localhost/lms/quiz_attempt', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 06:22:57', '2022-04-22 06:22:57'),
+(65, 9, 'Quiz Attempt Added', 'http://localhost/lms/quiz_attempt', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 06:31:03', '2022-04-22 06:31:03'),
+(66, 9, 'Quiz Attempt Added', 'http://localhost/lms/quiz_attempt', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 06:33:08', '2022-04-22 06:33:08'),
+(67, 5, 'Assignment Added', 'http://localhost/lms/assignment', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 07:01:53', '2022-04-22 07:01:53'),
+(68, 1, 'Event Added', 'http://localhost/lms/event', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 10:23:38', '2022-04-22 10:23:38'),
+(69, 1, 'Event Added', 'http://localhost/lms/event', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 10:24:55', '2022-04-22 10:24:55'),
+(70, 1, 'Event Deleted', 'http://localhost/lms/event/1', 'DELETE', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 10:35:41', '2022-04-22 10:35:41'),
+(71, 1, 'SMTP setting Added', 'http://localhost/lms/mail_setting', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 11:16:42', '2022-04-22 11:16:42'),
+(72, 1, 'SMTP setting Added', 'http://localhost/lms/mail_setting?1=', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 11:29:07', '2022-04-22 11:29:07'),
+(73, 1, 'SMTP setting Added', 'http://localhost/lms/mail_setting?1=', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 11:29:24', '2022-04-22 11:29:24'),
+(74, 1, 'SMTP setting Added', 'http://localhost/lms/mail_setting?1=', 'POST', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 11:29:57', '2022-04-22 11:29:57'),
+(75, 1, 'SMTP setting Updated', 'http://localhost/lms/mail_setting/1', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 11:34:26', '2022-04-22 11:34:26'),
+(76, 1, 'SMTP setting Updated', 'http://localhost/lms/mail_setting/1', 'PATCH', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', '2022-04-22 11:35:25', '2022-04-22 11:35:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mail_settings`
+--
+
+CREATE TABLE `mail_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `mail_mailer` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mail_host` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mail_port` int(10) UNSIGNED NOT NULL,
+  `mail_username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mail_password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mail_encryption` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mail_from_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mail_from_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `mail_settings`
+--
+
+INSERT INTO `mail_settings` (`id`, `mail_mailer`, `mail_host`, `mail_port`, `mail_username`, `mail_password`, `mail_encryption`, `mail_from_address`, `mail_from_name`, `created_at`, `updated_at`) VALUES
+(1, 'test@mail.com', 'gmail.com', 465, 'Test User', '123@1123', 'test@mail.com', 'mail@from.com', 'Tester', '2022-04-22 11:16:42', '2022-04-22 11:35:25');
 
 -- --------------------------------------------------------
 
@@ -332,14 +457,19 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2022_04_16_081542_create_read_notifications_table', 1),
 (23, '2022_04_16_153955_create_question_types_table', 1),
 (24, '2022_04_16_184012_create_questions_table', 1),
-(25, '2022_04_16_184544_create_student_class_quizzes_table', 1),
 (26, '2022_04_16_191130_create_quizzes_table', 1),
 (27, '2022_04_16_205601_create_options_table', 1),
 (28, '2022_04_16_230237_create_study_class_quizzes_table', 1),
 (29, '2022_04_18_083608_create_material_details_table', 1),
-(30, '2022_04_18_085428_create_chat_systems_table', 1),
 (31, '2022_04_18_105726_create_share_files_table', 1),
-(32, '2022_04_19_081613_create_backpacks_table', 1);
+(32, '2022_04_19_081613_create_backpacks_table', 1),
+(35, '2022_04_18_085428_create_chat_systems_table', 2),
+(37, '2022_04_21_060205_create_subject_overviews_table', 3),
+(38, '2022_04_16_184544_create_student_class_quizzes_table', 4),
+(41, '2022_04_22_075908_create_quiz_attempt_details_table', 7),
+(43, '2022_04_16_184544_create_quiz_attempts_table', 8),
+(44, '2022_04_21_093530_create_events_table', 9),
+(46, '2022_04_20_064834_create_mail_settings_table', 10);
 
 -- --------------------------------------------------------
 
@@ -406,7 +536,7 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `user_id`, `notify_id`, `notify_type`, `notification`, `created_at`, `updated_at`) VALUES
-(1, 5, 1, 'assignment', 'Assignment added new', '2022-04-19 09:45:42', '2022-04-19 09:45:42');
+(1, 5, 1, 'assignment', 'Assignment added new', '2022-04-22 07:01:53', '2022-04-22 07:01:53');
 
 -- --------------------------------------------------------
 
@@ -418,9 +548,29 @@ CREATE TABLE `options` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `question_id` bigint(20) NOT NULL,
   `option` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_answer` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `options`
+--
+
+INSERT INTO `options` (`id`, `question_id`, `option`, `is_answer`, `created_at`, `updated_at`) VALUES
+(23, 7, 'False', 1, '2022-04-22 04:36:01', '2022-04-22 04:36:01'),
+(25, 6, '1970s', 1, '2022-04-22 04:40:01', '2022-04-22 04:40:01'),
+(26, 6, '1850', 0, '2022-04-22 04:40:01', '2022-04-22 04:40:01'),
+(27, 6, '1760', 0, '2022-04-22 04:40:01', '2022-04-22 04:40:01'),
+(28, 6, '2020', 0, '2022-04-22 04:40:01', '2022-04-22 04:40:01'),
+(29, 5, 'Image file', 0, '2022-04-22 04:41:40', '2022-04-22 04:41:40'),
+(30, 5, 'Audio file', 0, '2022-04-22 04:41:40', '2022-04-22 04:41:40'),
+(31, 5, 'MS Office document', 0, '2022-04-22 04:41:40', '2022-04-22 04:41:40'),
+(32, 5, 'Animation/movie file', 1, '2022-04-22 04:41:40', '2022-04-22 04:41:40'),
+(33, 4, '1850s', 0, '2022-04-22 04:43:38', '2022-04-22 04:43:38'),
+(34, 4, '1860s', 0, '2022-04-22 04:43:38', '2022-04-22 04:43:38'),
+(35, 4, '1870s', 0, '2022-04-22 04:43:38', '2022-04-22 04:43:38'),
+(36, 4, '1900s', 1, '2022-04-22 04:43:38', '2022-04-22 04:43:38');
 
 -- --------------------------------------------------------
 
@@ -478,13 +628,23 @@ CREATE TABLE `questions` (
   `question_type_id` bigint(20) NOT NULL,
   `quiz_id` bigint(20) NOT NULL,
   `question` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `answer` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `answer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `points` int(11) NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `questions`
+--
+
+INSERT INTO `questions` (`id`, `question_type_id`, `quiz_id`, `question`, `answer`, `points`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(4, 2, 1, 'In which decade with the first transatlantic radio broadcast occur?', NULL, 0, 1, NULL, '2022-04-21 02:47:11', '2022-04-22 04:43:38'),
+(5, 2, 1, '\'.MOV\' extension refers usually to what kind of file?', NULL, 0, 1, NULL, '2022-04-21 02:48:00', '2022-04-22 04:41:40'),
+(6, 2, 2, 'In which decade was the SPICE simulator introduced?', NULL, 0, 1, NULL, '2022-04-21 02:50:03', '2022-04-22 04:37:26'),
+(7, 1, 2, 'Most modern TV\'s draw power even if turned off. The circuit the power is used Remote control?', NULL, 0, 1, NULL, '2022-04-21 02:51:47', '2022-04-22 04:33:25');
 
 -- --------------------------------------------------------
 
@@ -501,6 +661,14 @@ CREATE TABLE `question_types` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `question_types`
+--
+
+INSERT INTO `question_types` (`id`, `type`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'True or False', 1, NULL, '2022-04-21 07:07:03', '2022-04-21 07:07:03'),
+(2, 'Multiple Choice', 1, NULL, '2022-04-21 07:07:03', '2022-04-21 07:07:03');
+
 -- --------------------------------------------------------
 
 --
@@ -516,6 +684,61 @@ CREATE TABLE `quizzes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `quizzes`
+--
+
+INSERT INTO `quizzes` (`id`, `title`, `description`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'Monthly Test', 'Lorem ipsum', 1, NULL, '2022-04-21 02:03:33', '2022-04-21 02:03:33'),
+(2, 'Semester', 'Lorem ipsum', 1, NULL, '2022-04-21 02:03:52', '2022-04-21 02:03:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_attempts`
+--
+
+CREATE TABLE `quiz_attempts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `quize_id` bigint(20) NOT NULL,
+  `student_id` bigint(20) NOT NULL,
+  `total_questions` bigint(20) NOT NULL,
+  `correct_answers` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quiz_attempt_time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `quiz_attempts`
+--
+
+INSERT INTO `quiz_attempts` (`id`, `quize_id`, `student_id`, `total_questions`, `correct_answers`, `quiz_attempt_time`, `created_at`, `updated_at`) VALUES
+(1, 1, 9, 2, '2', '9:56', '2022-04-22 06:33:08', '2022-04-22 06:33:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_attempt_details`
+--
+
+CREATE TABLE `quiz_attempt_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `quiz_attempt_id` bigint(20) NOT NULL,
+  `question_id` bigint(20) NOT NULL,
+  `option_id` bigint(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `quiz_attempt_details`
+--
+
+INSERT INTO `quiz_attempt_details` (`id`, `quiz_attempt_id`, `question_id`, `option_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 36, '2022-04-22 06:33:08', '2022-04-22 06:33:08'),
+(2, 1, 5, 32, '2022-04-22 06:33:08', '2022-04-22 06:33:08');
 
 -- --------------------------------------------------------
 
@@ -537,7 +760,8 @@ CREATE TABLE `read_notifications` (
 --
 
 INSERT INTO `read_notifications` (`id`, `notification_id`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 14, 0, '2022-04-19 09:45:42', '2022-04-19 09:45:42');
+(1, 1, 14, 0, '2022-04-22 07:01:53', '2022-04-22 07:01:53'),
+(2, 1, 9, 0, '2022-04-22 07:01:53', '2022-04-22 07:01:53');
 
 -- --------------------------------------------------------
 
@@ -685,8 +909,9 @@ CREATE TABLE `student_class_quizzes` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `quize_id` bigint(20) NOT NULL,
   `student_id` bigint(20) NOT NULL,
-  `quiz_time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_questions` bigint(20) NOT NULL,
   `grade` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quiz_time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -734,6 +959,16 @@ CREATE TABLE `study_class_quizzes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `study_class_quizzes`
+--
+
+INSERT INTO `study_class_quizzes` (`id`, `study_class_id`, `quiz_id`, `quiz_time`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '10', '2022-04-21 03:06:42', '2022-04-21 03:06:42'),
+(2, 2, 1, '10', '2022-04-21 03:06:42', '2022-04-21 03:06:42'),
+(3, 1, 1, '10', '2022-04-21 04:43:44', '2022-04-21 04:43:44'),
+(4, 2, 1, '10', '2022-04-21 04:43:44', '2022-04-21 04:43:44');
+
 -- --------------------------------------------------------
 
 --
@@ -769,6 +1004,23 @@ INSERT INTO `subjects` (`id`, `category_id`, `semester_id`, `title`, `code`, `un
 (7, NULL, 2, 'Business Process', 'IS 223', 5, 'IS 223', NULL, 1, NULL, '2022-04-19 07:24:37', '2022-04-19 07:24:37'),
 (8, NULL, 2, 'Discrete Structures', '6', 6, 'Discrete Structures', NULL, 1, NULL, '2022-04-19 07:24:56', '2022-04-19 07:24:56'),
 (9, NULL, 2, 'IS Programming 2', 'IS 227', 3, 'IS 227', NULL, 1, NULL, '2022-04-19 07:25:20', '2022-04-19 07:25:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subject_overviews`
+--
+
+CREATE TABLE `subject_overviews` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `created_by` bigint(20) NOT NULL,
+  `subject_id` bigint(20) NOT NULL,
+  `overview` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -826,7 +1078,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `pi
 (1, 'Hardik', 'admin@gmail.com', NULL, '$2y$10$yeTlVv6UdasGBjfgR2S5.u3JUWlVZYrpMxf7Al0dYzdpyUnCETGR2', 'team-3.jpg', NULL, NULL, '2022-04-19 07:08:55', '2022-04-19 07:08:55'),
 (5, 'Teacher Lorem ipsum', 'teacher@gmail.com', NULL, '$2y$10$FouW66WZGMOncuKM.EQFY.45JN94z.ZUIzamrnuAG2nHBgW.LBIv6', NULL, NULL, NULL, '2022-04-19 07:31:54', '2022-04-19 07:31:54'),
 (6, 'Teacher lorem', 'teacher2@gmail.com', NULL, '$2y$10$npuOX0rDLLBlnLOhjkhMf.P63fAy4GWMP3YcMV2IwK5vJCrSBWSGy', NULL, NULL, NULL, '2022-04-19 07:33:09', '2022-04-19 07:33:09'),
-(9, 'Mari Vel enim dignissimos', 'student@gmail.com', NULL, '$2y$10$quf4GadhUE1Zf/AhavKQW.DlynMQtKM7ZF98FAiN5VKNIlZ6oIsAi', NULL, NULL, NULL, '2022-04-19 07:35:45', '2022-04-19 07:35:45'),
+(9, 'Mari Vel enim dignissimos', 'student@gmail.com', NULL, '$2y$10$quf4GadhUE1Zf/AhavKQW.DlynMQtKM7ZF98FAiN5VKNIlZ6oIsAi', '21-04-2022-084921.jpg', NULL, NULL, '2022-04-19 07:35:45', '2022-04-21 03:49:21'),
 (10, 'Rylee Ipsum rerum ut irur', 'zera@mailinator.com', NULL, '$2y$10$Nvt3borYM7x3TEjrC/EFzOvg8897sD7wHQrDs6ArjV6MLs9L.2Y16', NULL, NULL, NULL, '2022-04-19 07:36:01', '2022-04-19 07:36:01'),
 (11, 'Mona Sequi dolor accusant', 'wymewapehy@mailinator.com', NULL, '$2y$10$6msckLkyYsTesUSdDojIO.Rg2cmfzrmUpv6WlAgdWSg9Pj.7MgwLS', NULL, NULL, NULL, '2022-04-19 07:36:15', '2022-04-19 07:36:15'),
 (12, 'Yoko Vel consequatur ips', 'qydaqixyj@mailinator.com', NULL, '$2y$10$XsBFkbdq2ztL.rxZKa5XseM1dtUXpBZyvJ4Y363gZ8Q29JdW4IR8e', NULL, NULL, NULL, '2022-04-19 07:36:28', '2022-04-19 07:36:28'),
@@ -861,13 +1113,35 @@ INSERT INTO `user_logs` (`id`, `user_id`, `logged_in`, `logged_out`, `created_at
 (2, 1, '2022-04-19 12:28:46', '2022-04-19 12:41:11', '2022-04-19 07:28:46', '2022-04-19 07:41:11'),
 (3, 5, '2022-04-19 12:41:19', '2022-04-19 12:41:57', '2022-04-19 07:41:19', '2022-04-19 07:41:57'),
 (4, 1, '2022-04-19 12:42:07', '2022-04-19 12:42:54', '2022-04-19 07:42:07', '2022-04-19 07:42:54'),
-(5, 9, '2022-04-19 12:43:16', NULL, '2022-04-19 07:43:16', '2022-04-19 07:43:16'),
-(6, 9, '2022-04-19 13:52:10', '2022-04-19 14:12:47', '2022-04-19 08:52:10', '2022-04-19 09:12:47'),
-(7, 9, '2022-04-19 14:15:36', '2022-04-19 14:44:43', '2022-04-19 09:15:36', '2022-04-19 09:44:43'),
-(8, 5, '2022-04-19 14:45:06', '2022-04-19 14:45:47', '2022-04-19 09:45:06', '2022-04-19 09:45:47'),
-(9, 5, '2022-04-19 14:46:01', '2022-04-19 14:46:09', '2022-04-19 09:46:01', '2022-04-19 09:46:09'),
-(10, 9, '2022-04-19 14:46:15', '2022-04-19 15:08:40', '2022-04-19 09:46:15', '2022-04-19 10:08:40'),
-(11, 5, '2022-04-19 15:08:48', '2022-04-19 15:21:03', '2022-04-19 10:08:48', '2022-04-19 10:21:03');
+(5, 9, '2022-04-19 12:43:16', '2022-04-19 12:42:54', '2022-04-19 07:43:16', '2022-04-19 07:43:16'),
+(6, 9, '2022-04-20 05:50:37', '2022-04-20 05:51:46', '2022-04-20 00:50:37', '2022-04-20 00:51:46'),
+(7, 5, '2022-04-20 05:51:53', '2022-04-20 05:53:34', '2022-04-20 00:51:53', '2022-04-20 00:53:34'),
+(8, 5, '2022-04-20 05:53:44', '2022-04-20 06:17:52', '2022-04-20 00:53:44', '2022-04-20 01:17:52'),
+(9, 9, '2022-04-20 06:17:57', '2022-04-20 06:28:15', '2022-04-20 01:17:57', '2022-04-20 01:28:15'),
+(10, 5, '2022-04-20 06:28:20', '2022-04-20 10:25:08', '2022-04-20 01:28:20', '2022-04-20 05:25:08'),
+(11, 9, '2022-04-20 10:25:59', '2022-04-20 10:34:26', '2022-04-20 05:25:59', '2022-04-20 05:34:26'),
+(12, 5, '2022-04-20 10:34:30', '2022-04-20 11:48:12', '2022-04-20 05:34:30', '2022-04-20 06:48:12'),
+(13, 9, '2022-04-20 11:48:18', '2022-04-20 11:49:55', '2022-04-20 06:48:18', '2022-04-20 06:49:55'),
+(14, 9, '2022-04-20 11:50:01', '2022-04-20 11:59:09', '2022-04-20 06:50:01', '2022-04-20 06:59:09'),
+(15, 5, '2022-04-20 11:59:15', '2022-04-20 11:59:45', '2022-04-20 06:59:15', '2022-04-20 06:59:45'),
+(16, 9, '2022-04-20 11:59:53', '2022-04-20 12:13:15', '2022-04-20 06:59:53', '2022-04-20 07:13:15'),
+(17, 5, '2022-04-20 12:13:21', '2022-04-20 12:13:30', '2022-04-20 07:13:21', '2022-04-20 07:13:30'),
+(18, 9, '2022-04-20 12:13:38', NULL, '2022-04-20 07:13:38', '2022-04-20 07:13:38'),
+(19, 5, '2022-04-21 06:11:14', '2022-04-21 08:25:58', '2022-04-21 01:11:14', '2022-04-21 03:25:58'),
+(20, 9, '2022-04-21 08:26:03', '2022-04-21 09:23:21', '2022-04-21 03:26:03', '2022-04-21 04:23:21'),
+(21, 5, '2022-04-21 09:23:26', '2022-04-21 09:23:42', '2022-04-21 04:23:26', '2022-04-21 04:23:42'),
+(22, 5, '2022-04-21 09:24:25', '2022-04-21 09:54:46', '2022-04-21 04:24:25', '2022-04-21 04:54:46'),
+(23, 9, '2022-04-21 09:54:50', NULL, '2022-04-21 04:54:50', '2022-04-21 04:54:50'),
+(24, 9, '2022-04-22 05:46:20', '2022-04-22 08:12:17', '2022-04-22 00:46:20', '2022-04-22 03:12:17'),
+(25, 1, '2022-04-22 08:12:28', '2022-04-22 08:14:27', '2022-04-22 03:12:28', '2022-04-22 03:14:27'),
+(26, 5, '2022-04-22 08:14:34', '2022-04-22 09:50:00', '2022-04-22 03:14:34', '2022-04-22 04:50:00'),
+(27, 9, '2022-04-22 09:50:06', '2022-04-22 12:01:19', '2022-04-22 04:50:06', '2022-04-22 07:01:19'),
+(28, 5, '2022-04-22 12:01:26', '2022-04-22 12:55:08', '2022-04-22 07:01:26', '2022-04-22 07:55:08'),
+(29, 1, '2022-04-22 12:55:32', NULL, '2022-04-22 07:55:32', '2022-04-22 07:55:32'),
+(30, 5, '2022-04-22 14:18:43', '2022-04-22 14:21:28', '2022-04-22 09:18:43', '2022-04-22 09:21:28'),
+(31, 1, '2022-04-22 14:21:37', '2022-04-22 14:34:45', '2022-04-22 09:21:37', '2022-04-22 09:34:45'),
+(32, 1, '2022-04-22 14:34:52', NULL, '2022-04-22 09:34:52', '2022-04-22 09:34:52'),
+(33, 1, '2022-04-22 15:13:38', NULL, '2022-04-22 10:13:38', '2022-04-22 10:13:38');
 
 --
 -- Indexes for dumped tables
@@ -922,6 +1196,13 @@ ALTER TABLE `departments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `events_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -932,6 +1213,12 @@ ALTER TABLE `failed_jobs`
 -- Indexes for table `log_activity`
 --
 ALTER TABLE `log_activity`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mail_settings`
+--
+ALTER TABLE `mail_settings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1018,6 +1305,18 @@ ALTER TABLE `quizzes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `quiz_attempts`
+--
+ALTER TABLE `quiz_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `quiz_attempt_details`
+--
+ALTER TABLE `quiz_attempt_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `read_notifications`
 --
 ALTER TABLE `read_notifications`
@@ -1086,6 +1385,12 @@ ALTER TABLE `subjects`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `subject_overviews`
+--
+ALTER TABLE `subject_overviews`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
@@ -1118,7 +1423,7 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `assigned_classes`
 --
 ALTER TABLE `assigned_classes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `assignments`
@@ -1142,7 +1447,7 @@ ALTER TABLE `backpacks`
 -- AUTO_INCREMENT for table `chat_systems`
 --
 ALTER TABLE `chat_systems`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `contents`
@@ -1157,6 +1462,12 @@ ALTER TABLE `departments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -1166,7 +1477,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `log_activity`
 --
 ALTER TABLE `log_activity`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+
+--
+-- AUTO_INCREMENT for table `mail_settings`
+--
+ALTER TABLE `mail_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `materials`
@@ -1184,7 +1501,7 @@ ALTER TABLE `material_details`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -1196,7 +1513,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1214,25 +1531,37 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `question_types`
 --
 ALTER TABLE `question_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `quizzes`
 --
 ALTER TABLE `quizzes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `quiz_attempts`
+--
+ALTER TABLE `quiz_attempts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `quiz_attempt_details`
+--
+ALTER TABLE `quiz_attempt_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `read_notifications`
 --
 ALTER TABLE `read_notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1280,13 +1609,19 @@ ALTER TABLE `study_classes`
 -- AUTO_INCREMENT for table `study_class_quizzes`
 --
 ALTER TABLE `study_class_quizzes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `subject_overviews`
+--
+ALTER TABLE `subject_overviews`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `teachers`
@@ -1304,11 +1639,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_logs`
 --
 ALTER TABLE `user_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `events`
+--
+ALTER TABLE `events`
+  ADD CONSTRAINT `events_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `model_has_permissions`
